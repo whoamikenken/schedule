@@ -220,7 +220,7 @@ $mainmenu = 1;
                     <div class="container-fluid">
                         <a class="navbar-brand text-white" href="{{ url('/') }}" style="font-weight: 600;">
                             {{-- <img src="{{ asset('images/logo.png')}}" alt="" width="30" height="24" class="d-inline-block align-text-top"> --}}
-                            KING'S MANPOWER SERVICES
+                            SCHEDULE MAKER
                         </a>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMobile" aria-controls="navbarMobile" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
