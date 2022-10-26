@@ -247,9 +247,6 @@ $mainmenu = 1;
                                         </ul>
                                     </div>
                                 </li>
-                                {{-- <li class="nav-item d-block d-sm-none">
-                                    <a class="nav-link menuMobile" style="color: #fff !important;font-size: 20px !important;" menu="{{$item->link}}" nav="{{$mainmenu}}" menu_id="{{$item->menu_id}}" aria-current="page" href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="{{$item->description}}"><i class="bi bi-{{$item->icon}}"></i> {{$item->title}}</a>
-                                </li> --}}
                                 @endif
                                 <hr class="text-white">
                                 @endforeach
