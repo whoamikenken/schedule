@@ -29,7 +29,7 @@ class UserFactory extends Factory
             'lname' => fake()->lastName(),
             'email' => fake()->safeEmail(),
             'user_type' => fake()->randomElement(['Sales']),
-            'branch' => fake()->randomElement(['001', '002', '005','004','003', '006']),
+            'campus' => fake()->randomElement(['CAL']),
             'status' => fake()->randomElement(['verified', 'unverified']),
             'gender' => fake()->randomElement(['male', 'female']),
             'email_verified_at' => now(),

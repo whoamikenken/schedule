@@ -70,12 +70,12 @@
     
     {{-- DATE PICKER --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-
+    
     <script src="https://cdn.jsdelivr.net/npm/watermarkjs@2.1.1/dist/watermark.min.js"></script>
-
+    
     <link href="https://vjs.zencdn.net/7.20.2/video-js.css" rel="stylesheet" />
     <link href="https://unpkg.com/@videojs/themes@1/dist/sea/index.css" rel="stylesheet">
-
+    
     
     <style type="text/css">
         .sweet_loader {
@@ -225,17 +225,33 @@ $mainmenu = 1;
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMobile" aria-controls="navbarMobile" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
-                        <div class="collapse navbar-collapse" id="navbarMobile" style="flex-grow: 0;">
+                        <div class="collapse navbar-collapse mt-2" id="navbarMobile" style="flex-grow: 0;">
                             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                                @foreach ($menus as $key => $items)
-                                    @foreach ($items as $item)
-                                    @if (in_array($item->menu_id, $readAccess))
-                                        <li class="nav-item d-block d-sm-none">
-                                            <a class="nav-link menuMobile" style="color: #fff !important;font-size: 20px !important;" menu="{{$item->link}}" nav="{{$mainmenu}}" menu_id="{{$item->menu_id}}" aria-current="page" href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="{{$item->description}}"><i class="bi bi-{{$item->icon}}"></i> {{$item->title}}</a>
-                                        </li>
+                                @foreach ($menus as $title => $items)
+                                @if (isset($items->menu_id))
+                                    @if (in_array($items->menu_id, $readAccess))
+                                        <li class="nav-item d-block d-sm-none"><a class="link-light rounded menuLink text-decoration-none m-2 p-2 fs-4 {{($menuSelected == $items->menu_id) ? "active":"" }}" menu="{{$items->link}}" nav="{{$mainmenu}}" menu_id="{{$items->menu_id}}" href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="{{$items->description}}"><i class="bi bi-{{$items->icon}}"></i>&nbsp;&nbsp;{{$items->title}}</a></li>
                                     @endif
-                                    @endforeach
-                                    <hr class="text-white">
+                                @else
+                                <li class="mb-1 nav-item d-block d-sm-none">
+                                    <button class="btn btn-toggle align-items-center rounded {{(isset($navSelected) && $navSelected == $mainmenu)? "":"collapsed" }}" data-bs-toggle="collapse" data-bs-target="#account-collapse{{$mainmenu}}" aria-expanded="{{(isset($navSelected) && $navSelected == $mainmenu)? "true":"false" }}">
+                                        {{$title}}
+                                    </button>
+                                    <div class="collapse {{(isset($navSelected) && $navSelected == $mainmenu)? "show":"" }}" id="account-collapse{{$mainmenu}}">
+                                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                                            @foreach ($items as $val)
+                                            @if (in_array($val->menu_id, $readAccess))
+                                                <li><a class="link-light rounded menuLink m-2 p-2 fs-4 {{($menuSelected == $val->menu_id) ? "active":"" }}" menu="{{$val->link}}" nav="{{$mainmenu}}" menu_id="{{$val->menu_id}}" href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="{{$val->description}}"><i class="bi bi-{{$val->icon}}"></i>&nbsp;&nbsp;{{$val->title}}</a></li>
+                                            @endif
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                </li>
+                                {{-- <li class="nav-item d-block d-sm-none">
+                                    <a class="nav-link menuMobile" style="color: #fff !important;font-size: 20px !important;" menu="{{$item->link}}" nav="{{$mainmenu}}" menu_id="{{$item->menu_id}}" aria-current="page" href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="{{$item->description}}"><i class="bi bi-{{$item->icon}}"></i> {{$item->title}}</a>
+                                </li> --}}
+                                @endif
+                                <hr class="text-white">
                                 @endforeach
                             </ul>
                             <form class="d-flex text-end justify-content-between">
@@ -273,6 +289,11 @@ $mainmenu = 1;
                     
                     <ul class="list-unstyled ps-0">
                         @foreach ($menus as $title => $item)
+                        @if (isset($item->menu_id))
+                            @if (in_array($item->menu_id, $readAccess))
+                                <li><a class="link-light rounded menuLink text-decoration-none m-2 p-2 fs-4 {{($menuSelected == $item->menu_id) ? "active":"" }}" menu="{{$item->link}}" nav="{{$mainmenu}}" menu_id="{{$item->menu_id}}" href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="{{$item->description}}"><i class="bi bi-{{$item->icon}}"></i>&nbsp;&nbsp;{{$item->title}}</a></li>
+                            @endif
+                        @else
                         <li class="border-top my-3"></li>
                         <li class="mb-1">
                             <button class="btn btn-toggle align-items-center rounded {{(isset($navSelected) && $navSelected == $mainmenu)? "":"collapsed" }}" data-bs-toggle="collapse" data-bs-target="#account-collapse{{$mainmenu}}" aria-expanded="{{(isset($navSelected) && $navSelected == $mainmenu)? "true":"false" }}">
@@ -282,12 +303,13 @@ $mainmenu = 1;
                                 <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                                     @foreach ($item as $val)
                                     @if (in_array($val->menu_id, $readAccess))
-                                        <li><a class="link-light rounded menuLink {{($menuSelected == $val->menu_id) ? "active":"" }}" menu="{{$val->link}}" nav="{{$mainmenu}}" menu_id="{{$val->menu_id}}" href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="{{$val->description}}"><i class="bi bi-{{$val->icon}}"></i>&nbsp;&nbsp;{{$val->title}}</a></li>
+                                        <li><a class="link-light rounded menuLink m-2 p-2 fs-4 {{($menuSelected == $val->menu_id) ? "active":"" }}" menu="{{$val->link}}" nav="{{$mainmenu}}" menu_id="{{$val->menu_id}}" href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="{{$val->description}}"><i class="bi bi-{{$val->icon}}"></i>&nbsp;&nbsp;{{$val->title}}</a></li>
                                     @endif
                                     @endforeach
                                 </ul>
                             </div>
                         </li>
+                        @endif
                         @php
                         $mainmenu++;
                         @endphp
@@ -348,37 +370,37 @@ $mainmenu = 1;
 <script>
     
     @if (!in_array($menuSelected, $addAccess))
-        $(".addbtn").remove();
+    $(".addbtn").remove();
     @endif
-
+    
     @if (!in_array($menuSelected, $editAccess))
-        $(document).ajaxStop(function() {
-            $(".editbtn").remove();
-            $(document).on("click", ".editbtn", function () {
-                Swal.fire({
-                    icon: 'error',
-                    title: "You have no edit permission",
-                    text: "This will be recorded."
-                })
-                return false;
-            });
+    $(document).ajaxStop(function() {
+        $(".editbtn").remove();
+        $(document).on("click", ".editbtn", function () {
+            Swal.fire({
+                icon: 'error',
+                title: "You have no edit permission",
+                text: "This will be recorded."
+            })
+            return false;
         });
+    });
     @endif
-
+    
     @if (!in_array($menuSelected, $deleteAccess))
-        $(document).ajaxStop(function() {
-            $(".delbtn").remove();
-            $(document).on("click", ".delbtn", function () {
-                Swal.fire({
-                    icon: 'error',
-                    title: "You have no delete permission",
-                    text: "This will be recorded."
-                })
-                return false;
-            });
+    $(document).ajaxStop(function() {
+        $(".delbtn").remove();
+        $(document).on("click", ".delbtn", function () {
+            Swal.fire({
+                icon: 'error',
+                title: "You have no delete permission",
+                text: "This will be recorded."
+            })
+            return false;
         });
+    });
     @endif
-
+    
     // Bootstrap tooltip Everywhere
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
@@ -455,7 +477,7 @@ $mainmenu = 1;
         $("#menu-form").find('input[name="menu_id"]').val(menu_id);
         $("#menu-form").submit();
     });
-
+    
     $("#navbarMobile").on("click", ".menuMobile", function() {
         var menu = $(this).attr('menu');
         var nav = $(this).attr('nav');
@@ -468,7 +490,7 @@ $mainmenu = 1;
     
     // Process Form For Autoupdate
     function processForm(form){
-
+        
         var formdata = new FormData(); // Creating object of FormData class
         
         form.find("select, textarea, input").each(function() {
@@ -479,10 +501,10 @@ $mainmenu = 1;
                 formdata.append($(this).attr('name'), $(this).val());
             }
         });
-
+        
         return formdata;
     }
-
+    
     // ANIMATOR
     $.fn.isOnScreen = function () {
         var win = $(window);
