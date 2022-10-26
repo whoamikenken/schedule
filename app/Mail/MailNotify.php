@@ -31,7 +31,7 @@ class MailNotify extends Mailable
      */
     public function build()
     {
-        return $this->from('whoamikenken@gmail.com', 'Kingsmanpower')->subject($this->data['subject'])->view("email.status_email")->with('data', $this->data)->attach(Attachment::fromPath("https://media-v2.technic.com.hk/applicants/KMM1096AA/video%20-%201663904724547.mp4")
+        return $this->from('whoamikenken@gmail.com', 'STI SCHEDULE MAKER')->subject($this->data['subject'])->view("email.status_email")->with('data', $this->data)->attach(Attachment::fromPath("https://media-v2.technic.com.hk/applicants/KMM1096AA/video%20-%201663904724547.mp4")
             ->as('TEst.mp4'));
     }
 }

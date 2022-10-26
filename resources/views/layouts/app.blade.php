@@ -100,7 +100,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    KING'S MANPOWER SERVICES, INC.
+                    STI SCHEDULE MAKER
                 </a>
             </div>
         </nav>

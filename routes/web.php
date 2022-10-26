@@ -35,7 +35,11 @@ use App\Http\Controllers\PassportchopController;
 
 Auth::routes();
 
-Route::get('/', [LoginController::class, 'index']);
+
+
+Route::get('/', function () {
+    return view('landing');
+})->name('home');
 
 Route::get('/home', function(){
 
