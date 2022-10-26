@@ -10,6 +10,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Middleware\VerifyCsrfToken;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\BranchController;
+use App\Http\Controllers\CampusController;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\UsertypeController;
 use App\Http\Controllers\ApplicantController;
@@ -74,6 +75,12 @@ Route::post('/branch/table', [BranchController::class, 'getTable'])->withoutMidd
 Route::post('/branch/getModal', [BranchController::class, 'getModal'])->withoutMiddleware([VerifyCsrfToken::class]);
 Route::post('/branch/add', [BranchController::class, 'store']);
 Route::post('/branch/delete', [BranchController::class, 'delete']);
+
+// Campus
+Route::post('/campus/table', [CampusController::class, 'getTable'])->withoutMiddleware([VerifyCsrfToken::class]);
+Route::post('/campus/getModal', [CampusController::class, 'getModal'])->withoutMiddleware([VerifyCsrfToken::class]);
+Route::post('/campus/add', [CampusController::class, 'store']);
+Route::post('/campus/delete', [CampusController::class, 'delete']);
 
 // USER
 Route::post('/user/table', [UserController::class, 'getTable'])->withoutMiddleware([VerifyCsrfToken::class]);
