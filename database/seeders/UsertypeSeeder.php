@@ -27,8 +27,15 @@ class UsertypeSeeder extends Seeder
         ]);
 
         Usertype::factory()->create([
-            'code' => 'Sales',
-            'description' => 'Sales can only view and create applicants',
+            'code' => 'Student',
+            'description' => 'Student account to create schedule',
+            'modified_by' => 1,
+            'created_by' => 1,
+        ]);
+
+        Usertype::factory()->create([
+            'code' => 'Professor',
+            'description' => 'professor account to approve student schedule request',
             'modified_by' => 1,
             'created_by' => 1,
         ]);

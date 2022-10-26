@@ -230,7 +230,7 @@ $mainmenu = 1;
                                 @foreach ($menus as $title => $items)
                                 @if (isset($items->menu_id))
                                     @if (in_array($items->menu_id, $readAccess))
-                                        <li class="nav-item d-block d-sm-none"><a class="link-light rounded menuLink text-decoration-none m-2 p-2 fs-4 {{($menuSelected == $items->menu_id) ? "active":"" }}" menu="{{$items->link}}" nav="{{$mainmenu}}" menu_id="{{$items->menu_id}}" href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="{{$items->description}}"><i class="bi bi-{{$items->icon}}"></i>&nbsp;&nbsp;{{$items->title}}</a></li>
+                                        <li class="nav-item d-block d-sm-none"><a class="link-light rounded menuMobile text-decoration-none m-1 p-1 fs-5 {{($menuSelected == $items->menu_id) ? "active":"" }}" menu="{{$items->link}}" nav="{{$mainmenu}}" menu_id="{{$items->menu_id}}" href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="{{$items->description}}"><i class="bi bi-{{$items->icon}}"></i>&nbsp;&nbsp;{{$items->title}}</a></li>
                                     @endif
                                 @else
                                 <li class="mb-1 nav-item d-block d-sm-none">
@@ -241,7 +241,7 @@ $mainmenu = 1;
                                         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                                             @foreach ($items as $val)
                                             @if (in_array($val->menu_id, $readAccess))
-                                                <li><a class="link-light rounded menuLink m-2 p-2 fs-4 {{($menuSelected == $val->menu_id) ? "active":"" }}" menu="{{$val->link}}" nav="{{$mainmenu}}" menu_id="{{$val->menu_id}}" href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="{{$val->description}}"><i class="bi bi-{{$val->icon}}"></i>&nbsp;&nbsp;{{$val->title}}</a></li>
+                                                <li><a class="link-light rounded menuMobile m-1 p-1 fs-5 {{($menuSelected == $val->menu_id) ? "active":"" }}" menu="{{$val->link}}" nav="{{$mainmenu}}" menu_id="{{$val->menu_id}}" href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="{{$val->description}}"><i class="bi bi-{{$val->icon}}"></i>&nbsp;&nbsp;{{$val->title}}</a></li>
                                             @endif
                                             @endforeach
                                         </ul>
@@ -288,7 +288,7 @@ $mainmenu = 1;
                         @foreach ($menus as $title => $item)
                         @if (isset($item->menu_id))
                             @if (in_array($item->menu_id, $readAccess))
-                                <li><a class="link-light rounded menuLink text-decoration-none m-2 p-2 fs-4 {{($menuSelected == $item->menu_id) ? "active":"" }}" menu="{{$item->link}}" nav="{{$mainmenu}}" menu_id="{{$item->menu_id}}" href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="{{$item->description}}"><i class="bi bi-{{$item->icon}}"></i>&nbsp;&nbsp;{{$item->title}}</a></li>
+                                <li><a class="link-light rounded menuLink text-decoration-none m-1 p-1 fs-5 {{($menuSelected == $item->menu_id) ? "active":"" }}" menu="{{$item->link}}" nav="{{$mainmenu}}" menu_id="{{$item->menu_id}}" href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="{{$item->description}}"><i class="bi bi-{{$item->icon}}"></i>&nbsp;&nbsp;{{$item->title}}</a></li>
                             @endif
                         @else
                         <li class="border-top my-3"></li>
@@ -300,7 +300,7 @@ $mainmenu = 1;
                                 <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                                     @foreach ($item as $val)
                                     @if (in_array($val->menu_id, $readAccess))
-                                        <li><a class="link-light rounded menuLink m-2 p-2 fs-4 {{($menuSelected == $val->menu_id) ? "active":"" }}" menu="{{$val->link}}" nav="{{$mainmenu}}" menu_id="{{$val->menu_id}}" href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="{{$val->description}}"><i class="bi bi-{{$val->icon}}"></i>&nbsp;&nbsp;{{$val->title}}</a></li>
+                                        <li><a class="link-light rounded menuLink m-1 p-1 fs-5 {{($menuSelected == $val->menu_id) ? "active":"" }}" menu="{{$val->link}}" nav="{{$mainmenu}}" menu_id="{{$val->menu_id}}" href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="{{$val->description}}"><i class="bi bi-{{$val->icon}}"></i>&nbsp;&nbsp;{{$val->title}}</a></li>
                                     @endif
                                     @endforeach
                                 </ul>

@@ -10,6 +10,7 @@ use App\Models\Jobsite;
 use App\Models\Medical;
 use App\Models\Location;
 use App\Models\Applicant;
+use App\Models\student;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 use Database\Seeders\LocationSeeder;
@@ -41,7 +42,8 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::factory(10)->create();
-        // Applicant::factory(1000)->create();
+        Applicant::factory(1000)->create();
+        Student::factory(1000)->create();
         
         $this->call([
             MenuSeeder::class,

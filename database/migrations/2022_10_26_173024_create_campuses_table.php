@@ -13,14 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('usertype', function (Blueprint $table) {
+        Schema::create('campuses', function (Blueprint $table) {
             $table->id();
             $table->string('code', 20)->nullable()->default('NULL');
             $table->string('description', 100)->nullable()->default('NULL');
-            $table->string('read', 50)->nullable();
-            $table->string('add', 50)->nullable();
-            $table->string('delete', 50)->nullable();
-            $table->string('edit', 50)->nullable();
             $table->timestamp('updated_at')->nullable()->useCurrent();
             $table->string('modified_by', 50)->nullable()->default('NULL');
             $table->timestamp('created_at')->nullable()->useCurrent();
@@ -35,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('usertype');
+        Schema::dropIfExists('campuses');
     }
 };

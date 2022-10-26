@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -13,19 +14,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('usertype', function (Blueprint $table) {
+        Schema::create('announcements', function (Blueprint $table) {
             $table->id();
-            $table->string('code', 20)->nullable()->default('NULL');
-            $table->string('description', 100)->nullable()->default('NULL');
-            $table->string('read', 50)->nullable();
-            $table->string('add', 50)->nullable();
-            $table->string('delete', 50)->nullable();
-            $table->string('edit', 50)->nullable();
+            $table->string('title', 20)->nullable()->default('NULL');
+            $table->string('short_description', 100)->nullable()->default('NULL');
             $table->timestamp('updated_at')->nullable()->useCurrent();
             $table->string('modified_by', 50)->nullable()->default('NULL');
             $table->timestamp('created_at')->nullable()->useCurrent();
             $table->string('created_by', 50)->nullable()->default('NULL');
         });
+
+        DB::statement("ALTER TABLE announcements ADD `content` LONGBLOB");
     }
 
     /**
@@ -35,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('usertype');
+        Schema::dropIfExists('announcements');
     }
 };
