@@ -21,7 +21,8 @@ return new class extends Migration
             $table->string('lname');
             $table->string('gender')->nullable();
             $table->string('user_type');
-            $table->string('branch')->nullable();
+            $table->string('campus')->nullable();
+            $table->string('course')->nullable();
             $table->string('status')->default('unverified');
             $table->string('email')->unique();
             $table->string('user_image')->nullable();

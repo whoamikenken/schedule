@@ -17,28 +17,33 @@ class SetupSeeder extends Seeder
     {
         //
         Setup::factory()->create([
-            'description' => 'Medical Clinic',
-            'table' => 'medical'
+            'description' => 'Campus',
+            'table' => 'campus'
         ]);
 
         Setup::factory()->create([
-            'description' => 'Job Site',
-            'table' => 'jobsites'
+            'description' => 'Course',
+            'table' => 'courses'
         ]);
 
         Setup::factory()->create([
-            'description' => 'Location',
-            'table' => 'location'
+            'description' => 'Section',
+            'table' => 'sections'
         ]);
 
         Setup::factory()->create([
-            'description' => 'Branches',
-            'table' => 'branches'
+            'description' => 'Year Level',
+            'table' => 'yearlevel'
         ]);
 
         Setup::factory()->create([
-            'description' => 'Principals',
-            'table' => 'principals'
+            'description' => 'Subject',
+            'table' => 'subject'
+        ]);
+
+        Setup::factory()->create([
+            'description' => 'Annoucement',
+            'table' => 'announcement'
         ]);
     }
 }
