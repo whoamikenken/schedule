@@ -25,11 +25,11 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         User::factory()->create([
-            'username' => "whoamiken",
-            'name' => "Kennedy Hipolito",
-            'fname' => "Kennedy",
-            'lname' => "Hipolito",
-            'email' => "whoamikenken@gmail.com",
+            'username' => "admin",
+            'name' => "Juan Dela Cruz",
+            'fname' => "Juan",
+            'lname' => "Cruz",
+            'email' => "test@gmail.com",
             'user_type' => 'Admin',
             'status' => 'verified',
             'email_verified_at' => now(),
