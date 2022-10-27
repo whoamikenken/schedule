@@ -119,27 +119,23 @@ class UserController extends Controller
 
         $data['uid'] = $formFields['uid'];
 
-        // No Cost Permission
         $noEdit = Extras::getNoEdit();
         $noAdd = Extras::getNoAdd();
         $noDelete = Extras::getNoDel();
 
         $menus = Extras::getMenusList();
         $access = array();
+        $access["Main"][] = array('root_id' => 0, "menu_id" => 1, "title" => "Dashboard");
+        $access["Main"][] = array('root_id' => 0, "menu_id" => 2, "title" => "Student List");
+        $access["Main"][] = array('root_id' => 0, "menu_id" => 3, "title" => "User Management");
+        $access["Main"][] = array('root_id' => 0, "menu_id" => 4, "title" => "Applicant List");
         foreach ($menus as $key => $value) {
             $getSubmenus = Extras::getSubMenus($value->menu_id);
-            if ($value->menu_id == 4) {
-                $access["Applicant Management"][] = array('root_id' => 888, "menu_id" => 801, "title" => "Profile");
-                $access["Applicant Management"][] = array('root_id' => 888, "menu_id" => 802, "title" => "Records");
-                $access["Applicant Management"][] = array('root_id' => 888, "menu_id" => 803, "title" => "Documents");
-                $access["Applicant Management"][] = array('root_id' => 888, "menu_id" => 804, "title" => "OEC");
-            }
             foreach ($getSubmenus as $row => $val) {
                 $access[$value->title][] = array('root_id' => $value->menu_id, "menu_id" => $val->menu_id, "title" => $val->title);
             }
         }
-        $access["System Configuration"][] = array('root_id' => 4, "menu_id" => 999, "title" => "Costs");
-
+    
         $accessColumn = "<div class='row'>";
         foreach ($access as $mainMenu => $subMenu) {
             $accessColumn .= '<div class="col-md-6 col-sm-12 mb-5"><h3 class="text-center fs-bold">' . $mainMenu . '</h3>';

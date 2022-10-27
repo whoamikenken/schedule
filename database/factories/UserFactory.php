@@ -28,7 +28,7 @@ class UserFactory extends Factory
             'fname' => $firstName,
             'lname' => fake()->lastName(),
             'email' => fake()->safeEmail(),
-            'user_type' => fake()->randomElement(['Sales']),
+            'user_type' => fake()->randomElement(['Student']),
             'campus' => fake()->randomElement(['CAL']),
             'status' => fake()->randomElement(['verified', 'unverified']),
             'gender' => fake()->randomElement(['male', 'female']),
