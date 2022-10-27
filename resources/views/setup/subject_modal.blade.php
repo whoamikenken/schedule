@@ -1,4 +1,4 @@
-<form id="branchForm" class="row g-2 needs-validation" novalidate>
+<form id="subjectForm" class="row g-2 needs-validation" novalidate>
     @csrf
     <input type="hidden" name="uid" value="{{($uid)}}">
     <div class="col-md-6 col-sm-12">
@@ -31,47 +31,14 @@
         </div>
     </div>
 
-    <div class="col-md-6 col-sm-12">
-        <label>Region<span class="text-danger">*</span></label>
-        <div class="input-group">
-            <div class="input-group-text"><i class="bi bi-geo-fill"></i></div>
-            <select name="region" id="region" class="form-control form-select">
-                <option value="Luzon" {{ (isset($region) && $region == "Luzon")? "selected":"" }} >Luzon</option>
-                <option value="Visayas" {{ (isset($region) && $region == "Visayas")? "selected":"" }} >Visayas</option>
-                <option value="Mindanaos" {{ (isset($region) && $region == "Mindanaos")? "selected":"" }} >Mindanaos</option>
-            </select>
-            <div class="valid-feedback">
-                Looks good!
-            </div>
-            <div class="invalid-feedback">
-                Please input a Region.
-            </div>
-        </div>
-    </div>
-    
-    <div class="col-md-6 col-sm-12">
-        <label>Color<span class="text-danger">*</span></label>
-        <div class="input-group">
-            <div class="input-group-text"><i class="bi bi-pencil-fill"></i></div>
-            <input type="text" id="color" name="color"
-            class="form-control validate" placeholder="Enter Color" required value="{{ (isset($color))? $color:"" }}">
-            <div class="valid-feedback">
-                Looks good!
-            </div>
-            <div class="invalid-feedback">
-                Please input a Color.
-            </div>
-        </div>
-    </div>
-    
 </form>
 
 <script>
     
     $("#saveModal").unbind("click").click(function() {
-        bootstrapForm($("#branchForm"));
+        bootstrapForm($("#subjectForm"));
         
-        var formdata = $("#branchForm").serialize();
+        var formdata = $("#subjectForm").serialize();
 
         swal.fire({
             html: '<h4>Loading...</h4>',
@@ -81,7 +48,7 @@
         });
 
         $.ajax({
-            url: "{{ url('branch/add') }}",
+            url: "{{ url('subject/add') }}",
             type: "POST",
             data: formdata,
             dataType: 'json',
@@ -94,7 +61,7 @@
                         time: 2500
                     })
                     $("#modalclose").click();
-                    BranchList();
+                    SubjectList();
                 }else if (response.status == 2) {
                     Swal.fire({
                         icon: 'info',

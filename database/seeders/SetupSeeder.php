@@ -18,7 +18,7 @@ class SetupSeeder extends Seeder
         //
         Setup::factory()->create([
             'description' => 'Campus',
-            'table' => 'campus'
+            'table' => 'campuses'
         ]);
 
         Setup::factory()->create([
@@ -33,17 +33,17 @@ class SetupSeeder extends Seeder
 
         Setup::factory()->create([
             'description' => 'Year Level',
-            'table' => 'yearlevel'
+            'table' => 'yearlevels'
         ]);
 
         Setup::factory()->create([
             'description' => 'Subject',
-            'table' => 'subject'
+            'table' => 'subjects'
         ]);
 
         Setup::factory()->create([
             'description' => 'Annoucement',
-            'table' => 'announcement'
+            'table' => 'announcements'
         ]);
     }
 }

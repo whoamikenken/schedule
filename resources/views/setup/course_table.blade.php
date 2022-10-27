@@ -1,4 +1,3 @@
-
 <thead>
     <tr>
         <th class="text-center">Action</th>

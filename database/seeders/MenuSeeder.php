@@ -117,7 +117,7 @@ class MenuSeeder extends Seeder
             },
             'title' => 'Campus',
             'link' => 'setup/campus',
-            'icon' => 'inboxes',
+            'icon' => 'hospital',
             'description' => "Creating new campuses"
         ]);
 
@@ -133,7 +133,7 @@ class MenuSeeder extends Seeder
             },
             'title' => 'Course',
             'link' => 'setup/course',
-            'icon' => 'inboxes',
+            'icon' => 'journal-bookmark',
             'description' => "Creating new courses"
         ]);
 
@@ -149,7 +149,7 @@ class MenuSeeder extends Seeder
             },
             'title' => 'Section',
             'link' => 'setup/section',
-            'icon' => 'inboxes',
+            'icon' => 'people',
             'description' => "Creating new section"
         ]);
 
@@ -165,7 +165,7 @@ class MenuSeeder extends Seeder
             },
             'title' => 'Year Level',
             'link' => 'setup/yearlevel',
-            'icon' => 'inboxes',
+            'icon' => 'calendar-check',
             'description' => "Creating new Year Level"
         ]);
 
@@ -181,7 +181,7 @@ class MenuSeeder extends Seeder
             },
             'title' => 'Announcement',
             'link' => 'setup/announcement',
-            'icon' => 'inboxes',
+            'icon' => 'star-fill',
             'description' => "Creating new announcement"
         ]);
 

@@ -11,10 +11,14 @@ use App\Http\Middleware\VerifyCsrfToken;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\CampusController;
+use App\Http\Controllers\CoursesController;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\UsertypeController;
 use App\Http\Controllers\ApplicantController;
+use App\Http\Controllers\SectionController;
+use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TablecolumnController;
+use App\Http\Controllers\YearlevelController;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,7 +60,8 @@ Route::get('/home', function(){
 Route::post('/home', function (Request $request) {
     $menus = DB::table('menus')->where('root', '=', '0')->get();
     foreach ($menus as $key => $value) {
-        $data['menus'][$value->title] = json_decode(DB::table('menus')->where("root", "=", $value->menu_id)->orderBy("order", "asc")->get());
+        if ($value->link) $data['menus'][$value->title] = $value;
+        else $data['menus'][$value->title] = json_decode(DB::table('menus')->where("root", "=", $value->menu_id)->orderBy("order", "asc")->get());
     }
 
     $data['navSelected'] = $request->nav;
@@ -70,17 +75,35 @@ Route::post('/home', function (Request $request) {
     
 })->middleware('auth');
 
-// Branch
-Route::post('/branch/table', [BranchController::class, 'getTable'])->withoutMiddleware([VerifyCsrfToken::class]);
-Route::post('/branch/getModal', [BranchController::class, 'getModal'])->withoutMiddleware([VerifyCsrfToken::class]);
-Route::post('/branch/add', [BranchController::class, 'store']);
-Route::post('/branch/delete', [BranchController::class, 'delete']);
+// Course
+Route::post('/course/table', [CoursesController::class, 'getTable'])->withoutMiddleware([VerifyCsrfToken::class]);
+Route::post('/course/getModal', [CoursesController::class, 'getModal'])->withoutMiddleware([VerifyCsrfToken::class]);
+Route::post('/course/add', [CoursesController::class, 'store']);
+Route::post('/course/delete', [CoursesController::class, 'delete']);
 
 // Campus
 Route::post('/campus/table', [CampusController::class, 'getTable'])->withoutMiddleware([VerifyCsrfToken::class]);
 Route::post('/campus/getModal', [CampusController::class, 'getModal'])->withoutMiddleware([VerifyCsrfToken::class]);
 Route::post('/campus/add', [CampusController::class, 'store']);
 Route::post('/campus/delete', [CampusController::class, 'delete']);
+
+// Section
+Route::post('/section/table', [SectionController::class, 'getTable'])->withoutMiddleware([VerifyCsrfToken::class]);
+Route::post('/section/getModal', [SectionController::class, 'getModal'])->withoutMiddleware([VerifyCsrfToken::class]);
+Route::post('/section/add', [SectionController::class, 'store']);
+Route::post('/section/delete', [SectionController::class, 'delete']);
+
+// Subject
+Route::post('/subject/table', [SubjectController::class, 'getTable'])->withoutMiddleware([VerifyCsrfToken::class]);
+Route::post('/subject/getModal', [SubjectController::class, 'getModal'])->withoutMiddleware([VerifyCsrfToken::class]);
+Route::post('/subject/add', [SubjectController::class, 'store']);
+Route::post('/subject/delete', [SubjectController::class, 'delete']);
+
+// Year Level
+Route::post('/yearlevel/table', [YearlevelController::class, 'getTable'])->withoutMiddleware([VerifyCsrfToken::class]);
+Route::post('/yearlevel/getModal', [YearlevelController::class, 'getModal'])->withoutMiddleware([VerifyCsrfToken::class]);
+Route::post('/yearlevel/add', [YearlevelController::class, 'store']);
+Route::post('/yearlevel/delete', [YearlevelController::class, 'delete']);
 
 // USER
 Route::post('/user/table', [UserController::class, 'getTable'])->withoutMiddleware([VerifyCsrfToken::class]);

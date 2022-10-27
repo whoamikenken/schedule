@@ -3,13 +3,13 @@
 @section('content')
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Campus</h1>
+    <h1 class="h2">Course</h1>
 </div>
 <div class="card shadow animate__animated animate__fadeInRight">
     <div class="card-body">
         <div class="row mb-2">
             <div class="col-sm-5">
-                <a href="javascript:void(0);" class="btn btn-primary mb-2 addbtn"><i class="bi bi-plus-circle"></i> Add Campus</a>
+                <a href="javascript:void(0);" class="btn btn-primary mb-2 addbtn"><i class="bi bi-plus-circle"></i> Add Course</a>
             </div>
             <div class="col-sm-7">
                 <div class="text-sm-end">
@@ -18,7 +18,7 @@
         </div>
         
         <div class="table-responsive">
-            <table id="CampusTable" class="table table-hover table-responsive">
+            <table id="CourseTable" class="table table-hover table-responsive">
         </table>
         </div>
     </div> <!-- end card-body-->
@@ -31,7 +31,7 @@
     
     $(document).ready(function () {
 
-        CampusList();
+        CourseList();
 
         var bar = getBase64FromUrl('{{asset("icon/ms-icon-150x150.png")}}');
         
@@ -54,7 +54,7 @@
         });
     }
 
-    function CampusList(){
+    function CourseList(){
 
         if(tableObj!=null){
             tableObj.destroy();
@@ -63,25 +63,25 @@
 
         $.ajax({
             type: "POST",
-            url: "{{ url('campus/table')}}",
+            url: "{{ url('course/table')}}",
             data: {},
             async: false,
             success:function(response){
-                $("#CampusTable").html(response);
-                tableObj = $("#CampusTable").DataTable({
+                $("#CourseTable").html(response);
+                tableObj = $("#CourseTable").DataTable({
                     dom: 'Bfrtip',
                     buttons: [
                     {
                         extend: 'pdfHtml5',
                         text:'Export PDF',
-                        title: 'Campus List',
+                        title: 'Course List',
                         orientation:'landscape',
                         exportOptions: {
                             columns: [1,2,3]
                         },
                         customize: function ( doc ) {
                             var colCount = new Array();
-                            $("#CampusTable").find('tbody tr:first-child td').each(function(){
+                            $("#CourseTable").find('tbody tr:first-child td').each(function(){
                                 if($(this).attr('colspan')){
                                     for(var i=1;i<=$(this).attr('colspan');$i++){
                                         colCount.push('*');
@@ -104,7 +104,7 @@
                     {
                         text:'Export Excel',
                         extend: 'excelHtml5',
-                        title: 'Campus List',
+                        title: 'Course List',
                         exportOptions: {
                             columns: [1,2,3]
                         }
@@ -121,35 +121,35 @@
         var uid = "add";
         $.ajax({
             type: "POST",
-            url: "{{ url('campus/getModal')}}",
+            url: "{{ url('course/getModal')}}",
             data: {
                 uid: uid
             },
             success: function(response) {
                 $("#modal-view").modal('toggle');
-                $("#modal-view").find(".modal-title").text("Add Campus");
+                $("#modal-view").find(".modal-title").text("Add Course");
                 $("#modal-view").find("#modal-display").html(response);
             }
         });
     });
 
-    $("#CampusTable").on("click", ".editbtn", function() {
+    $("#CourseTable").on("click", ".editbtn", function() {
         var uid = $(this).attr('id');
         $.ajax({
             type: "POST",
-            url: "{{ url('campus/getModal')}}",
+            url: "{{ url('course/getModal')}}",
             data: {
                 uid: uid
             },
             success: function(response) {
                 $("#modal-view").modal('toggle');
-                $("#modal-view").find(".modal-title").text("Edit Campus");
+                $("#modal-view").find(".modal-title").text("Edit Course");
                 $("#modal-view").find("#modal-display").html(response);
             }
         });
     });
 
-    $("#CampusTable").on("click", ".delbtn", function() {
+    $("#CourseTable").on("click", ".delbtn", function() {
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
                 confirmButton: 'btn btn-success',
@@ -172,7 +172,7 @@
                 var code = $(this).attr('id');
                 $.ajax({
                     type: "POST",
-                    url: "{{ url('campus/delete')}}",
+                    url: "{{ url('course/delete')}}",
                     dataType: 'json',
                     data: {
                         code: code,
@@ -187,7 +187,7 @@
                                 timer: 2500
                             })
 
-                            CampusList();
+                            CourseList();
                         }else if (response.status == 2) {
                             Swal.fire({
                                 icon: 'info',

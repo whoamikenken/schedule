@@ -67,14 +67,14 @@ class CampusController extends Controller
             $formFields['created_by'] = Auth::id();
             $formFields['updated_at'] = "";
             Campus::create($formFields);
-            $return = array('status' => 1, 'msg' => 'Successfully added branch', 'title' => 'Success!');
+            $return = array('status' => 1, 'msg' => 'Successfully added campus', 'title' => 'Success!');
         } else {
             $formFields['updated_at'] = Carbon::now();
             $formFields['modified_by'] = Auth::id();
             $id = $formFields['uid'];
             unset($formFields['uid']);
             DB::table("campuses")->where('id', $id)->update($formFields);
-            $return = array('status' => 1, 'msg' => 'Successfully updated branch', 'title' => 'Success!');
+            $return = array('status' => 1, 'msg' => 'Successfully updated campus', 'title' => 'Success!');
         }
 
         return response()->json($return);
@@ -91,7 +91,7 @@ class CampusController extends Controller
         $delete = DB::table("campuses")->where('id', '=', $formFields['code'])->delete();
 
         if ($delete) {
-            $return = array('status' => 1, 'msg' => 'Successfully deleted branch', 'title' => 'Success!');
+            $return = array('status' => 1, 'msg' => 'Successfully deleted campus', 'title' => 'Success!');
         }
 
         return response()->json($return);

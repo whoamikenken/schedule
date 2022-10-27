@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Yearlevel extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'code',
+        'description',
+        'created_by'
+    ];
 }
