@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Courses;
 use Carbon\Carbon;
 use App\Models\Tablecolumn;
 use Illuminate\Http\Request;
@@ -9,6 +10,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Subject;
+use App\Models\Yearlevel;
 
 class SubjectController extends Controller
 {
@@ -96,5 +98,33 @@ class SubjectController extends Controller
         }
 
         return response()->json($return);
+    }
+
+    public function syncSubjectData()
+    {
+        set_time_limit(0);
+
+        $subjectList = DB::table("subjects")->get();
+        
+        foreach ($subjectList as $key => $value) {
+            // Insert Course
+            $courseCode = array();
+            $courseCode['code'] = $value->subject_area;
+            $courseCode['description'] = "test";
+            $checkIfExist = DB::table('courses')->where('code', $value->subject_area)->get();
+            if (count($checkIfExist) === 0) {
+                Courses::create($courseCode);
+            }
+
+            // Insert Year Level
+            $yearLevel = array();
+            $yearLevel['code'] = $value->subject_area;
+            $yearLevel['description'] = "test";
+            $checkIfExistYR = DB::table('yearlevels')->where('code', $value->year_level)->get();
+            if (count($checkIfExistYR) === 0) {
+                Yearlevel::create($yearLevel);
+            }
+
+        }
     }
 }

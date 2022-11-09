@@ -35,45 +35,11 @@ Auth::routes();
 
 Route::get('/', function () {
     return view('landing');
-})->name('home');
+})->name('landing');
 
-Route::get('/home', function(){
+Route::match(['get', 'post'], '/login', [LoginController::class, 'index'])->name('login');
 
-    $menus = DB::table('menus')->where('root', '=', '0')->get();
-    foreach ($menus as $key => $value) {
-        if($value->link) $data['menus'][$value->title] = $value;
-        else $data['menus'][$value->title] = json_decode(DB::table('menus')->where("root", "=", $value->menu_id)->orderBy("order", "asc")->get());
-    }
-
-    $data['navSelected'] = 0;
-    $data['menuSelected'] = 1;
-
-    $data['readAccess'] = explode(",", Extras::getAccessList("read", Auth::user()->username));
-    $data['addAccess'] = explode(",", Extras::getAccessList("add", Auth::user()->username));
-    $data['editAccess'] = explode(",", Extras::getAccessList("edit", Auth::user()->username));
-    $data['deleteAccess'] = explode(",", Extras::getAccessList("delete", Auth::user()->username));
-
-    return view('home', $data);
-
-})->name('home')->middleware('auth');
-
-Route::post('/home', function (Request $request) {
-    $menus = DB::table('menus')->where('root', '=', '0')->get();
-    foreach ($menus as $key => $value) {
-        if ($value->link) $data['menus'][$value->title] = $value;
-        else $data['menus'][$value->title] = json_decode(DB::table('menus')->where("root", "=", $value->menu_id)->orderBy("order", "asc")->get());
-    }
-
-    $data['navSelected'] = $request->nav;
-    $data['menuSelected'] = $request->menu_id;
-
-    $data['readAccess'] = explode(",", Extras::getAccessList("read", Auth::user()->username));
-    $data['addAccess'] = explode(",", Extras::getAccessList("add", Auth::user()->username));
-    $data['editAccess'] = explode(",", Extras::getAccessList("edit", Auth::user()->username));
-    $data['deleteAccess'] = explode(",", Extras::getAccessList("delete", Auth::user()->username));
-    return view($request->route, $data);
-    
-})->middleware('auth');
+Route::match(['get', 'post'], '/home', [HomeController::class, 'index'])->name('home')->middleware('auth');
 
 // Course
 Route::post('/course/table', [CoursesController::class, 'getTable'])->withoutMiddleware([VerifyCsrfToken::class]);
@@ -138,9 +104,9 @@ Route::get('/dashboard', [HomeController::class, 'index'])->middleware('auth');
 Route::get('/dashboard/getDashboard', [HomeController::class, 'dashboard'])->withoutMiddleware([VerifyCsrfToken::class])->middleware('auth');
 Route::get('/dashboard/getDepartureMontly', [HomeController::class, 'departureMontlyBarChart'])->withoutMiddleware([VerifyCsrfToken::class])->middleware('auth');
 Route::get('/dashboard/getPerformanceMontly', [HomeController::class, 'performanceMontlyBarChart'])->withoutMiddleware([VerifyCsrfToken::class])->middleware('auth');
-Route::get('/dashboard/getPerformanceBranchMontly', [HomeController::class, 'branchMontlyBarChart'])->withoutMiddleware([VerifyCsrfToken::class])->middleware('auth');
-Route::get('/dashboard/getBranchPie', [HomeController::class, 'branchPieApplicant'])->withoutMiddleware([VerifyCsrfToken::class])->middleware('auth');
-Route::get('/dashboard/getBiostatusPie', [HomeController::class, 'biostatusPieApplicant'])->withoutMiddleware([VerifyCsrfToken::class])->middleware('auth');
+Route::get('/dashboard/getPerformanceCampusMontly', [HomeController::class, 'campusMontlyBarChart'])->withoutMiddleware([VerifyCsrfToken::class])->middleware('auth');
+Route::get('/dashboard/getCampusPie', [HomeController::class, 'campusPieStudent'])->withoutMiddleware([VerifyCsrfToken::class])->middleware('auth');
+Route::get('/dashboard/getUserPie', [HomeController::class, 'getUserPieCount'])->withoutMiddleware([VerifyCsrfToken::class])->middleware('auth');
 
 // APPLICANT
 Route::post('/applicant/list', [ApplicantController::class, 'getTable'])->withoutMiddleware([VerifyCsrfToken::class]);
@@ -156,6 +122,8 @@ Route::get('/applicant/syncDataApplicant', [ApplicantController::class, 'syncApp
 
 // Test Email Function
 Route::get('/applicant/testEmail', [ApplicantController::class, 'testEmail'])->withoutMiddleware([VerifyCsrfToken::class]);
+
+Route::get('/subject/syncDataSubject', [SubjectController::class, 'syncSubjectData'])->withoutMiddleware([VerifyCsrfToken::class]);
 
 Route::get('/credits', function(){
     echo "Created by kennedy hipolito<br>";

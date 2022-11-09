@@ -165,17 +165,32 @@ class Extras extends Model
         return count($result);
     }
 
-    public static function countApplicantRegistered()
+    public static function countApplicantRegistered($month = "")
     {
-        $month = date("m");
+        
+        if(!$month) $month = date("m");
         $result = DB::select("SELECT applicant_id FROM applicants WHERE MONTH(`date_applied`) = $month");
 
         return count($result);
     }
 
-    public static function countUpcomingMonthDeparture()
+    public static function countStudentRegistered($month = "")
     {
-        $result = DB::select("SELECT oec_flight_departure FROM applicants WHERE oec_flight_departure BETWEEN CURDATE() AND LAST_DAY(CURDATE())");
+        if (!$month) $month = date("m");
+        $result = DB::select("SELECT student_id FROM students WHERE MONTH(`date_applied`) = $month");
+        return count($result);
+    }
+
+    public static function countStudentRegisteredAll()
+    {
+        $result = DB::select("SELECT student_id FROM students");
+
+        return count($result);
+    }
+
+    public static function countApplicantRegisteredAll()
+    {
+        $result = DB::select("SELECT applicant_id FROM applicants");
 
         return count($result);
     }
@@ -222,9 +237,23 @@ class Extras extends Model
         return count($result);
     }
 
+    public static function getStudentInCampus($campus = null)
+    {
+        $result = DB::select("SELECT * FROM applicants WHERE campus = '$campus' AND isactive = 'Active'");
+
+        return count($result);
+    }
+
     public static function getBranchDeployedMonth($month = null, $branch = null)
     {
         $result = DB::select("SELECT * FROM applicants WHERE branch = '$branch' AND MONTH(oec_flight_departure) = $month AND YEAR(oec_flight_departure) = YEAR(CURDATE()) AND isactive = 'Active'");
+
+        return count($result);
+    }
+
+    public static function getCampusStudentMonth($month = null, $campus = null)
+    {
+        $result = DB::select("SELECT * FROM students WHERE campus = '$campus' AND MONTH(date_applied) = $month AND YEAR(date_applied) = YEAR(CURDATE())");
 
         return count($result);
     }
@@ -234,6 +263,15 @@ class Extras extends Model
         $wh = "WHERE 1";
         if($branch) $wh .= " AND code = '$branch'"; 
         $result = DB::select("SELECT * FROM branches $wh");
+
+        return $result;
+    }
+
+    public static function getCampusesList($campus = null)
+    {
+        $wh = "WHERE 1";
+        if ($campus) $wh .= " AND code = '$campus'";
+        $result = DB::select("SELECT * FROM campuses $wh");
 
         return $result;
     }
@@ -261,6 +299,16 @@ class Extras extends Model
     {
         $result = DB::select("SELECT visa_date_expired, passport_validity FROM applicants WHERE bio_status = '$bio_status' AND isactive = 'Active'");
 
+        return count($result);
+    }
+
+    public static function countUser($table = null)
+    {
+        if($table == "Professor"){
+            $result = DB::select("SELECT * FROM users WHERE user_type = 'Professor'");
+        }else{
+            $result = DB::select("SELECT * FROM $table WHERE isactive = 'Active'");
+        }
         return count($result);
     }
 

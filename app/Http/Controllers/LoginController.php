@@ -18,12 +18,15 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
     }
 
     public function index(Request $request){
+        // dd("wew");
         if(Auth::check()){
             return redirect()->route('home');
+        }else{
+            return view('auth/login');
         }
         // dd(Auth::check());
         // $menus = DB::table('menus')->where('root', '=', '0')->get();

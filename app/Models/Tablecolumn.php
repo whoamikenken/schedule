@@ -55,7 +55,19 @@ class tablecolumn extends Model
             'expiration_date' => 'Expiration Date',
             'modified_by' => 'Modified By',
             'created_at' => 'Created On',
-            'created_by' => 'Created By'
+            'created_by' => 'Created By',
+            'subject_area' => 'Subject Course',
+            'catalog_no' => 'Catalog #',
+            'course_code' => 'Course Code',
+            'course_desc' => 'Course',
+            'units' => 'Units',
+            'title' => 'Title',
+            'short_description' => 'Description',
+            'component' => 'Component',
+            'pre_code' => 'Pre Subject Code',
+            'requisite' => 'Prerequisite',
+            'curr' => 'Curricolum',
+            'year_level' => 'Year Level'
         );
 
         return $colDescription;

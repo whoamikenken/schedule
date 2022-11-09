@@ -27,34 +27,37 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        // dd(Auth::user()->user_image);
-        // auth()->logout();
-        // $request->session()->invalidate();
-        // $request->session()->regenerateToken();
         $menus = DB::table('menus')->where('root', '=', '0')->get();
-        // dd($data['menus']);
         foreach ($menus as $key => $value) {
-            $data['menus'][$value->title] = json_decode(DB::table('menus')->where("root", "=", $value->menu_id)->orderBy("order", "asc")->get());
+            if ($value->link) $data['menus'][$value->title] = $value;
+            else $data['menus'][$value->title] = json_decode(DB::table('menus')->where("root", "=", $value->menu_id)->orderBy("order", "asc")->get());
         }
-        
-        return view('home', $data);
+
+        $data['navSelected'] = ($request->nav) ? $request->nav : 0;
+        $data['menuSelected'] = ($request->menu_id) ? $request->menu_id : 1;
+        $viewRequest = ($request->route) ? $request->route : "home";
+
+        // dd(Auth::user());
+
+        $data['readAccess'] = explode(",", Extras::getAccessList("read", Auth::user()->username));
+        $data['addAccess'] = explode(",", Extras::getAccessList("add", Auth::user()->username));
+        $data['editAccess'] = explode(",", Extras::getAccessList("edit", Auth::user()->username));
+        $data['deleteAccess'] = explode(",", Extras::getAccessList("delete", Auth::user()->username));
+
+        return view($viewRequest, $data);
     }
 
     public function dashboard(){
     
         if(Auth::user()->user_type == "Admin"){
-        $data['registeredApplicantMonth'] = Extras::countApplicantRegistered();
-        $data['upcomingDeparture'] = Extras::countUpcomingMonthDeparture();
-        $data['active_applicant'] = Extras::countActiveApplicant();
-        $data['expired_applicant'] = Extras::countExpiredPassportAndVisa();
-        $data['top_sales'] = DB::table('users')->select("*", DB::raw('(SELECT COUNT(*) FROM applicants  WHERE MONTH(oec_flight_departure) = "10" AND YEAR(oec_flight_departure) = YEAR(CURDATE()) AND isactive = "Active" AND sales_manager = users.id) as total_sales'), DB::raw('(SELECT description FROM branches WHERE code = users.branch) as branchdesc'))->where("user_type", "=", 'Sales')->orderBy("total_sales", "desc")->paginate(8);
+        $data['applicant_month'] = Extras::countApplicantRegistered();
+        $data['applicant_count'] = Extras::countApplicantRegisteredAll();
+        $data['student_month'] = Extras::countStudentRegistered();
+        $data['student_count'] = Extras::countStudentRegisteredAll();
+        $data['top_adviser'] = DB::table('users')->select("*", DB::raw('(SELECT COUNT(*) FROM students WHERE adviser = users.id) as total_handle'), DB::raw('(SELECT description FROM campuses WHERE code = users.campus) as campusDesc'))->where("user_type", "=", 'Professor')->orderBy("total_handle", "desc")->paginate(8);
         
-        // foreach ($data['top_sales'] as $key => $value) {
-        //     $data['top_sales'][$key]->branch = DB::table('branches')->where('code', $value->branch)->value('description');
-        // }
-
         return view('dashboard/admin', $data);
         }else{
 
@@ -105,57 +108,86 @@ class HomeController extends Controller
         $period   = new DatePeriod($start, $interval, $end);
 
         $highest = 0;
-        $dataDeparture = $dataJo = $dataApplicant = "[";
+        $dataStudent = $dataApplicant = "[";
         $month = "[";
         foreach ($period as $dt) {
 
-            // Departure
-            $valDept = Extras::getDepartureMonth($dt->format("m"));
-            if ($valDept != 0) {
-                $dataDeparture = $dataDeparture . $valDept . ",";
-                if ($valDept > $highest) $highest = $valDept;
-            } else {
-                $dataDeparture = $dataDeparture . "0,";
-            }
-
-            // JobOrder
-            $joDept = Extras::getJobOrderMonth($dt->format("m"));
-            if ($joDept != 0) {
-                $dataJo = $dataJo . $joDept . ",";
-                if ($joDept > $highest) $highest = $joDept;
-            } else {
-                $dataJo = $dataJo . "0,";
-            }
-
             // Applicant
-            $applicantDept = Extras::getApplicantRegistered($dt->format("m"));
-            if ($applicantDept != 0) {
-                $dataApplicant = $dataApplicant . $applicantDept . ",";
-                if ($applicantDept > $highest) $highest = $applicantDept;
+            $applicantdept = Extras::countApplicantRegistered($dt->format("m"));
+            if ($applicantdept != 0) {
+                $dataApplicant = $dataApplicant . $applicantdept . ",";
+                if ($applicantdept > $highest) $highest = $applicantdept;
             } else {
                 $dataApplicant = $dataApplicant . "0,";
+            }
+
+            // Student
+            $studentdept = Extras::countStudentRegistered($dt->format("m"));
+            if ($studentdept != 0) {
+                $dataStudent = $dataStudent . $studentdept . ",";
+                if ($studentdept > $highest) $highest = $studentdept;
+            } else {
+                $dataStudent = $dataStudent . "0,";
             }
 
             $month = $month . '"' . $dt->format("F") . '",';
         }
 
-        // Departure
-        $dataDeparture = substr($dataDeparture, 0, -1);
-        $dataDeparture = $dataDeparture . "]";
-
-        // JobOrder
-        $dataJo = substr($dataJo, 0, -1);
-        $dataJo = $dataJo . "]";
+        // Student
+        $dataStudent = substr($dataStudent, 0, -1);
+        $dataStudent = $dataStudent . "]";
 
         // Applicant
         $dataApplicant = substr($dataApplicant, 0, -1);
         $dataApplicant = $dataApplicant . "]";
 
+
         $month = substr($month, 0, -1);
         $month = $month . "]";
-        $return['departure']['data'] = $dataDeparture;
-        $return['joborder']['data'] = $dataJo;
+        $return['student']['data'] = $dataStudent;
         $return['applicant']['data'] = $dataApplicant;
+
+        $return['month'] = $month;
+        $percentageAdded = (30 / 100) * $highest;
+        $return['high'] = $highest + $percentageAdded;
+        // echo '<pre>'; print_r(;die;
+        echo json_encode($return);
+    }
+
+    public function campusMontlyBarChart()
+    {
+        $start    = (new DateTime(date("Y-") . "01-01"))->modify('first day of this month');
+        $end      = (new DateTime(date("Y-") . "12-31"))->modify('first day of next month');
+        $interval = DateInterval::createFromDateString('1 month');
+        $period   = new DatePeriod($start, $interval, $end);
+
+        $getBranchList = Extras::getCampusesList();
+
+        $return = $data = array();
+        $highest = 0;
+        $month = "[";
+
+        foreach ($period as $dt) {
+            $month = $month . '"' . $dt->format("F") . '",';
+            foreach ($getBranchList as $key => $value) {
+                $count = Extras::getCampusStudentMonth($dt->format("m"), $value->code);
+                $data['dataset'][$value->code]['label'] = $value->description;
+                $data['dataset'][$value->code]['backgroundColor'] = $value->color;
+                $data['dataset'][$value->code]['borderRadius'] = 5;
+                $data['dataset'][$value->code]['borderWidth'] = 2;
+                $data['dataset'][$value->code]['borderColor'] = $value->color;
+                $data['dataset'][$value->code]['data'][] = $count;
+                if ($count > $highest) $highest = $count;
+            }
+        }
+
+        foreach ($data['dataset'] as $key => $value) {
+            $return['dataset'][] = $value;
+        }
+        // dd($return);
+        // dd($return['']);
+        $month = substr($month, 0, -1);
+        $month = $month . "]";
 
         $return['month'] = $month;
         $percentageAdded = (30 / 100) * $highest;
@@ -222,6 +254,60 @@ class HomeController extends Controller
             }
 
             $label = $label . '"' . $value->description . '",';
+        }
+
+        $data = substr($data, 0, -1);
+        $data = $data . "]";
+        $label = substr($label, 0, -1);
+        $label = $label . "]";
+        $return['data'] = $data;
+        $return['label'] = $label;
+        echo json_encode($return);
+    }
+
+    public function campusPieStudent()
+    {
+        $campusResult = DB::table('campuses')->get();
+
+        $data = "[";
+        $label = "[";
+        foreach ($campusResult as $key => $value) {
+
+            $val = Extras::getStudentInCampus($value->code);
+            if ($val != 0) {
+                $data = $data . $val . ",";
+            } else {
+                $data = $data . "0,";
+            }
+
+            $label = $label . '"' . $value->description . '",';
+        }
+
+        $data = substr($data, 0, -1);
+        $data = $data . "]";
+        $label = substr($label, 0, -1);
+        $label = $label . "]";
+        $return['data'] = $data;
+        $return['label'] = $label;
+        echo json_encode($return);
+    }
+
+    public function getUserPieCount()
+    {
+        $userStatus = array('students', 'applicants', 'Professor');
+
+        $data = "[";
+        $label = "[";
+        foreach ($userStatus as $key => $value) {
+            // dd($value);
+            $val = Extras::countUser($value);
+            if ($val != 0) {
+                $data = $data . $val . ",";
+            } else {
+                $data = $data . "0,";
+            }
+
+            $label = $label . '"' . $value . ': '. $val.'",';
         }
 
         $data = substr($data, 0, -1);

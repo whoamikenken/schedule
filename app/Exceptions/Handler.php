@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use App\Http\Controllers\LoginController;
 use Throwable;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
@@ -53,7 +54,9 @@ class Handler extends ExceptionHandler
     public function report(Throwable $e)
     {
         if ($e instanceof \Illuminate\Session\TokenMismatchException) {
+           
             $url = action([LoginController::class, 'index']);
+            //  dd($url);
             return redirect()->to($url)->send();
         }
     }

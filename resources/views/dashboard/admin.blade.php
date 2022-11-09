@@ -21,10 +21,10 @@
                 <div class="col mr-2">
                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                         Registered Applicant {{ date("F")}}</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{$registeredApplicantMonth}}</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{$applicant_month}}</div>
                     </div>
                     <div class="col-auto">
-                        <i class="bi bi-people fs-1 text-gray-300"></i>
+                        <i class="bi bi-person-plus fs-1 text-gray-300"></i>
                     </div>
                 </div>
             </div>
@@ -36,11 +36,11 @@
             <div class="row no-gutters align-items-center">
                 <div class="col mr-2">
                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                        Upcoming Departure</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{$upcomingDeparture}}</div>
+                        Total Applicant</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{$applicant_count}}</div>
                     </div>
                     <div class="col-auto">
-                        <i class="bi bi-airplane-engines fs-1 text-gray-300"></i>
+                        <i class="bi bi-people fs-1 text-gray-300"></i>
                     </div>
                 </div>
             </div>
@@ -52,11 +52,11 @@
             <div class="row no-gutters align-items-center">
                 <div class="col mr-2">
                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                        Active Applicant</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{$active_applicant}}</div>
+                        Registered Student {{ date("F")}}</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{$student_month}}</div>
                     </div>
                     <div class="col-auto">
-                        <i class="bi bi-person-check fs-1 text-gray-300"></i>
+                        <i class="bi bi-person-plus-fill fs-1 text-gray-300"></i>
                     </div>
                 </div>
             </div>
@@ -68,11 +68,12 @@
             <div class="row no-gutters align-items-center">
                 <div class="col mr-2">
                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                        Expired VISA/PASSPORT</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{$expired_applicant}}</div>
+                        Total Student</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{$student_count}}</div>
                     </div>
                     <div class="col-auto">
-                        <i class="bi-bookmark-x fs-1 text-gray-300"></i>
+                        <i class="bi-people-fill
+ fs-1 text-gray-300"></i>
                     </div>
                 </div>
             </div>
@@ -102,7 +103,7 @@
         <div class="card mb-4">
             <div class="card-header bg-info">
                 <i class="bi bi-bar-chart-line-fill me-1"></i>
-                Bio Status
+                Campus
             </div>
             <div class="card-body"><canvas id="myBioChart" width="100%" height="47"></canvas></div>
         </div>
@@ -114,7 +115,7 @@
         <div class="card mb-4">
             <div class="card-header bg-info">
                 <i class="bi bi-bar-chart-line-fill me-1"></i>
-                Branch Performance
+                Campus Performance
             </div>
             <div class="card-body">
                 <div class="d-flex justify-content-center" id="branchPerformanceLoader">
@@ -130,7 +131,7 @@
         <div class="card mb-4">
             <div class="card-header bg-info">
                 <i class="bi bi-pie-chart-fill me-1"></i>
-                Branches Applicants
+                Campus Student
             </div>
             <div class="card-body"><canvas id="pieChartBranch" width="100%" height="40"></canvas></div>
         </div>
@@ -142,15 +143,15 @@
         <div class="card mb-4">
             <div class="card-header bg-info">
                 <i class="bi bi-award-fill me-1"></i>
-                Top Performing Sales Of  {{ date("F")}}
+                Top Performing Professor Of  {{ date("F")}}
             </div>
             <div class="card-body">
                 <div class="row animate__animated animate__fadeInUp">
-                    @unless (count($top_sales) == 0)
+                    @unless (count($top_adviser) == 0)
                     @php
                         $counter = 1;
                     @endphp
-                    @foreach ($top_sales as $item)
+                    @foreach ($top_adviser as $item)
                         <div class="col-sm-12 col-md-6 col-lg-3">
                             <div class="card mb-3 shadow" >
                                 <div class="row g-0">
@@ -170,8 +171,8 @@
                                     <div class="col-8">
                                         <div class="card-body">
                                             <h5 class="card-title">{{$item->fname." ".$item->lname}} <span class="float-end">{{$counter}}</span></h5>
-                                            Branch: {{$item->branchdesc}}<br>
-                                            Applicant Processed: {{$item->total_sales}}
+                                            Branch: {{$item->campusDesc}}<br>
+                                            Student Handled: {{$item->total_handle}}
                                         </div>
                                     </div>
                                 </div>
@@ -182,7 +183,7 @@
                         @endphp
                     @endforeach
                 @else
-                        <h2 class="text-center">No Applicant</h2>
+                        <h2 class="text-center">No Student</h2>
                 @endunless
                 </div>
             </div>
@@ -195,10 +196,10 @@
 let delayed;
 
     $(document).ready(function () {
-        getBranchApplicant();
-        getBioStatusApplicant();
+        getCampusApplicant();
+        getUserStatus();
         getPerformancePerMonth();
-        getBranchPerformancePerMonth();
+        getCampusPerformancePerMonth();
     });
 
     $(window).scroll(function () {
@@ -209,10 +210,10 @@ let delayed;
         }
     });
 
-    function getBioStatusApplicant(){
+    function getUserStatus(){
         $.ajax({
             type: "GET",
-            url: "{{ url('dashboard/getBiostatusPie')}}",
+            url: "{{ url('dashboard/getUserPie')}}",
             data: {},
             dataType: "json",
             success:function(response){
@@ -222,10 +223,10 @@ let delayed;
                     data: {
                         labels: JSON.parse(response.label),
                         datasets: [{
-                        label: "Bio Status",
+                        label: "User Registered",
                         backgroundColor: [
                         'rgb(0, 255, 25)',
-                        'rgb(255, 0, 21)',
+                        'rgb(0, 85, 255)',
                         'rgb(0, 153, 255)'
                         ],
                         data: JSON.parse(response.data),
@@ -239,7 +240,7 @@ let delayed;
                       },
                       title: {
                         display: true,
-                        text: 'Bio Status'
+                        text: 'User Registered'
                       }
                     }
                   }
@@ -253,10 +254,10 @@ let delayed;
         });
     }
 
-    function getBranchApplicant(){
+    function getCampusApplicant(){
         $.ajax({
             type: "GET",
-            url: "{{ url('dashboard/getBranchPie')}}",
+            url: "{{ url('dashboard/getCampusPie')}}",
             data: {},
             dataType: "json",
             success:function(response){
@@ -266,7 +267,7 @@ let delayed;
                     data: {
                         labels: JSON.parse(response.label),
                         datasets: [{
-                        label: "Branches",
+                        label: "Campus",
                         backgroundColor: [
                         'rgb(255, 0, 21)',
                         'rgb(255, 0, 242)',
@@ -287,7 +288,7 @@ let delayed;
                       },
                       title: {
                         display: true,
-                        text: 'Branches'
+                        text: 'Campus'
                       }
                     }
                   }
@@ -370,26 +371,18 @@ let delayed;
                         labels: JSON.parse(response.month),
                         datasets: [
                             {
-                            label: "Departure",
+                            label: "Applicant",
                             backgroundColor: "rgb(0, 255, 25)",
                             borderColor: "rgb(214, 252, 0)",
-                            data: JSON.parse(response.departure.data),
+                            data: JSON.parse(response.applicant.data),
                             borderRadius: 5,
                             borderWidth: 2,
                             },
                             {
-                            label: "Job Order",
+                            label: "Student",
                             backgroundColor: "rgba(2,117,216,1)",
                             borderColor: "rgb(0, 0, 0)",
-                            data: JSON.parse(response.joborder.data),
-                            borderRadius: 5,
-                            borderWidth: 2,
-                            },  
-                            {
-                            label: "Applicant Registered",
-                            backgroundColor: "rgb(54, 185, 204)",
-                            borderColor: "rgb(23, 79, 86)",
-                            data: JSON.parse(response.applicant.data),
+                            data: JSON.parse(response.student.data),
                             borderRadius: 5,
                             borderWidth: 2,
                             },
@@ -435,10 +428,10 @@ let delayed;
         });
     }
 
-    function getBranchPerformancePerMonth(){
+    function getCampusPerformancePerMonth(){
         $.ajax({
             type: "GET",
-            url: "{{ url('dashboard/getPerformanceBranchMontly')}}",
+            url: "{{ url('dashboard/getPerformanceCampusMontly')}}",
             data: {},
             dataType: "json",
             success:function(response){
@@ -468,7 +461,7 @@ let delayed;
                         plugins: {
                             title: {
                                 display: true,
-                                text: 'Deployed Applicant Per Branch'
+                                text: 'Student Per Branch'
                             },
                         },
                         responsive: true,

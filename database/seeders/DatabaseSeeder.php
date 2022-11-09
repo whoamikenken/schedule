@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Http\Controllers\SubjectController;
 use App\Models\User;
 use App\Models\Branch;
 use App\Models\Jobsite;
@@ -41,14 +42,15 @@ class DatabaseSeeder extends Seeder
             'remember_token' => Str::random(10)
         ]);
 
-        User::factory(10)->create();
-        Applicant::factory(1000)->create();
-        Student::factory(1000)->create();
-        
+        User::factory(100)->create();
+        Applicant::factory(2000)->create();
+        Student::factory(2000)->create();
+
         $this->call([
             MenuSeeder::class,
             TablecolumnSeeder::class,
             SetupSeeder::class,
+            CampusSeeder::class,
             UsertypeSeeder::class
         ]);
     }
