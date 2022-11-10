@@ -13,7 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     <!-- Favicons-->
-    <link rel="icon" href="{{ asset('images/logo.png')}}" sizes="32x32">
+    <link rel="icon" href="{{ asset('images/logo.png') }}" sizes="32x32">
     <!-- Favicons-->
     <link rel="apple-touch-icon-precomposed" href="{{ asset('icon/apple-touch-icon-152x152.png')}}">
     <!-- For iPhone -->
@@ -101,7 +101,7 @@
 <body>
     <nav class="blue darken-4" role="navigation">
         <div class="nav-wrapper container">
-            <a id="logo-container" href="#" class="brand-logo" style="font-size: 4.1rem;"><img src="{{ asset('images/Logo.png')}}" alt="Logo" height="50" width="50"></a>
+            <a id="logo-container" href="#" class="brand-logo" style="font-size: 4.1rem;"><img src="{{ asset('images/logo.png')}}" alt="Logo" height="50" width="50"></a>
             <ul class="right hide-on-med-and-down">
                 <li><a href="{{ url('/login') }}" style='color:white'>Account Login</a></li>
             </ul>
