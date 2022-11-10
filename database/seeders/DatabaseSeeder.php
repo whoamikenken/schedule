@@ -4,17 +4,17 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Http\Controllers\SubjectController;
 use App\Models\User;
 use App\Models\Branch;
 use App\Models\Jobsite;
 use App\Models\Medical;
+use App\Models\Student;
 use App\Models\Location;
 use App\Models\Applicant;
-use App\Models\student;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 use Database\Seeders\LocationSeeder;
+use App\Http\Controllers\SubjectController;
 
 class DatabaseSeeder extends Seeder
 {
