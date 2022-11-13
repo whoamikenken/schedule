@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Exception;
+use App\Models\User;
 use App\Models\Extras;
 use App\Models\Student;
 use App\Mail\MailNotify;
@@ -156,18 +157,30 @@ class StudentController extends Controller
             'section' => ['required'],
         ]);
 
-        $formFields['password'] = bcrypt($formFields['student_id']);
+        // Student Account
+        $StudentAccount['password'] = bcrypt(strtoupper($formFields['lname']));
+        $StudentAccount['username'] = $formFields['student_id'];
+        $StudentAccount['fname'] = $formFields['fname'];
+        $StudentAccount['lname'] = $formFields['lname'];
+        $StudentAccount['name'] = $formFields['fname']." ".$formFields['lname'];
+        $StudentAccount['user_type'] = "Student";
+        $StudentAccount['campus'] = $formFields['campus'];
+        $StudentAccount['email'] = $formFields['email'];
+        $StudentAccount['status'] = "verified";
+
+        User::create($StudentAccount);
+
         $fullname = $formFields['fname']." ". $formFields['lname'];
         $dataSMS = array(
             'username' => "test",
             'password' => "82dTG0E*",
             'port' => 2,
             'recipients' => $formFields['contact'],
-            'sms' => "Hello ". $fullname."! You're successfully been registered your username is your registered email and your password is your student id."
+            'sms' => "Hello ". $fullname."! You're successfully been registered your username is your student id and your password is your lastname all caps."
         );
 
         $reponse = Extras::sendRequest("http://122.54.191.90:8085/goip_send_sms.html", "get", $dataSMS);
-
+        // dd($reponse);
         Student::create($formFields);
         $return = array('status' => 1, 'msg' => 'Successfully added student', 'title' => 'Success!');
 

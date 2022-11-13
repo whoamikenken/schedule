@@ -381,4 +381,18 @@ class Extras extends Model
         $responseData = $response->getBody()->getContents();
         return $responseData;
     }
+
+    public static function sendRequestAsync($link, $type = 'get', $data = null, $token = null)
+    {
+        $promise = Http::async()->withOptions([
+            'debug' => fopen('php://stderr', 'w'),
+        ])->retry(3, 60000)->$type(
+            $link,
+            $data
+        )->then(function ($response) {
+            // echo "Response received!";
+            echo $response->body();
+        });
+
+    }
 }
