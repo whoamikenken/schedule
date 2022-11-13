@@ -23,11 +23,13 @@ return new class extends Migration
             $table->string('fname', 30)->nullable();
             $table->string('mname', 30)->nullable();
             $table->string('lname', 30)->nullable();
+            $table->string('email', 50)->nullable();
             $table->string('contact', 30)->nullable();
             $table->string('address', 50)->nullable();
             $table->string('family_contact_name', 30)->nullable();
             $table->string('family_contact', 30)->nullable();
             $table->string('gender', 30)->nullable()->default('Female');
+            $table->string('status', 30)->nullable()->default('PENDING');
             $table->date('date_applied')->nullable();
             $table->text('user_profile')->nullable();
             $table->string('isactive', 30)->nullable()->default('Active');

@@ -288,7 +288,7 @@ $mainmenu = 1;
                         @foreach ($menus as $title => $item)
                         @if (isset($item->menu_id))
                             @if (in_array($item->menu_id, $readAccess))
-                                <li><a class="link-light rounded menuLink text-decoration-none m-1 p-1 fs-5 {{($menuSelected == $item->menu_id) ? "active":"" }}" menu="{{$item->link}}" nav="{{$mainmenu}}" menu_id="{{$item->menu_id}}" href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="{{$item->description}}"><i class="bi bi-{{$item->icon}}"></i>&nbsp;&nbsp;{{$item->title}}</a></li>
+                                <li class="m-1 mt-1 mb-1"><a class="link-light rounded menuLink text-decoration-none p-1 fs-5 {{($menuSelected == $item->menu_id) ? "active":"" }}" menu="{{$item->link}}" nav="{{$mainmenu}}" menu_id="{{$item->menu_id}}" href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="{{$item->description}}"><i class="bi bi-{{$item->icon}}"></i>&nbsp;&nbsp;{{$item->title}}</a></li>
                             @endif
                         @else
                         <li class="border-top my-3"></li>

@@ -3,9 +3,7 @@
 @section('content')
 
 @php
-$jobsite_select = DB::table('jobsites')->get();
-$users_select = DB::table('users')->where("user_type","sales")->get();
-$branch_select = DB::table('branches')->get();
+$campus_select = DB::table('campuses')->get();
 $applicant_select = DB::table('applicants')->where("isactive","Active")->get();
 @endphp
 
@@ -43,37 +41,11 @@ $applicant_select = DB::table('applicants')->where("isactive","Active")->get();
                     </div>
                     <div class="col-sm-12 col-md-12 col-lg-6">
                         <div class="row mb-3">
-                            <label for="colFormLabel" class="col-sm-2 col-form-label">Sales</label>
+                            <label for="colFormLabel" class="col-sm-2 col-form-label">Campus</label>
                             <div class="col-sm-10">
-                                <select name="sales" id="sales" class="form-select">
-                                    <option value="" selected>All Sales</option>
-                                    @foreach ($users_select as $item)
-                                    <option value="{{$item->id}}" >{{$item->lname." ".$item->fname}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-12 col-md-12 col-lg-6">
-                        <div class="row mb-3">
-                            <label for="colFormLabel" class="col-sm-2 col-form-label">Branch</label>
-                            <div class="col-sm-10">
-                                <select name="branch" id="branch" class="form-select">
-                                    <option value="" selected>All Branch</option>
-                                    @foreach ($branch_select as $item)
-                                    <option value="{{$item->code}}" >{{$item->description}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-12 col-md-12 col-lg-6">
-                        <div class="row mb-3">
-                            <label for="colFormLabel" class="col-sm-2 col-form-label">Jobsite</label>
-                            <div class="col-sm-10">
-                                <select name="jobsite" id="jobsite" class="form-select">
-                                    <option value="" selected>All Jobsite</option>
-                                    @foreach ($jobsite_select as $item)
+                                <select name="campus" id="campus" class="form-select">
+                                    <option value="" selected>All Campus</option>
+                                    @foreach ($campus_select as $item)
                                     <option value="{{$item->code}}" >{{$item->description}}</option>
                                     @endforeach
                                 </select>

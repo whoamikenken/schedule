@@ -40,22 +40,6 @@ class MenuSeeder extends Seeder
                 return $max + 1;
             },
             'order' => function () {
-                $maxOrder = Menu::where('root', '=', '0')->count('order'); // returns 0 if no records exist.
-                return $maxOrder + 1;
-            },
-            'title' => 'Student List',
-            'link' => 'student/student',
-            'icon' => 'person-lines-fill',
-            'description' => "List of student"
-        ]);
-
-        Menu::factory()->create([
-            'root' => '0',
-            'menu_id' => function () {
-                $max = Menu::count('id'); // returns 0 if no records exist.
-                return $max + 1;
-            },
-            'order' => function () {
                 $maxOrder = Menu::where('root','=','0')->count('order'); // returns 0 if no records exist.
                 return $maxOrder + 1;
             },
@@ -75,8 +59,24 @@ class MenuSeeder extends Seeder
                 $maxOrder = Menu::where('root', '=', '0')->count('order'); // returns 0 if no records exist.
                 return $maxOrder + 1;
             },
+            'title' => 'Student List',
+            'link' => 'user/student',
+            'icon' => 'person-lines-fill',
+            'description' => "List of student"
+        ]);
+
+        Menu::factory()->create([
+            'root' => '0',
+            'menu_id' => function () {
+                $max = Menu::count('id'); // returns 0 if no records exist.
+                return $max + 1;
+            },
+            'order' => function () {
+                $maxOrder = Menu::where('root', '=', '0')->count('order'); // returns 0 if no records exist.
+                return $maxOrder + 1;
+            },
             'title' => 'Applicant List',
-            'link' => 'user/user',
+            'link' => 'user/applicant',
             'icon' => 'person-rolodex',
             'description' => "List of applicants"
         ]);
