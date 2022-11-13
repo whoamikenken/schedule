@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('adviser', 30)->nullable();
             $table->string('section', 30)->nullable();
             $table->string('year_level', 30)->nullable();
+            $table->string('courses', 30)->nullable();
             $table->string('fname', 30)->nullable();
             $table->string('mname', 30)->nullable();
             $table->string('lname', 30)->nullable();

@@ -225,7 +225,7 @@ class UserController extends Controller
             $formFields['updated_at'] = "";
 
             if ($request->hasFile('user_image')) {
-                $formFields['user_image'] = $request->file('user_image')->store('user_image', 's3');
+                $formFields['user_image'] = $request->file('user_image')->store('user_image', 'public');
             }
 
             User::create($formFields);
@@ -242,9 +242,9 @@ class UserController extends Controller
             if ($request->hasFile('user_image')) {
                 $users = DB::table('users')->where('id', $id)->first();
                 if ($users->user_image) {
-                    Storage::disk('s3')->delete($users->user_image);
+                    Storage::disk("public")->delete($users->user_image);
                 }
-                $formFields['user_image'] = $request->file('user_image')->store('user_image', 's3');
+                $formFields['user_image'] = $request->file('user_image')->store('user_image', 'public');
             }
             
             DB::table('users')->where('id', $id)->update($formFields);

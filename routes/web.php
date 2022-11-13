@@ -16,6 +16,7 @@ use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\UsertypeController;
 use App\Http\Controllers\ApplicantController;
 use App\Http\Controllers\SectionController;
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TablecolumnController;
 use App\Http\Controllers\YearlevelController;
@@ -115,10 +116,16 @@ Route::post('/applicant/getApplicantProfileTab', [ApplicantController::class, 'p
 Route::post('/applicant/add', [ApplicantController::class, 'store']);
 Route::post('/applicant/store', [ApplicantController::class, 'updateApplicantData']);
 Route::post('/applicant/profile', [ApplicantController::class, 'profile'])->withoutMiddleware([VerifyCsrfToken::class]);
-Route::post('/applicant/record', [ApplicantController::class, 'record'])->withoutMiddleware([VerifyCsrfToken::class]);
-Route::post('/applicant/document', [ApplicantController::class, 'document'])->withoutMiddleware([VerifyCsrfToken::class]);
-Route::post('/applicant/oec', [ApplicantController::class, 'oec'])->withoutMiddleware([VerifyCsrfToken::class]);
 Route::get('/applicant/syncDataApplicant', [ApplicantController::class, 'syncApplicantData'])->withoutMiddleware([VerifyCsrfToken::class]);
+
+// STUDENT
+Route::post('/student/list', [StudentController::class, 'getTable'])->withoutMiddleware([VerifyCsrfToken::class]);
+Route::post('/student/getModal', [StudentController::class, 'getModal'])->withoutMiddleware([VerifyCsrfToken::class]);
+Route::post('/student/getApplicantProfileTab', [StudentController::class, 'profileTab'])->withoutMiddleware([VerifyCsrfToken::class]);
+Route::post('/student/add', [StudentController::class, 'store']);
+Route::post('/student/store', [StudentController::class, 'updateStudentData']);
+Route::post('/student/profile', [StudentController::class, 'profile'])->withoutMiddleware([VerifyCsrfToken::class]);
+Route::get('/student/syncDataApplicant', [StudentController::class, 'syncApplicantData'])->withoutMiddleware([VerifyCsrfToken::class]);
 
 // Test Email Function
 Route::get('/applicant/testEmail', [ApplicantController::class, 'testEmail'])->withoutMiddleware([VerifyCsrfToken::class]);

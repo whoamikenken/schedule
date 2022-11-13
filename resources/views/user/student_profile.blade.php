@@ -33,11 +33,11 @@
                 </div>
                 <div class="col-sm-12 col-md-6 col-lg-4">
                     <div class="col-md-12 col-sm-12">
-                        <label style="font-weight:600">Applicant ID.</label>
+                        <label style="font-weight:600">Student ID.</label>
                         <div class="input-group">
                             <div class="input-group-text"><i class="bi bi-pass"></i></div>
-                            <input type="text" id="er_ref" name="er_ref"
-                            class="form-control" placeholder="Enter ER Ref" value="{{ $id }}">
+                            <input type="text" id="student_id" name="student_id"
+                            class="form-control" placeholder="Enter Student ID" value="{{ $id }}">
                             <div class="valid-feedback">
                                 Looks good!
                             </div>

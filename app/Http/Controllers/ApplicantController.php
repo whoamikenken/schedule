@@ -172,9 +172,9 @@ class ApplicantController extends Controller
         if ($request->hasFile('file')) {
             $users = DB::table('applicants')->where('applicant_id', $applicant_id)->first();
             if ($users->{$column}) {
-                Storage::disk('s3')->delete($users->{$column});
+                Storage::disk("public")->delete($users->{$column});
             }
-            $value = $request->file('file')->store($column, 's3');
+            $value = $request->file('file')->store($column, 'public');
         }
         
         

@@ -157,7 +157,7 @@
                                 <div class="row g-0">
                                     <div class="col-4">
                                         @if ($item->user_image)
-                                            <img src="{{  Storage::disk('s3')->url($item->user_image)}}" class="img-fluid user_photo_list rounded animate__animated animate__fadeIn animate__delay-1s m-2" alt="..." style="height: -webkit-fill-available;">
+                                            <img src="{{  Storage::disk("public")->url($item->user_image)}}" class="img-fluid user_photo_list rounded animate__animated animate__fadeIn animate__delay-1s m-2" alt="..." style="height: -webkit-fill-available;">
                                         @else
                                             @if ($item->gender == "male")
                                                 <img src="{{ asset('images/male_sales.png')}}" class="img-fluid user_photo_list rounded animate__animated animate__fadeIn animate__delay-1s" alt="...">

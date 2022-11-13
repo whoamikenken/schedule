@@ -6,7 +6,7 @@
                     <div class="row g-0">
                         <div class="col-4">
                             @if ($item->user_profile)
-                                <img src="{{  Storage::disk("public")->url($item->user_profile)}}" id="{{$item->applicant_id}}" class="img-fluid user_photo_list rounded animate__animated animate__fadeIn animate__delay-1s m-2" alt="..." style="height: -webkit-fill-available;">
+                                <img src="{{  Storage::disk("public")->url($item->user_profile)}}" id="{{$item->student_id}}" class="img-fluid user_photo_list rounded animate__animated animate__fadeIn animate__delay-1s m-2" alt="..." style="height: -webkit-fill-available;">
                             @else
                                 <img src="{{ asset('images/user.png')}}" class="img-fluid user_photo_list rounded animate__animated animate__fadeIn animate__delay-1s" alt="...">
                             @endif
@@ -18,7 +18,7 @@
                                 Email: {{$item->email}}<br>
                                 Status: <span style="color:{{ ($item->isactive == "Active") ? "green":"red"  }}">{{$item->isactive}}</span><br>
                                 Contact #: <span>{{$item->contact}}</span></p>
-                                <button class="btn btn-info text-white applicantView" uid="{{$item->applicant_id}}"><i class="bi bi-eye"></i>&nbsp;&nbsp;View</button>
+                                <button class="btn btn-info text-white studentView" uid="{{$item->student_id}}"><i class="bi bi-eye"></i>&nbsp;&nbsp;View</button>
                             </div>
                         </div>
                     </div>
@@ -30,7 +30,7 @@
     @endunless
 </div>
 
-<div id="paginationApplicant" class="justify-content-center">
+<div id="paginationStudent" class="justify-content-center">
   {{ $result->links() }}
 </div>
 

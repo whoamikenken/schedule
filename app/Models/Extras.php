@@ -362,4 +362,23 @@ class Extras extends Model
             return false;
         }
     }
+
+    public static function sendRequest($link, $type = 'get', $data = null, $token = null)
+    {
+        $header =  array(
+            'Authorization' => 'Bearer ' . $token,
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json'
+        );
+    
+        $response = Http::withHeaders($header)->withOptions([
+            'debug' => fopen('php://stderr', 'w'),
+        ])->retry(3, 60000)->$type(
+            $link,
+            $data
+        );
+
+        $responseData = $response->getBody()->getContents();
+        return $responseData;
+    }
 }
