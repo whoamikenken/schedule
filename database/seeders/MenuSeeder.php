@@ -218,5 +218,21 @@ class MenuSeeder extends Seeder
             'description' => "Modification of setup column."
         ]);
 
+        Menu::factory()->create([
+            'root' => '5',
+            'menu_id' => function () {
+                $max = Menu::count('id'); // returns 0 if no records exist.
+                return $max + 1;
+            },
+            'order' => function () {
+                $maxOrder = Menu::where('root', '=', '5')->count('order'); // returns 0 if no records exist.
+                return $maxOrder + 1;
+            },
+            'title' => 'Announcement',
+            'link' => 'setup/announcement',
+            'icon' => 'inboxes',
+            'description' => "Creating new announcement"
+        ]);
+
     }
 }

@@ -21,14 +21,14 @@
             <div class="row">
                 <div class="col-sm-12 col-lg-4 text-center">
                     @if ($user_profile != "")
-                    <img src="{{  Storage::disk("public")->url($user_profile)}}" class="img-fluid rounded-start" alt="..." style="max-height: 268px;">
+                    <img src="{{  Storage::disk("s3")->url($user_profile)}}" class="img-fluid rounded-start" alt="..." style="max-height: 268px;">
                     @else
                     <img src="{{ asset('images/user.png')}}" class="img-fluid rounded-start" alt="..." style="max-height: 268px;">
                     @endif
                     <br>
                     <div class="input-group custom-file-button mt-2">
-                        <label class="input-group-text" for="user_profile_face">{{($user_profile != "")? "Replace":"Upload"}} Picture</label>
-                        <input type="file" class="form-control form-control-sm" id="user_profile_face" name="user_profile_face">
+                        <label class="input-group-text" for="user_profile">{{($user_profile != "")? "Replace":"Upload"}} Picture</label>
+                        <input type="file" class="form-control form-control-sm" id="user_profile" name="user_profile">
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-6 col-lg-4">

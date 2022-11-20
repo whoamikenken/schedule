@@ -155,7 +155,7 @@
         .btn-toggle::before {
             width: 1.25em;
             line-height: 0;
-            content: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='rgba%280,0,0,.5%29' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 14l6-6-6-6'/%3e%3c/svg%3e");
+            content: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='rgba%28255, 255, 255,1%29' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 14l6-6-6-6'/%3e%3c/svg%3e");
             transition: transform .35s ease;
             transform-origin: .5em 50%;
         } 
@@ -163,7 +163,7 @@
         .btn-toggle[aria-expanded="true"] {
             color: rgba(0, 0, 0, .85);
             
-            background-color: white;
+            background-color:#006EB7;
         }
         .btn-toggle[aria-expanded="true"]::before {
             transform: rotate(90deg);
@@ -216,7 +216,7 @@ $mainmenu = 1;
     <div class="container-fluid min-vh-100 d-flex flex-column">
         <div class="row">
             <div class="col px-0">
-                <nav class="navbar navbar-expand-md navbar-light shadow-sm bg-dark">
+                <nav class="navbar navbar-expand-md navbar-light shadow-sm" style="background-color:#212e3a">
                     <div class="container-fluid">
                         <a class="navbar-brand text-white" href="{{ url('/') }}" style="font-weight: 600;">
                             {{-- <img src="{{ asset('images/logo.png')}}" alt="" width="30" height="24" class="d-inline-block align-text-top"> --}}

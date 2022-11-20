@@ -32,7 +32,7 @@ class HomeController extends Controller
         $menus = DB::table('menus')->where('root', '=', '0')->get();
         foreach ($menus as $key => $value) {
             if ($value->link) $data['menus'][$value->title] = $value;
-            else $data['menus'][$value->title] = json_decode(DB::table('menus')->where("root", "=", $value->menu_id)->orderBy("order", "asc")->get());
+            else $data['menus'][$value->title] = json_decode(DB::table('menus')->where("root", "=", $value->menu_id)->orderBy("title", "asc")->get());
         }
 
         $data['navSelected'] = ($request->nav) ? $request->nav : 0;

@@ -31,6 +31,21 @@
         </div>
     </div>
 
+    <div class="col-md-6 col-sm-12">
+        <label>Color<span class="text-danger">*</span></label>
+        <div class="input-group">
+            <div class="input-group-text"><i class="bi bi-pencil-fill"></i></div>
+            <input type="text" id="color" name="color"
+            class="form-control validate" placeholder="Enter Color" required value="{{ (isset($color))? $color:"" }}">
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+            <div class="invalid-feedback">
+                Please input a Color.
+            </div>
+        </div>
+    </div>
+
 </form>
 
 <script>
