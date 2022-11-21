@@ -131,8 +131,8 @@
                         <label style="font-weight:600">Stundet ID</label>
                         <div class="input-group">
                             <div class="input-group-text"><i class="bi bi-pass"></i></div>
-                            <input type="text" id="applicant_id" name="applicant_id"
-                            class="form-control" placeholder="Enter Applicant ID" required value="{{ $applicant_id }}">
+                            <input type="text" id="student_no" name="student_no"
+                            class="form-control" placeholder="Enter Student ID" required value="{{ $student_no }}">
                             <div class="valid-feedback">
                                 Looks good!
                             </div>

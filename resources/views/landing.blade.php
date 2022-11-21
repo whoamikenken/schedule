@@ -263,6 +263,12 @@
                     <div class="row">
                         <form class="col s12" id="registerForm">
                             <div class="row">
+                                <div class="input-field col s12">
+                                    <input id="student_no" type="text" class="validate" name="student_no">
+                                    <label for="student_no">Student No</label>
+                                </div>
+                            </div>
+                            <div class="row">
                                 <div class="input-field col s12 l6">
                                     <input id="first_name" type="text" class="validate" name="fname">
                                     <label for="first_name">First Name</label>
@@ -274,8 +280,8 @@
                             </div>
                             <div class="row">
                                 <div class="input-field col s12 l6">
-                                    <input id="last_name" type="text" class="validate" name="lname">
-                                    <label for="last_name">Middle Name</label>
+                                    <input id="middle_name" type="text" class="validate" name="mname">
+                                    <label for="middle_name">Middle Name</label>
                                 </div>
                                 <div class="input-field col s12 l6">
                                     <select class="validate" name="gender">
@@ -292,7 +298,7 @@
                                     <label for="email">Email</label>
                                 </div>
                                 <div class="input-field col s12 l6">
-                                    <input id="mobile_number" type="text" class="validate" name="mobile">
+                                    <input id="mobile_number" type="text" class="validate" name="contact">
                                     <label for="mobile_number">Contact #</label>
                                 </div>
                             </div>
@@ -468,7 +474,7 @@
             });
             
             $.ajax({
-                url : "{{ url('student/saveApplicant') }}",
+                url : "{{ url('applicant/saveApplicant') }}",
                 type : "POST",
                 data : formdata,
                 processData: false,
@@ -487,7 +493,7 @@
                         $(".modal").modal("close");
                         
                         $.ajax({
-                            url : "{{ url('student/notifyAdmin') }}",
+                            url : "{{ url('applicant/notifyAdmin') }}",
                             type : "POST",
                             data : {applicantId: response},
                             success : function(response){

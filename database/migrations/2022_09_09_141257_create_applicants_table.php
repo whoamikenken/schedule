@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('applicants', function (Blueprint $table) {
             $table->id();
             $table->string('applicant_id', 30)->nullable();
+            $table->string('student_no', 30)->nullable();
             $table->string('campus', 30)->nullable();
             $table->string('adviser', 30)->nullable();
             $table->string('course', 30)->nullable();
@@ -27,6 +28,7 @@ return new class extends Migration
             $table->string('email', 50)->nullable();
             $table->string('contact', 30)->nullable();
             $table->string('address', 50)->nullable();
+            $table->string('age', 30)->nullable();
             $table->string('family_contact_name', 30)->nullable();
             $table->string('family_contact', 30)->nullable();
             $table->string('gender', 30)->nullable()->default('Female');

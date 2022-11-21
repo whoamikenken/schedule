@@ -180,6 +180,38 @@ class ApplicantController extends Controller
         
         return response()->json($return);
     }
+
+    public function saveApplicant(Request $request)
+    {
+        $return = array('status' => 0, 'msg' => 'Error', 'title' => 'Error!');
+        $formFields = $request->validate([
+            'student_no' => ['required'],
+            'fname' => ['required'],
+            'lname' => ['required'],
+            'mname' => ['required'],
+            'contact' => ['required'],
+            'password' => ['required'],
+            'age' => ['required'],
+            'email' => ['required'],
+            'gender' => ['required']
+        ]);
+
+        $fullname = $formFields['fname'] . " " . $formFields['lname'];
+        $dataSMS = array(
+            'username' => env('SMS_USER'),
+            'password' => env('SMS'),
+            'port' => 2,
+            'recipients' => $formFields['contact'],
+            'sms' => "Hello " . $fullname . "! You're successfully been registered please wait for the admin to verify your account."
+        );
+
+        $reponse = Extras::sendRequest("http://122.54.191.90:8085/goip_send_sms.html", "get", $dataSMS);
+        unset($formFields['uid']);
+        Applicant::create($formFields);
+        $return = array('status' => 1, 'msg' => 'Successfully added applicant', 'title' => 'Success!');
+
+        return response()->json($return);
+    }
     
     public function updateApplicantData(Request $request)
     {
