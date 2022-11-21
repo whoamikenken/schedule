@@ -6,6 +6,7 @@ use Exception;
 use App\Models\Extras;
 use App\Mail\MailNotify;
 use App\Models\Applicant;
+use App\Models\User;
 use Illuminate\Http\Request;
 use PhpParser\Node\Stmt\TryCatch;
 use Illuminate\Support\Facades\DB;
@@ -196,7 +197,26 @@ class ApplicantController extends Controller
             'gender' => ['required']
         ]);
 
+        $userData=array();
+        $userData['username'] = $formFields['student_no'];
+        $userData['fname'] = $formFields['fname'];
+        $userData['lname'] = $formFields['lname'];
+        $userData['mname'] = $formFields['mname'];
+        $userData['email'] = $formFields['email'];
+        $userData['password'] = bcrypt($formFields['password']);
+        $userData['gender'] = $formFields['gender'];
+        $userData['user_type'] = "Applicant";
+        $userData['status'] = "unverified";
+        unset($formFields['password']);
+
+        if ($request->hasFile('file')) {
+            $userData['user_image'] = $request->file('file')->store('user_image', 's3');
+            $formFields['user_profile'] = $userData['user_image'];
+        }
+
+
         $fullname = $formFields['fname'] . " " . $formFields['lname'];
+        $userData['name'] = $fullname;
         $dataSMS = array(
             'username' => env('SMS_USER'),
             'password' => env('SMS'),
@@ -207,7 +227,9 @@ class ApplicantController extends Controller
 
         $reponse = Extras::sendRequest("http://122.54.191.90:8085/goip_send_sms.html", "get", $dataSMS);
         unset($formFields['uid']);
+
         Applicant::create($formFields);
+        User::create($userData);
         $return = array('status' => 1, 'msg' => 'Successfully added applicant', 'title' => 'Success!');
 
         return response()->json($return);
