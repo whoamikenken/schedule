@@ -2,7 +2,12 @@
 <ul class="nav nav-pills nav-justified" id="pills-tab" role="tablist">
     @if (in_array("801",$readAccess))
        <li class="nav-item" role="presentation">
-            <button class="nav-link active" link="{{ url('applicant/profile') }}" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="true">Profile</button>
+            <button class="nav-link active" link="{{ url('student/profile') }}" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="true">Profile</button>
+        </li> 
+    @endif
+    @if (in_array("802",$readAccess))
+       <li class="nav-item" role="presentation">
+            <button class="nav-link" link="{{ url('student/schedule') }}" id="pills-schedule-tab" data-bs-toggle="pill" data-bs-target="#pills-schedule" type="button" role="tab" aria-controls="pills-schedule" aria-selected="true">Schedule</button>
         </li> 
     @endif
 </ul>
@@ -10,11 +15,15 @@
     <div class="tab-pane fade show active" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
         
     </div>
+
+    <div class="tab-pane fade show active" id="pills-schedule" role="tabpanel" aria-labelledby="pills-schedule-tab">
+        
+    </div>
 </div>
 <div class="visually-hidden">
 <form id="profileForm" enctype="multipart/form-data">
 @csrf
-<input type="hidden" name="applicant_id" value="{{$uid}}">
+<input type="hidden" name="student_id" value="{{$uid}}">
 </form>
 </div>
 <script>
@@ -71,7 +80,7 @@
                 var formdata = $("#profileForm").serialize();
 
                 $.ajax({
-                    url : "{{ url('applicant/store') }}",
+                    url : "{{ url('student/store') }}",
                     type : "POST",
                     data : formdata,
                     dataType: "JSON",
@@ -110,7 +119,7 @@
             formdata.append("file", user_file);
 
             $.ajax({
-                url : "{{ url('applicant/store') }}",
+                url : "{{ url('student/store') }}",
                 type : "POST",
                 data : formdata,
                 cache:false,

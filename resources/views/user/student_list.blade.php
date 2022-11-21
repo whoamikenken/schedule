@@ -6,7 +6,7 @@
                     <div class="row g-0">
                         <div class="col-4">
                             @if ($item->user_profile)
-                                <img src="{{  Storage::disk("public")->url($item->user_profile)}}" id="{{$item->student_id}}" class="img-fluid user_photo_list rounded animate__animated animate__fadeIn animate__delay-1s m-2" alt="..." style="height: -webkit-fill-available;">
+                                <img src="{{  Storage::disk("s3")->url($item->user_profile)}}" id="{{$item->student_id}}" class="img-fluid user_photo_list rounded animate__animated animate__fadeIn animate__delay-1s m-2" alt="..." style="height: -webkit-fill-available;">
                             @else
                                 <img src="{{ asset('images/user.png')}}" class="img-fluid user_photo_list rounded animate__animated animate__fadeIn animate__delay-1s" alt="...">
                             @endif
@@ -26,7 +26,7 @@
             </div>
         @endforeach
     @else
-            <h2 class="text-center">No Applicant</h2>
+            <h2 class="text-center">No Student</h2>
     @endunless
 </div>
 

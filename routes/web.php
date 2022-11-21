@@ -121,7 +121,7 @@ Route::get('/applicant/syncDataApplicant', [ApplicantController::class, 'syncApp
 // STUDENT
 Route::post('/student/list', [StudentController::class, 'getTable'])->withoutMiddleware([VerifyCsrfToken::class]);
 Route::post('/student/getModal', [StudentController::class, 'getModal'])->withoutMiddleware([VerifyCsrfToken::class]);
-Route::post('/student/getApplicantProfileTab', [StudentController::class, 'profileTab'])->withoutMiddleware([VerifyCsrfToken::class]);
+Route::post('/student/getStudentProfileTab', [StudentController::class, 'profileTab'])->withoutMiddleware([VerifyCsrfToken::class]);
 Route::post('/student/add', [StudentController::class, 'store']);
 Route::post('/student/store', [StudentController::class, 'updateStudentData']);
 Route::post('/student/profile', [StudentController::class, 'profile'])->withoutMiddleware([VerifyCsrfToken::class]);

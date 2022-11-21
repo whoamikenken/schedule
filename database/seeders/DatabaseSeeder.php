@@ -51,6 +51,7 @@ class DatabaseSeeder extends Seeder
             TablecolumnSeeder::class,
             SetupSeeder::class,
             CampusSeeder::class,
+            SectionSeeder::class,
             UsertypeSeeder::class
         ]);
     }

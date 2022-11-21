@@ -77,29 +77,59 @@
     </div>
 
     <div class="col-md-6 col-sm-12">
-        <label>Branch<span class="text-danger">*</span></label>
+        <label>Email<span class="text-danger">*</span></label>
+        <div class="input-group">
+            <div class="input-group-text"><i class="bi bi-person-fill"></i></div>
+            <input type="email" id="email" name="email"
+            class="form-control validate" placeholder="Enter Email" required value="">
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+            <div class="invalid-feedback">
+                Please input a Email.
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12 col-sm-12">
+        <label>Address<span class="text-danger">*</span></label>
+        <div class="input-group">
+            <div class="input-group-text"><i class="bi bi-person-fill"></i></div>
+            <input type="text" id="address" name="address"
+            class="form-control validate" placeholder="Enter Address" required value="">
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+            <div class="invalid-feedback">
+                Please input a Address.
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-sm-12">
+        <label>Campus<span class="text-danger">*</span></label>
         <div class="input-group">
             <div class="input-group-text"><i class="bi bi-person-lines-fill"></i></div>
-            <select name="branch" id="branch" class="form-select validate">
-                @foreach ($branch_select as $item)
-                    <option value="{{$item->code}}" {{ (isset(Auth::user()->branch) && Auth::user()->branch == $item->code)? "selected":"" }} >{{$item->description}}</option>
+            <select name="campus" id="campus" class="form-select-modal validate">
+                @foreach ($campuses_select as $item)
+                    <option value="{{$item->code}}" >{{$item->description}}</option>
                 @endforeach
             </select>
             <div class="valid-feedback">
                 Looks good!
             </div>
             <div class="invalid-feedback">
-                Please select a branch.
+                Please select a Campus.
             </div>
         </div>
     </div>
 
     <div class="col-md-6 col-sm-12">
-        <label>Jobsite<span class="text-danger">*</span></label>
+        <label>Year Level<span class="text-danger">*</span></label>
         <div class="input-group">
             <div class="input-group-text"><i class="bi bi-person-lines-fill"></i></div>
-            <select name="jobsite" id="jobsite" class="form-select validate">
-                @foreach ($jobsite_select as $item)
+            <select name="year_level" id="year_level" class="form-select-modal validate">
+                @foreach ($yearlevels_select as $item)
                     <option value="{{$item->code}}">{{$item->description}}</option>
                 @endforeach
             </select>
@@ -107,35 +137,73 @@
                 Looks good!
             </div>
             <div class="invalid-feedback">
-                Please select a jobsite.
+                Please select a Course.
             </div>
         </div>
     </div>
 
     <div class="col-md-6 col-sm-12">
-        <label>Sales Manager<span class="text-danger">*</span></label>
+        <label>Course<span class="text-danger">*</span></label>
         <div class="input-group">
             <div class="input-group-text"><i class="bi bi-person-lines-fill"></i></div>
-            <select name="sales_manager" id="sales_manager" class="form-select validate">
-                @foreach ($users_select as $item)
-                    <option value="{{$item->id}}" {{ (isset(Auth::user()->id) && Auth::user()->id == $item->id)? "selected":"" }}>{{$item->name}}</option>
+            <select name="course" id="course" class="form-select-modal validate">
+                @foreach ($courses_select as $item)
+                    <option value="{{$item->code}}">{{$item->description}}</option>
                 @endforeach
             </select>
             <div class="valid-feedback">
                 Looks good!
             </div>
             <div class="invalid-feedback">
-                Please select a sales manager.
+                Please select a Course.
             </div>
         </div>
     </div>
+
+    <div class="col-md-6 col-sm-12">
+        <label>Section<span class="text-danger">*</span></label>
+        <div class="input-group">
+            <div class="input-group-text"><i class="bi bi-person-lines-fill"></i></div>
+            <select name="section" id="section" class="form-select-modal validate">
+                @foreach ($sections_select as $item)
+                    <option value="{{$item->code}}">{{$item->description}}</option>
+                @endforeach
+            </select>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+            <div class="invalid-feedback">
+                Please select a Section.
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-sm-12">
+        <label>Adviser<span class="text-danger">*</span></label>
+        <div class="input-group">
+            <div class="input-group-text"><i class="bi bi-person-lines-fill"></i></div>
+            <select name="adviser" id="adviser" class="form-select-modal validate">
+                @foreach ($users_select as $item)
+                    <option value="{{$item->id}}">{{$item->name}}</option>
+                @endforeach
+            </select>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+            <div class="invalid-feedback">
+                Please select a adviser.
+            </div>
+        </div>
+    </div>
+
+    
 
 </form>
 
 <script>
 
     $(document).ready(function () {
-        $('.form-select').select2({
+        $('.form-select-modal').select2({
             dropdownParent: $('#modal-view'),
             theme: 'bootstrap-5'
         });
@@ -167,7 +235,7 @@
                         time: 2500
                     })
                     $("#modalclose").click();
-                    UserList();
+                    ApplicantList();
                 }else if (response.status == 2) {
                     Swal.fire({
                         icon: 'info',

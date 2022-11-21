@@ -92,16 +92,36 @@
                         </div>
                     </div>
                     <div class="col-md-12 col-sm-12">
-                        <label style="font-weight:600">Address</label>
+                        <label style="font-weight:600">Campus</label>
                         <div class="input-group">
-                            <div class="input-group-text"><i class="bi bi-geo-alt"></i></div>
-                            <input type="text" id="address" name="address"
-                            class="form-control validate" placeholder="Enter address" value="{{ $address }}">
+                            <div class="input-group-text"><i class="bi bi-building"></i></div>
+                            <select name="campus" id="campus" class="form-control form-select">
+                                @foreach ($campuses_select as $item)
+                                <option value="{{$item->code}}" {{ (isset($campus) && $campus == $item->code)? "selected":"" }} >{{$item->description}}</option>
+                                @endforeach
+                            </select>
                             <div class="valid-feedback">
                                 Looks good!
                             </div>
                             <div class="invalid-feedback">
-                                Please input a address.
+                                Please input.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12">
+                        <label style="font-weight:600">Year Level</label>
+                        <div class="input-group">
+                            <div class="input-group-text"><i class="bi bi-building"></i></div>
+                            <select name="year_level" id="year_level" class="form-control form-select">
+                                @foreach ($yearlevels_select as $item)
+                                <option value="{{$item->code}}" {{ (isset($year_level) && $year_level == $item->code)? "selected":"" }} >{{$item->description}}</option>
+                                @endforeach
+                            </select>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                            <div class="invalid-feedback">
+                                Please input.
                             </div>
                         </div>
                     </div>
@@ -136,23 +156,6 @@
                         </div>
                     </div>
                     <div class="col-md-12 col-sm-12">
-                        <label style="font-weight:600">Campus</label>
-                        <div class="input-group">
-                            <div class="input-group-text"><i class="bi bi-building"></i></div>
-                            <select name="campus" id="campus" class="form-control form-select">
-                                @foreach ($campus_select as $item)
-                                <option value="{{$item->code}}" {{ (isset($campus) && $campus == $item->code)? "selected":"" }} >{{$item->description}}</option>
-                                @endforeach
-                            </select>
-                            <div class="valid-feedback">
-                                Looks good!
-                            </div>
-                            <div class="invalid-feedback">
-                                Please input.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12 col-sm-12">
                         <label style="font-weight:600">Contact</label>
                         <div class="input-group">
                             <div class="input-group-text"><i class="bi bi-hash"></i></div>
@@ -180,6 +183,56 @@
                             <div class="invalid-feedback">
                                 Please input.
                             </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12">
+                        <label style="font-weight:600">Course</label>
+                        <div class="input-group">
+                            <div class="input-group-text"><i class="bi bi-building"></i></div>
+                            <select name="course" id="course" class="form-control form-select">
+                                @foreach ($courses_select as $item)
+                                <option value="{{$item->code}}" {{ (isset($course) && $course == $item->code)? "selected":"" }} >{{$item->description}}</option>
+                                @endforeach
+                            </select>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                            <div class="invalid-feedback">
+                                Please input.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12">
+                        <label style="font-weight:600">Section</label>
+                        <div class="input-group">
+                            <div class="input-group-text"><i class="bi bi-building"></i></div>
+                            <select name="section" id="section" class="form-control form-select">
+                                @foreach ($sections_select as $item)
+                                <option value="{{$item->code}}" {{ (isset($section) && $section == $item->code)? "selected":"" }} >{{$item->description}}</option>
+                                @endforeach
+                            </select>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                            <div class="invalid-feedback">
+                                Please input.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8 col-sm-12 offset-md-4">
+                    <label style="font-weight:600">Address</label>
+                    <div class="input-group">
+                        <div class="input-group-text"><i class="bi bi-geo-alt"></i></div>
+                        <input type="text" id="address" name="address"
+                        class="form-control validate" placeholder="Enter address" value="{{ $address }}">
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                            Please input a address.
                         </div>
                     </div>
                 </div>

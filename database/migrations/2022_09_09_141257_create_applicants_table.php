@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('applicant_id', 30)->nullable();
             $table->string('campus', 30)->nullable();
             $table->string('adviser', 30)->nullable();
+            $table->string('course', 30)->nullable();
             $table->string('section', 30)->nullable();
             $table->string('year_level', 30)->nullable();
             $table->string('fname', 30)->nullable();

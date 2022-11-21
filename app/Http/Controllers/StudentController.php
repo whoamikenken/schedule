@@ -22,6 +22,11 @@ class StudentController extends Controller
 
         $where = array();
         if ($filter['student']) $where[] = array('student_id', '=', $filter['student']);
+        if ($filter['course']) $where[] = array('course', '=', $filter['course']);
+        if ($filter['campus']) $where[] = array('campus', '=', $filter['campus']);
+        if ($filter['section']) $where[] = array('section', '=', $filter['section']);
+        if ($filter['year_level']) $where[] = array('year_level', '=', $filter['year_level']);
+
         $data['result'] = DB::table('students')->where($where)->paginate(12);
         foreach ($data['result'] as $key => $value) {
             $data['result'][$key]->campus = DB::table('campuses')->where('code', $value->campus)->value('description');
@@ -63,6 +68,7 @@ class StudentController extends Controller
         // dd($data);   
         return view('user/student_tab', $data);
     }
+    
 
     public function profile(Request $request)
     {
@@ -76,7 +82,11 @@ class StudentController extends Controller
 
         $data['record'] = DB::table('students')->where("student_id", $data['uid'])->get();
         $data = json_decode($data['record'], true)[0];
-        $data['campus_select'] = DB::table('campuses')->get();
+        $data['campuses_select'] = DB::table('campuses')->get();
+        $data['courses_select'] = DB::table('courses')->get();
+        $data['yearlevels_select'] = DB::table('yearlevels')->get();
+        $data['sections_select'] = DB::table('sections')->get();
+        $data['users_select'] = DB::table('users')->where("user_type", "Professor")->get();
 
         $data['readAccess'] = explode(",", Extras::getAccessList("read", Auth::user()->username));
         $data['editAccess'] = explode(",", Extras::getAccessList("edit", Auth::user()->username));
@@ -172,8 +182,8 @@ class StudentController extends Controller
 
         $fullname = $formFields['fname']." ". $formFields['lname'];
         $dataSMS = array(
-            'username' => "test",
-            'password' => "82dTG0E*",
+            'username' => env('SMS_USER'),
+            'password' => env('SMS'),
             'port' => 2,
             'recipients' => $formFields['contact'],
             'sms' => "Hello ". $fullname."! You're successfully been registered your username is your student id and your password is your lastname all caps."
@@ -197,9 +207,9 @@ class StudentController extends Controller
         if ($request->hasFile('file')) {
             $users = DB::table('students')->where('student_id', $student_id)->first();
             if ($users->{$column}) {
-                Storage::disk("public")->delete($users->{$column});
+                Storage::disk("s3")->delete($users->{$column});
             }
-            $value = $request->file('file')->store($column, 'public');
+            $value = $request->file('file')->store($column, 's3');
         }
 
 
@@ -207,7 +217,7 @@ class StudentController extends Controller
         $query = DB::table('students')->where('student_id', $student_id)->update($formFields);
 
         if ($query) {
-            $return = array('status' => 1, 'msg' => 'Successfully updated applicant', 'title' => 'Success!');
+            $return = array('status' => 1, 'msg' => 'Successfully updated student', 'title' => 'Success!');
         }
 
         return response()->json($return);

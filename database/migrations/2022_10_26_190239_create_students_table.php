@@ -33,6 +33,7 @@ return new class extends Migration
             $table->date('date_applied')->nullable();
             $table->text('user_profile')->nullable();
             $table->string('isactive', 30)->nullable()->default('Active');
+            $table->string('status', 30)->nullable()->default('Regular');
             $table->timestamp('updated_at')->nullable()->useCurrent();
             $table->string('modified_by', 30)->nullable();
             $table->timestamp('created_at')->nullable()->useCurrent();

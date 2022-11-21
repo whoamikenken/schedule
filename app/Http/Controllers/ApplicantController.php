@@ -41,9 +41,11 @@ class ApplicantController extends Controller
         
         $data['uid'] = $formFields['uid'];
         
-        $data['jobsite_select'] = DB::table('jobsites')->get();
-        $data['branch_select'] = DB::table('branches')->get();
-        $data['users_select'] = DB::table('users')->where("user_type", "sales")->get();
+        $data['campuses_select'] = DB::table('campuses')->get();
+        $data['courses_select'] = DB::table('courses')->get();
+        $data['yearlevels_select'] = DB::table('yearlevels')->get();
+        $data['sections_select'] = DB::table('sections')->get();
+        $data['users_select'] = DB::table('users')->where("user_type", "Professor")->get();
         
         // dd($data);
         return view('user/applicant_modal', $data);
@@ -76,7 +78,12 @@ class ApplicantController extends Controller
         
         $data['record'] = DB::table('applicants')->where("applicant_id", $data['uid'])->get();
         $data = json_decode($data['record'], true)[0];
-        $data['campus_select'] = DB::table('campuses')->get();
+        
+        $data['campuses_select'] = DB::table('campuses')->get();
+        $data['courses_select'] = DB::table('courses')->get();
+        $data['yearlevels_select'] = DB::table('yearlevels')->get();
+        $data['sections_select'] = DB::table('sections')->get();
+        $data['users_select'] = DB::table('users')->where("user_type", "Professor")->get();
         
         $data['readAccess'] = explode(",", Extras::getAccessList("read", Auth::user()->username));
         $data['editAccess'] = explode(",", Extras::getAccessList("edit", Auth::user()->username));
@@ -143,18 +150,30 @@ class ApplicantController extends Controller
     public function store(Request $request)
     {
         $return = array('status' => 0, 'msg' => 'Error', 'title' => 'Error!');
-        dd($request->input());
         $formFields = $request->validate([
             'applicant_id' => ['required'],
             'fname' => ['required'],
             'lname' => ['required'],
             'mname' => ['required'],
+            'campus' => ['required'],
             'contact' => ['required'],
-            'branch' => ['required'],
-            'jobsite' => ['required'],
-            'sales_manager' => ['required'],
+            'year_level' => ['required'],
+            'course' => ['required'],
+            'section' => ['required'],
+            'email' => ['required'],
+            'adviser' => ['required']
         ]);
-        
+
+        $fullname = $formFields['fname'] . " " . $formFields['lname'];
+        $dataSMS = array(
+            'username' => env('SMS_USER'),
+            'password' => env('SMS'),
+            'port' => 2,
+            'recipients' => $formFields['contact'],
+            'sms' => "Hello " . $fullname . "! You're successfully been registered please wait for the admin to verify your account."
+        );
+
+        $reponse = Extras::sendRequest("http://122.54.191.90:8085/goip_send_sms.html", "get", $dataSMS);
         unset($formFields['uid']);
         Applicant::create($formFields);
         $return = array('status' => 1, 'msg' => 'Successfully added applicant', 'title' => 'Success!');

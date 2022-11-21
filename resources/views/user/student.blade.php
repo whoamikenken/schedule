@@ -3,7 +3,10 @@
 @section('content')
 
 @php
-$campus_select = DB::table('campuses')->get();
+$campuses_select = DB::table('campuses')->get();
+$courses_select = DB::table('courses')->get();
+$yearlevels_select = DB::table('yearlevels')->get();
+$sections_select = DB::table('sections')->get();
 $student_select = DB::table('students')->where("isactive","Active")->get();
 @endphp
 
@@ -27,6 +30,58 @@ $student_select = DB::table('students')->where("isactive","Active")->get();
                 <div class="row">
                     <div class="col-sm-12 col-md-12 col-lg-6">
                         <div class="row mb-3">
+                            <label for="colFormLabel" class="col-sm-2 col-form-label">Campus</label>
+                            <div class="col-sm-10">
+                                <select name="campus" id="campus" class="form-select">
+                                    <option value="" selected>All Campus</option>
+                                    @foreach ($campuses_select as $item)
+                                    <option value="{{$item->code}}" >{{$item->description}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-12 col-lg-6">
+                        <div class="row mb-3">
+                            <label for="colFormLabel" class="col-sm-2 col-form-label">Course</label>
+                            <div class="col-sm-10">
+                                <select name="course" id="course" class="form-select">
+                                    <option value="" selected>All Course</option>
+                                    @foreach ($courses_select as $item)
+                                    <option value="{{$item->code}}" >{{$item->description}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-12 col-lg-6">
+                        <div class="row mb-3">
+                            <label for="colFormLabel" class="col-sm-2 col-form-label">Year Level</label>
+                            <div class="col-sm-10">
+                                <select name="year_level" id="year_level" class="form-select">
+                                    <option value="" selected>All Year Level</option>
+                                    @foreach ($yearlevels_select as $item)
+                                    <option value="{{$item->code}}" >{{$item->description}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-12 col-lg-6">
+                        <div class="row mb-3">
+                            <label for="colFormLabel" class="col-sm-2 col-form-label">Section</label>
+                            <div class="col-sm-10">
+                                <select name="section" id="section" class="form-select">
+                                    <option value="" selected>All Section</option>
+                                    @foreach ($sections_select as $item)
+                                    <option value="{{$item->code}}" >{{$item->description}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-12 col-lg-6">
+                        <div class="row mb-3">
                             <label for="colFormLabel" class="col-sm-2 col-form-label">Student</label>
                             <div class="col-sm-10">
                                 <select name="student" id="student" class="form-select">
@@ -38,31 +93,10 @@ $student_select = DB::table('students')->where("isactive","Active")->get();
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-12 col-md-12 col-lg-6">
-                        <div class="row mb-3">
-                            <label for="colFormLabel" class="col-sm-2 col-form-label">Campus</label>
-                            <div class="col-sm-10">
-                                <select name="campus" id="campus" class="form-select">
-                                    <option value="" selected>All Campus</option>
-                                    @foreach ($campus_select as $item)
-                                    <option value="{{$item->code}}" >{{$item->description}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </div>
                 </form>
-                <div class="col-sm-12 col-md-12 col-lg-6">
-                    
-                </div>
-                <div class="col-sm-12 col-md-12 col-lg-6">
-                    <div class="row mb-3">
-                        <label for="colFormLabel" class="col-sm-2 col-form-label"></label>
-                        <div class="col-sm-10">
-                            <button class="btn btn-primary" id="searchStudent" type="button">Search</button>
-                        </div>
+                    <div class="col-sm-12 col-md-12 col-lg-6">
+                        <button class="btn btn-primary" id="searchStudent" type="button">Search</button>
                     </div>
-                </div>
             </div>
         </div> <!-- end card-body-->
     </div>

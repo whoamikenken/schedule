@@ -79,6 +79,7 @@ $applicant_select = DB::table('applicants')->where("isactive","Active")->get();
         $('.form-select').select2({
             theme: 'bootstrap-5'
         });
+        
         ApplicantList();
     });
     
