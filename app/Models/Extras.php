@@ -321,17 +321,17 @@ class Extras extends Model
 
     public static function getNoAdd()
     {
-        return array(999, 15, 14, 5, 801, 802, 803, 804);
+        return array(999, 13, 5, 801, 802, 803, 804);
     }
 
     public static function getNoDel()
     {
-        return array(999, 15, 14, 5, 801, 802, 803, 804);
+        return array(999, 13, 5, 801, 802, 803, 804);
     }
 
     public static function getNoEdit()
     {
-        return array(14, 5, 13, 999);
+        return array(5,999);
     }
 
     public static function requestToEmpsys($link, $type = 'get', $data = null, $token = null){
@@ -394,5 +394,11 @@ class Extras extends Model
             echo $response->body();
         });
 
+    }
+
+    public static function getSubjectForDropdown($where = array())
+    {
+        $data = DB::table('subjects')->where($where)->get();
+        return $data;
     }
 }

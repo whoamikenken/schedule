@@ -11,7 +11,7 @@
                 Looks good!
             </div>
             <div class="invalid-feedback">
-                Please input a dawdaw.
+                Please input a Code.
             </div>
         </div>
     </div>
