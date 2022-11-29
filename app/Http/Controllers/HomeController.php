@@ -64,6 +64,31 @@ class HomeController extends Controller
         }
     }
 
+    public function getDropdownData(Request $request){
+        $data = $request->input();
+        $where = array();
+        $mode = $data['mode'];
+        $limit = 100;
+        $options = array("incomplete_results" => false, "items" => array(), "total_count" => 0);
+        if($data['dataSearch'] == "subject"){
+            if(!isset($data['search'])) $data['search'] = "";
+            $where[] = array("course_desc", "LIKE", "%".$data['search']."%");
+            $record = DB::table('subjects')->select(DB::raw('id, course_desc as `desc`, units'))->where($where)->limit($limit)->get();
+            if (isset($mode) && $mode == "single") {
+                $options["items"][] = array('id' => "", 'name' => "Select Option");
+            } else {
+                $options["items"][] = array('id' => "all", 'name' => "All");
+            }
+            foreach ($record as $key => $value) {
+                $options["items"][] = array('id' => $value->id, 'name' => $value->desc,'units' => $value->units);
+                unset($options["incomplete_results"]);
+                unset($options["total_count"]);
+            }
+        }
+
+        echo json_encode($options);
+    }
+
     public function departureMontlyBarChart()
     {
         $start    = (new DateTime(date("Y-")."01-01"))->modify('first day of this month');

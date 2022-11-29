@@ -45,5 +45,10 @@ class SetupSeeder extends Seeder
             'description' => 'Annoucement',
             'table' => 'announcements'
         ]);
+
+        Setup::factory()->create([
+            'description' => 'Schedule',
+            'table' => 'schedules'
+        ]);
     }
 }

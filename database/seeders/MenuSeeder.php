@@ -211,39 +211,6 @@ class MenuSeeder extends Seeder
                 $maxOrder = Menu::where('root', '=', '6')->count('order'); // returns 0 if no records exist.
                 return $maxOrder + 1;
             },
-            'title' => 'Schedule Maker',
-            'icon' => 'people',
-            'link' => 'schedule/schedule',
-            'description' => "Creating new schedule template"
-        ]);
-
-        Menu::factory()->create([
-            'root' => '6',
-            'menu_id' => function () {
-                $max = Menu::count('id'); // returns 0 if no records exist.
-                return $max + 1;
-            },
-            'order' => function () {
-                $maxOrder = Menu::where('root', '=', '6')->count('order'); // returns 0 if no records exist.
-                return $maxOrder + 1;
-            },
-            'title' => 'Batch Scheduling',
-            'icon' => 'people',
-            'link' => 'schedule/batch',
-            'description' => "Assigning Batch Schedule"
-        ]);
-
-
-        Menu::factory()->create([
-            'root' => '6',
-            'menu_id' => function () {
-                $max = Menu::count('id'); // returns 0 if no records exist.
-                return $max + 1;
-            },
-            'order' => function () {
-                $maxOrder = Menu::where('root', '=', '6')->count('order'); // returns 0 if no records exist.
-                return $maxOrder + 1;
-            },
             'title' => 'Table Picker',
             'link' => 'config/tablecolumn',
             'icon' => 'wrench-adjustable-circle',
@@ -264,6 +231,38 @@ class MenuSeeder extends Seeder
             'link' => 'setup/announcement',
             'icon' => 'inboxes',
             'description' => "Creating new announcement"
+        ]);
+
+        Menu::factory()->create([
+            'root' => '5',
+            'menu_id' => function () {
+                $max = Menu::count('id'); // returns 0 if no records exist.
+                return $max + 1;
+            },
+            'order' => function () {
+                $maxOrder = Menu::where('root', '=', '5')->count('order'); // returns 0 if no records exist.
+                return $maxOrder + 1;
+            },
+            'title' => 'Schedule List',
+            'link' => 'setup/schedule',
+            'icon' => 'people',
+            'description' => "Creating new schedule"
+        ]);
+
+        Menu::factory()->create([
+            'root' => '5',
+            'menu_id' => function () {
+                $max = Menu::count('id'); // returns 0 if no records exist.
+                return $max + 1;
+            },
+            'order' => function () {
+                $maxOrder = Menu::where('root', '=', '5')->count('order'); // returns 0 if no records exist.
+                return $maxOrder + 1;
+            },
+            'title' => 'Batch Scheduling',
+            'link' => 'setup/batchscheduling',
+            'icon' => 'people',
+            'description' => "Creating new schedule in batch"
         ]);
 
     }

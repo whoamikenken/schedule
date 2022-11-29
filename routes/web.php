@@ -15,6 +15,7 @@ use App\Http\Controllers\CoursesController;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\UsertypeController;
 use App\Http\Controllers\ApplicantController;
+use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectController;
@@ -59,6 +60,12 @@ Route::post('/section/table', [SectionController::class, 'getTable'])->withoutMi
 Route::post('/section/getModal', [SectionController::class, 'getModal'])->withoutMiddleware([VerifyCsrfToken::class]);
 Route::post('/section/add', [SectionController::class, 'store']);
 Route::post('/section/delete', [SectionController::class, 'delete']);
+
+// Schedule
+Route::post('/schedule/table', [ScheduleController::class, 'getTable'])->withoutMiddleware([VerifyCsrfToken::class]);
+Route::post('/schedule/getModal', [ScheduleController::class, 'getModal'])->withoutMiddleware([VerifyCsrfToken::class]);
+Route::post('/schedule/add', [ScheduleController::class, 'store']);
+Route::post('/schedule/delete', [ScheduleController::class, 'delete']);
 
 // Subject
 Route::post('/subject/table', [SubjectController::class, 'getTable'])->withoutMiddleware([VerifyCsrfToken::class]);
@@ -130,6 +137,9 @@ Route::post('/student/profile', [StudentController::class, 'profile'])->withoutM
 Route::get('/applicant/testEmail', [ApplicantController::class, 'testEmail'])->withoutMiddleware([VerifyCsrfToken::class]);
 
 Route::get('/subject/syncDataSubject', [SubjectController::class, 'syncSubjectData'])->withoutMiddleware([VerifyCsrfToken::class]);
+
+Route::post('/getDropdown/dropdown', [HomeController::class, 'getDropdownData'])->withoutMiddleware([VerifyCsrfToken::class]);
+
 
 Route::get('/credits', function(){
     echo "Created by kennedy hipolito<br>";

@@ -35,16 +35,12 @@ class DatabaseSeeder extends Seeder
             'status' => 'verified',
             'email_verified_at' => now(),
             'password' => bcrypt('a'), // password
-            'read' => "1,2,3,4,5,6,12,13,14,7,8,9,10,11,12,13,14,15,16,801,802,803,804,15,999",
-            'add' => "1,2,3,4,6,12,13,7,8,9,10,11,12,13,14,15,16",
-            'delete' => "1,2,3,4,6,12,13,7,8,9,10,11,12,13,14,15,16",
-            'edit' => "1,2,3,4,6,12,7,8,9,10,11,801,802,803,804,12,13,14,15,16",
+            'read' => "1,2,3,4,7,8,9,10,11,14,15,16,12,13",
+            'add' => "1,2,3,4,7,8,9,10,11,14,15,16,12",
+            'delete' => "1,2,3,4,7,8,9,10,11,14,15,16,12",
+            'edit' => "1,2,3,4,7,8,9,10,11,14,15,16,12,13",
             'remember_token' => Str::random(10)
         ]);
-
-        User::factory(100)->create();
-        Applicant::factory(2000)->create();
-        Student::factory(2000)->create();
 
         $this->call([
             MenuSeeder::class,
@@ -54,5 +50,9 @@ class DatabaseSeeder extends Seeder
             SectionSeeder::class,
             UsertypeSeeder::class
         ]);
+
+        User::factory(100)->create();
+        Applicant::factory(2000)->create();
+        Student::factory(2000)->create();
     }
 }
