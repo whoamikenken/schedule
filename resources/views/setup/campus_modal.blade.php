@@ -11,7 +11,7 @@
                 Looks good!
             </div>
             <div class="invalid-feedback">
-                Please input a Code.
+                Please input a test.
             </div>
         </div>
     </div>
