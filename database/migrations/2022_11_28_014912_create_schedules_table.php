@@ -48,25 +48,6 @@ return new class extends Migration
             $table->string('created_by', 50)->nullable();
         });
 
-        Schema::create('schedules_detail', function (Blueprint $table) {
-            $table->id();
-            $table->string('schedid', 20)->nullable();
-            $table->time('starttime', $precision = 0);
-            $table->time('endtime', $precision = 0);
-            $table->string('dayofweek', 20)->nullable();
-            $table->integer('idx')->nullable();
-            $table->double('hours', 8, 2)->nullable();
-            $table->string('subject', 40)->nullable();
-            $table->string('section', 40)->nullable();
-            $table->string('yearlevels', 40)->nullable();
-            $table->string('coursecode', 40)->nullable();
-            $table->string('units', 40)->nullable();
-            $table->string('professor', 40)->nullable();
-            $table->timestamp('updated_at')->nullable()->useCurrent();
-            $table->string('modified_by', 50)->nullable();
-            $table->timestamp('created_at')->nullable()->useCurrent();
-            $table->string('created_by', 50)->nullable();
-        });
     }
 
     /**

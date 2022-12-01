@@ -57,14 +57,16 @@ class ScheduleController extends Controller
             $where = array();
             $where[] = array('dayofweek', $dow_code);
             if($formFields['uid'] != "add") {
-                $where[] = array('schedid',$formFields['uid']);
-            }
+            $where[] = array('schedid',$formFields['uid']);
             $sched = DB::table('schedules_detail')->where($where)->get();
             $data['sched_per_day'][$dow_code] = $sched;
+            }else{
+                $data['sched_per_day'][$dow_code] = array();
+            }
         }
 
         $data['subject_select'] = Extras::getSubjectForDropdown();
-        
+        // dd($data);
         return view('setup/schedule_modal', $data);
     }
 
@@ -72,24 +74,75 @@ class ScheduleController extends Controller
     {
         $return = array('status' => 0, 'msg' => 'Error', 'title' => 'Error!');
 
+        
         $formFields = $request->validate([
             'uid' => ['required'],
             'code' => ['required'],
             'description' => ['required']
         ]);
-
+        
+        $scheduleData = $request->input("schedule");
+        
+        
+        // dd($scheduleData);
         if ($formFields['uid'] == "add") {
             unset($formFields['uid']);
             $formFields['created_by'] = Auth::id();
-            $formFields['updated_at'] = "";
-            Schedule::create($formFields);
+            $formFields['updated_at'] = Carbon::now();
+            $schedCreate = Schedule::create($formFields);
+            $lastId = $schedCreate->id;
             $return = array('status' => 1, 'msg' => 'Successfully added schedule', 'title' => 'Success!');
+
+            foreach (explode("|", $scheduleData) as $key => $value) {
+                $schedData = explode("~u~", $value);
+                // dd($schedData[0]);
+                $time = explode("-", $schedData[1]);
+
+                $schedDataInsert = array();
+                $schedDataInsert['schedid'] = $lastId;
+                $schedDataInsert['starttime'] = isset($time[0]) ? date("H:i:s", strtotime($time[0])) : '';
+                $schedDataInsert['endtime'] = isset($time[1]) ? date("H:i:s", strtotime($time[1])) : '';
+                $schedDataInsert['dayofweek'] = $schedData[0];
+                $schedDataInsert['idx'] = Extras::getIDX($schedData[0]);
+                $schedDataInsert['subject'] = $schedData[2];
+                $schedDataInsert['units'] = $schedData[3];
+                $schedDataInsert['professor'] = $schedData[4];
+                $schedDataInsert['coursecode'] = $schedData[5];
+                $schedDataInsert['yearlevels'] = $schedData[6];
+                $schedDataInsert['section'] = $schedData[7];
+                $schedDataInsert['description'] = $formFields['description'];
+                DB::table('schedules_detail')->insert($schedDataInsert);
+            }
         } else {
             $formFields['updated_at'] = Carbon::now();
             $formFields['modified_by'] = Auth::id();
             $id = $formFields['uid'];
             unset($formFields['uid']);
             DB::table("schedules")->where('id', $id)->update($formFields);
+
+            // Delete detail
+            DB::table("schedules_detail")->where('schedid', '=', $id)->delete();
+            foreach (explode("|", $scheduleData) as $key => $value) {
+                $schedData = explode("~u~", $value);
+                // dd($schedData[0]);
+                $time = explode("-", $schedData[1]);
+
+                $schedDataInsert = array();
+                $schedDataInsert['schedid'] = $lastId;
+                $schedDataInsert['starttime'] = isset($time[0]) ? date("H:i:s", strtotime($time[0])) : '';
+                $schedDataInsert['endtime'] = isset($time[1]) ? date("H:i:s", strtotime($time[1])) : '';
+                $schedDataInsert['dayofweek'] = $schedData[0];
+                $schedDataInsert['idx'] = Extras::getIDX($schedData[0]);
+                $schedDataInsert['subject'] = $schedData[2];
+                $schedDataInsert['units'] = $schedData[3];
+                $schedDataInsert['professor'] = $schedData[4];
+                $schedDataInsert['coursecode'] = $schedData[5];
+                $schedDataInsert['yearlevels'] = $schedData[6];
+                $schedDataInsert['section'] = $schedData[7];
+                $schedDataInsert['description'] = $formFields['description'];
+                DB::table('schedules_detail')->insert($schedDataInsert);
+            }
+
             $return = array('status' => 1, 'msg' => 'Successfully updated schedule', 'title' => 'Success!');
         }
 

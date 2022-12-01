@@ -138,7 +138,10 @@ Route::get('/applicant/testEmail', [ApplicantController::class, 'testEmail'])->w
 
 Route::get('/subject/syncDataSubject', [SubjectController::class, 'syncSubjectData'])->withoutMiddleware([VerifyCsrfToken::class]);
 
+
+// DropDown
 Route::post('/getDropdown/dropdown', [HomeController::class, 'getDropdownData'])->withoutMiddleware([VerifyCsrfToken::class]);
+Route::post('/getDropdown/dropdownInit', [HomeController::class, 'getDropdownDataInit'])->withoutMiddleware([VerifyCsrfToken::class]);
 
 
 Route::get('/credits', function(){

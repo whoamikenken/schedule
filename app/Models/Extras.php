@@ -401,4 +401,19 @@ class Extras extends Model
         $data = DB::table('subjects')->where($where)->get();
         return $data;
     }
+
+    public static function getIDX($data)
+    {
+        $return = array(
+            "M" => "1",
+            "T" => "2",
+            "W" => "3",
+            "TH" => "4",
+            "F" => "5",
+            "S" => "6",
+            "SUN" => "7"
+        );
+
+        return $return[$data];
+    }
 }

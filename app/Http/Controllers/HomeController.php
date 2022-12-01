@@ -84,9 +84,98 @@ class HomeController extends Controller
                 unset($options["incomplete_results"]);
                 unset($options["total_count"]);
             }
+        }elseif ($data['dataSearch'] == "prof") {
+            if (!isset($data['search'])) $data['search'] = "";
+            $where[] = array("name", "LIKE", "%" . $data['search'] . "%");
+            $where[] = array("user_type", "=", "Professor");
+            $record = DB::table('users')->where($where)->limit($limit)->get();
+            if (isset($mode) && $mode == "single") {
+                $options["items"][] = array('id' => "", 'name' => "Select Option");
+            } else {
+                $options["items"][] = array('id' => "all", 'name' => "All");
+            }
+            foreach ($record as $key => $value) {
+                $options["items"][] = array('id' => $value->id, 'name' => $value->name);
+                unset($options["incomplete_results"]);
+                unset($options["total_count"]);
+            }
+        } elseif ($data['dataSearch'] == "course") {
+            if (!isset($data['search'])) $data['search'] = "";
+            $where[] = array("description", "LIKE", "%" . $data['search'] . "%");
+            $record = DB::table('courses')->where($where)->limit($limit)->get();
+            if (isset($mode) && $mode == "single") {
+                $options["items"][] = array('id' => "", 'name' => "Select Option");
+            } else {
+                $options["items"][] = array('id' => "all", 'name' => "All");
+            }
+            foreach ($record as $key => $value) {
+                $options["items"][] = array('id' => $value->code, 'name' => $value->description);
+                unset($options["incomplete_results"]);
+                unset($options["total_count"]);
+            }
+        } elseif ($data['dataSearch'] == "yl") {
+            if (!isset($data['search'])) $data['search'] = "";
+            $where[] = array("description", "LIKE", "%" . $data['search'] . "%");
+            $record = DB::table('yearlevels')->where($where)->limit($limit)->get();
+            if (isset($mode) && $mode == "single") {
+                $options["items"][] = array('id' => "", 'name' => "Select Option");
+            } else {
+                $options["items"][] = array('id' => "all", 'name' => "All");
+            }
+            foreach ($record as $key => $value) {
+                $options["items"][] = array('id' => $value->code, 'name' => $value->description);
+                unset($options["incomplete_results"]);
+                unset($options["total_count"]);
+            }
+        } elseif ($data['dataSearch'] == "section") {
+            if (!isset($data['search'])) $data['search'] = "";
+            $where[] = array("description", "LIKE", "%" . $data['search'] . "%");
+            $record = DB::table('sections')->where($where)->limit($limit)->get();
+            if (isset($mode) && $mode == "single") {
+                $options["items"][] = array('id' => "", 'name' => "Select Option");
+            } else {
+                $options["items"][] = array('id' => "all", 'name' => "All");
+            }
+            foreach ($record as $key => $value) {
+                $options["items"][] = array('id' => $value->code, 'name' => $value->description);
+                unset($options["incomplete_results"]);
+                unset($options["total_count"]);
+            }
         }
 
         echo json_encode($options);
+    }
+
+    public function getDropdownDataInit(Request $request)
+    {
+        $data = $request->input();
+        $where = array();
+        $return = array();
+
+        if ($data['desc'] == "subject") {
+            $where[] = array("id", "=", $data['id']);
+            $record = DB::table('subjects')->select(DB::raw('id, course_desc as `desc`, units'))->where($where)->get();
+            $return = array('desc' => $record[0]->desc, 'id' => $record[0]->id);
+        } elseif ($data['desc'] == "prof") {
+            $where[] = array("user_type", "=", "Professor");
+            $where[] = array("id", "=", $data['id']);
+            $record = DB::table('users')->where($where)->get();
+            $return = array('desc' => $record[0]->name, 'id' => $record[0]->id);
+        } elseif ($data['desc'] == "course") {
+            $where[] = array("code", "=", $data['id']);
+            $record = DB::table('courses')->where($where)->get();
+            $return = array('desc' => $record[0]->description, 'id' => $record[0]->code);
+        } elseif ($data['desc'] == "yl") {
+            $where[] = array("code", "=", $data['id']);
+            $record = DB::table('yearlevels')->where($where)->get();
+            $return = array('desc' => $record[0]->description, 'id' => $record[0]->code);
+        } elseif ($data['desc'] == "section") {
+            $where[] = array("code", "=", $data['id']);
+            $record = DB::table('sections')->where($where)->get();
+            $return = array('desc' => $record[0]->description, 'id' => $record[0]->code);
+        }
+
+        echo json_encode($return);
     }
 
     public function departureMontlyBarChart()

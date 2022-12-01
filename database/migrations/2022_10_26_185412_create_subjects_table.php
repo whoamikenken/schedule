@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('catalog_no', 100)->nullable();
             $table->string('course_code', 100)->nullable();
             $table->string('course_desc', 100)->nullable();
-            $table->string('units', 100)->nullable();
+            $table->integer('units')->nullable();
             $table->string('curr', 100)->nullable();
             $table->string('component', 100)->nullable();
             $table->string('pre_code', 100)->nullable();
