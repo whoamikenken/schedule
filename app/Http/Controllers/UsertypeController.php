@@ -63,7 +63,6 @@ class UsertypeController extends Controller
             $getSubmenus = Extras::getSubMenus($value->menu_id);
             if ($value->menu_id == 4) {
                 $access["Applicant Management"][] = array('root_id' => 888, "menu_id" => 801, "title" => "Profile");
-                $access["Applicant Management"][] = array('root_id' => 888, "menu_id" => 802, "title" => "Schedule");
             }
 
             if ($value->menu_id == 2) {

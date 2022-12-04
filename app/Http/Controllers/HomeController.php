@@ -155,7 +155,7 @@ class HomeController extends Controller
         if ($data['desc'] == "subject") {
             $where[] = array("id", "=", $data['id']);
             $record = DB::table('subjects')->select(DB::raw('id, course_desc as `desc`, units'))->where($where)->get();
-            $return = array('desc' => $record[0]->desc, 'id' => $record[0]->id);
+            $return = array('desc' => $record[0]->desc, 'id' => $record[0]->id, 'units' => $record[0]->units);
         } elseif ($data['desc'] == "prof") {
             $where[] = array("user_type", "=", "Professor");
             $where[] = array("id", "=", $data['id']);

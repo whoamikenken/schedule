@@ -98,7 +98,7 @@
                     </div>
                 </td>
                 <td>
-                    <input type="number" class="form-control units" name="units" min="0" max="5" value="{{ $schedData->units}}">
+                    <input type="number" class="form-control units" name="units" value="{{ $schedData->units}}">
                 </td>
                 <td>
                     <div class="input-group">
@@ -473,7 +473,12 @@
             }).then(function (data) {
                 console.log(data);
                 var option = new Option(data.desc, data.id, true, true);
-                element.append(option).trigger('change');
+                element.append(option);
+                if(typeof data.units !== 'undefined'){
+                    element.parent().parent().parent().find(".units").val(units);
+                }
+                element.trigger('change');
+                
             });
         }
     }

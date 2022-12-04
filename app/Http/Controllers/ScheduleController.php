@@ -128,7 +128,7 @@ class ScheduleController extends Controller
                 $time = explode("-", $schedData[1]);
 
                 $schedDataInsert = array();
-                $schedDataInsert['schedid'] = $lastId;
+                $schedDataInsert['schedid'] = $id;
                 $schedDataInsert['starttime'] = isset($time[0]) ? date("H:i:s", strtotime($time[0])) : '';
                 $schedDataInsert['endtime'] = isset($time[1]) ? date("H:i:s", strtotime($time[1])) : '';
                 $schedDataInsert['dayofweek'] = $schedData[0];
