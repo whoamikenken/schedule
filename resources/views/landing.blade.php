@@ -91,6 +91,15 @@
             margin: 0;
         }
         
+        span.field-icon {
+            float: right;
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            cursor: pointer;
+            z-index: 2;
+        }
+        
     </style>
     
     <script type="text/javascript">
@@ -285,11 +294,11 @@
                                 </div>
                                 <div class="input-field col s12 l6">
                                     <select class="validate" name="gender">
-                                        <option value="" disabled selected>Choose gender</option>
+                                        <option value="" selected>Choose gender</option>
                                         <option value="Male">Male</option>
                                         <option value="Female">Female</option>
                                     </select>
-                                    <!-- <label>Materialize Select</label> -->
+                                    <label>Gender</label>
                                 </div>
                             </div>
                             <div class="row">
@@ -298,7 +307,7 @@
                                     <label for="email">Email</label>
                                 </div>
                                 <div class="input-field col s12 l6">
-                                    <input id="mobile_number" type="text" class="validate" name="contact">
+                                    <input id="mobile_number" type="text" class="validate" name="contact" placeholder="+64 9___-___-____" data-slots="_">
                                     <label for="mobile_number">Contact #</label>
                                 </div>
                             </div>
@@ -308,8 +317,9 @@
                                     <label for="age">Age</label>
                                 </div>
                                 <div class="input-field col s12 l6">
-                                    <input id="passwordReg" type="password" class="validate" name="password">
+                                    <input id="passwordReg" type="password" class="validate" name="password" max='16'>
                                     <label for="passwordReg">Password</label>
+                                    <span toggle="#passwordReg" class="field-icon toggle-password"><span class="material-icons">visibility</span></span>
                                 </div>
                             </div>
                             <div class="row">
@@ -380,7 +390,7 @@
         
     </div>
     <!-- END MAIN -->
-
+    
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.0/b-2.0.0/b-html5-2.0.0/b-print-2.0.0/r-2.2.9/datatables.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
@@ -401,25 +411,37 @@
             });
         });
         
+        document.addEventListener('DOMContentLoaded', () => {
+            for (const el of document.querySelectorAll("[placeholder][data-slots]")) {
+                const pattern = el.getAttribute("placeholder"),
+                slots = new Set(el.dataset.slots || "_"),
+                prev = (j => Array.from(pattern, (c,i) => slots.has(c)? j=i+1: j))(0),
+                first = [...pattern].findIndex(c => slots.has(c)),
+                accept = new RegExp(el.dataset.accept || "\\d", "g"),
+                clean = input => {
+                    input = input.match(accept) || [];
+                    return Array.from(pattern, c =>
+                    input[0] === c || slots.has(c) ? input.shift() || c : c
+                    );
+                },
+                format = () => {
+                    const [i, j] = [el.selectionStart, el.selectionEnd].map(i => {
+                        i = clean(el.value.slice(0, i)).findIndex(c => slots.has(c));
+                        return i<0? prev[prev.length-1]: back? prev[i-1] || first: i;
+                    });
+                    el.value = clean(el.value).join``;
+                    el.setSelectionRange(i, j);
+                    back = false;
+                };
+                let back = false;
+                el.addEventListener("keydown", (e) => back = e.key === "Backspace");
+                el.addEventListener("input", format);
+                el.addEventListener("focus", format);
+                el.addEventListener("blur", () => el.value === pattern && (el.value=""));
+            }
+        });
+        
         function validatorMaterializeInput(form){
-            
-            $(form).find('select.validate').each(function(idx){
-                
-                if($(this).val().length == 0){
-                    Swal.fire({
-                        icon: 'warning',
-                        title: 'Warning',
-                        text: 'Please input '+$(this).parent().find('label').text()+'.',
-                        timer: 5000
-                    })
-                    $(this).focus();
-                    $(this).addClass("invalid");
-                    throw new Error("Something went badly wrong!");
-                }else{
-                    $(this).parent().find('input').removeClass("invalid");
-                    $(this).parent().find('input').addClass("valid");
-                }
-            });
             
             $(form).find('input.validate:text').each(function(idx){
                 if($(this).val().length == 0){
@@ -433,6 +455,51 @@
                     throw new Error("Something went badly wrong!");
                 }else{
                     $(this).removeClass("invalid").addClass("valid");
+                }
+            });
+            
+            $(form).find('input.validate:email').each(function(idx){
+                if ($(this).val().length == 0) {
+                    $(this).addClass("is-invalid");
+                    throw new Error("Something went badly wrong!");
+                } else {
+                    if($(this).attr("type") == "email"){
+                        var emailpattern=/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+                        if(emailpattern.test($(this).val()))
+                        {
+                            $(this).removeClass("invalid").addClass("valid");
+                            throw new Error("Something went badly wrong!");
+                        }
+                        else
+                        {
+                            $(this).addClass("invalid");
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'Warning',
+                                text: 'Please input '+$(this).parent().find('label').text()+'.',
+                                timer: 1000
+                            })
+                            throw new Error("Something went badly wrong!");
+                        }
+                    }
+                }
+            });
+            
+            $(form).find('select.validate').each(function(idx){
+                
+                if($(this).val().length == 0){
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Warning',
+                        text: 'Please input '+$(this).parent().parent().find('label').text()+'.',
+                        timer: 5000
+                    })
+                    $(this).focus();
+                    $(this).parent().find("input").addClass("invalid");
+                    throw new Error("Something went badly wrong!");
+                }else{
+                    $(this).parent().find('input').removeClass("invalid");
+                    $(this).parent().find('input').addClass("valid");
                 }
             });
             
@@ -514,8 +581,30 @@
                 }
             });
         });
-    </script>
-    
-</body>
-
-</html>
+        
+        var clicked = 0;
+        
+        $(".toggle-password").click(function (e) {
+            e.preventDefault();
+            
+            $(this).toggleClass("toggle-password");
+            if (clicked == 0) {
+                $(this).html('<span class="material-icons">visibility_off</span >');
+                    clicked = 1;
+                } else {
+                    $(this).html('<span class="material-icons">visibility</span >');
+                        clicked = 0;
+                    }
+                    
+                    var input = $($(this).attr("toggle"));
+                    if (input.attr("type") == "password") {
+                        input.attr("type", "text");
+                    } else {
+                        input.attr("type", "password");
+                    }
+                });
+            </script>
+            
+        </body>
+        
+        </html>

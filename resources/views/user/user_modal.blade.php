@@ -21,7 +21,7 @@
         <label>Email<span class="text-danger">*</span></label>
         <div class="input-group">
             <div class="input-group-text"><i class="bi bi-person-fill"></i></div>
-            <input type="text" id="email" name="email"
+            <input type="email" id="email" name="email"
             class="form-control validate" placeholder="Enter Email" required value="{{ (isset($email))? $email:"" }}">
             <div class="valid-feedback">
                 Looks good!
@@ -119,7 +119,7 @@
         <div class="input-group">
             <div class="input-group-text"><i class="bi bi-lock-fill"></i></div>
             <input type="password" id="password" name="password"
-            class="form-control" placeholder="Update password?" value="">
+            class="form-control" placeholder="Update password?" value="" max="16">
             <div class="valid-feedback">
                 Looks good!
             </div>

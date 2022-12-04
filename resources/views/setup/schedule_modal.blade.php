@@ -778,7 +778,7 @@
         
         var yl_drop       = $('<div class="input-group"><div class="input-group-text"><i class="bi bi-option"></i></div><select class="yearlevel-select yearlevel" name="yearlevels" placeholder="Select Options"><option value="">Select Year Level</option> </select> <div class="valid-feedback">Looks good! </div> <div class="invalid-feedback">Please input. </div></div>');
         
-        var seciont_drop       = $('<div class="input-group"><div class="input-group-text"><i class="bi bi-option"></i></div><select class="section-select section" name="section" placeholder="Select Options"><option value="">Select Section</option> </select> <div class="valid-feedback">Looks good! </div> <div class="invalid-feedback">Please input. </div></div>');
+        var section_drop       = $('<div class="input-group"><div class="input-group-text"><i class="bi bi-option"></i></div><select class="section-select section" name="section" placeholder="Select Options"><option value="">Select Section</option> </select> <div class="valid-feedback">Looks good! </div> <div class="invalid-feedback">Please input. </div></div>');
         
         
         $(obj).find("td:first").find("div:first").html("");
@@ -804,7 +804,7 @@
         $(obj).find("td:eq(8)").find("div:first").append($(yl_drop));
         
         $(obj).find("td:eq(9)").find("div:first").html(""); 
-        $(obj).find("td:eq(9)").find("div:first").append($(seciont_drop));
+        $(obj).find("td:eq(9)").find("div:first").append($(section_drop));
         
         $(obj).find("input[name='fromtime'],input[name='totime']").tempusDominus({
             display: {
@@ -990,7 +990,7 @@
         $(obj).find('.subject-select').change(function() {
             var units = $(this).select2('data')[0].units;
             $(this).parent().parent().parent().parent().find(".units").val(units);
-        });
+        })
         
         $(obj).insertAfter($(this).parent().parent().parent());   
         $(obj).find("input[name='fromtime']").focus();

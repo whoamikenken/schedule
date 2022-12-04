@@ -1,7 +1,7 @@
 <div class="row animate__animated animate__fadeInUp" id="pagination_data">
     @unless (count($result) == 0)
         @foreach ($result as $item)
-            <div class="col-sm-12 col-md-6 col-lg-4">
+            <div class="col-sm-12 col-md-6 col-lg-3">
                 <div class="card mb-3 shadow-sm" >
                     <div class="row g-0">
                         <div class="col-4">

@@ -415,12 +415,12 @@ $mainmenu = 1;
     function bootstrapForm(form) {
         
         $(form).find('select.validate').each(function(idx) {
-            $(this).parent().find('input').addClass("is-invalid");
+            $(this).parent().find('select').addClass("is-invalid");
             if ($(this).val().length == 0) {
                 throw new Error("Something went badly wrong!");
             } else {
-                $(this).parent().find('input').removeClass("is-invalid");
-                $(this).parent().find('input').addClass("is-valid");
+                $(this).parent().find('select').removeClass("is-invalid");
+                $(this).parent().find('select').addClass("is-valid");
             }
         });
         
@@ -429,7 +429,20 @@ $mainmenu = 1;
                 $(this).addClass("is-invalid");
                 throw new Error("Something went badly wrong!");
             } else {
-                $(this).removeClass("is-invalid").addClass("is-valid");
+                if($(this).attr("type") == "email"){
+                    var emailpattern=/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+                    if(emailpattern.test($(this).val()))
+                    {
+                        $(this).removeClass("is-invalid").addClass("is-valid");
+                    }
+                    else
+                    {
+                        $(this).addClass("is-invalid");
+                        // console.log( $(this).next(".invalid-feedback"));
+                        $(this).parent().find(".invalid-feedback").text("Please input a valid email");
+                        throw new Error("Something went badly wrong!");
+                    }
+                }
             }
         });
         
@@ -509,6 +522,28 @@ $mainmenu = 1;
         
         return formdata;
     }
+
+    var clickedPasswordToggler = 0;
+    // Password toogler
+    $(".toggle-password").click(function (e) {
+        e.preventDefault();
+
+        $(this).toggleClass("toggle-password");
+        if (clickedPasswordToggler == 0) {
+            $(this).html('<i class="bi bi-eye-fill"></i>');
+            clickedPasswordToggler = 1;
+        } else {
+            $(this).html('<i class="bi bi-eye-slash-fill"></i>');
+            clickedPasswordToggler = 0;
+        }
+
+        var input = $($(this).attr("toggle"));
+        if (input.attr("type") == "password") {
+        input.attr("type", "text");
+        } else {
+        input.attr("type", "password");
+        }
+    });
     
     // ANIMATOR
     $.fn.isOnScreen = function () {

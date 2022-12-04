@@ -49,7 +49,8 @@
                                         <div class="input-group">
                                             <div class="input-group-text"><i class="bi bi-lock-fill"></i></div>
                                             <input type="password" id="password" name="password"
-                                            class="form-control validate" placeholder="Enter Password" required>
+                                            class="form-control validate" placeholder="Enter Password" required max='16'>
+                                            <div toggle="#password" class="input-group-text toggle-password"><i class="bi bi-eye-fill"></i></div>
                                             <div class="valid-feedback">
                                                 Looks good!
                                             </div>
@@ -194,6 +195,7 @@ aria-labelledby="registerLabel" aria-hidden="true">
                                 <div class="invalid-feedback">
                                     Please input retype password.
                                 </div>
+                                
                             </div>
                         </div>
                         
@@ -323,12 +325,12 @@ aria-labelledby="registerLabel" aria-hidden="true">
     function bootstrapForm(form) {
         
         $(form).find('select.validate').each(function(idx) {
-            $(this).parent().find('input').addClass("is-invalid");
+            $(this).parent().find('select').addClass("is-invalid");
             if ($(this).val().length == 0) {
                 throw new Error("Something went badly wrong!");
             } else {
-                $(this).parent().find('input').removeClass("is-invalid");
-                $(this).parent().find('input').addClass("is-valid");
+                $(this).parent().find('select').removeClass("is-invalid");
+                $(this).parent().find('select').addClass("is-valid");
             }
         });
         
@@ -337,7 +339,20 @@ aria-labelledby="registerLabel" aria-hidden="true">
                 $(this).addClass("is-invalid");
                 throw new Error("Something went badly wrong!");
             } else {
-                $(this).removeClass("is-invalid").addClass("is-valid");
+                if($(this).attr("type") == "email"){
+                    var emailpattern=/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+                    if(emailpattern.test($(this).val()))
+                    {
+                        $(this).removeClass("is-invalid").addClass("is-valid");
+                    }
+                    else
+                    {
+                        $(this).addClass("is-invalid");
+                        // console.log( $(this).next(".invalid-feedback"));
+                        $(this).parent().find(".invalid-feedback").text("Please input a valid email");
+                        throw new Error("Something went badly wrong!");
+                    }
+                }
             }
         });
         
@@ -352,6 +367,27 @@ aria-labelledby="registerLabel" aria-hidden="true">
         });
         return true;
     }
+
+    var clickedPasswordToggler = 0;
+    $(".toggle-password").click(function (e) {
+        e.preventDefault();
+
+        $(this).toggleClass("toggle-password");
+        if (clickedPasswordToggler == 0) {
+            $(this).html('<i class="bi bi-eye-fill"></i>');
+            clickedPasswordToggler = 1;
+        } else {
+            $(this).html('<i class="bi bi-eye-slash-fill"></i>');
+            clickedPasswordToggler = 0;
+        }
+
+        var input = $($(this).attr("toggle"));
+        if (input.attr("type") == "password") {
+        input.attr("type", "text");
+        } else {
+        input.attr("type", "password");
+        }
+    });
 </script>
 
 @endsection

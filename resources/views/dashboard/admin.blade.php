@@ -225,9 +225,9 @@ let delayed;
                         datasets: [{
                         label: "User Registered",
                         backgroundColor: [
-                        'rgb(0, 255, 25)',
-                        'rgb(0, 85, 255)',
-                        'rgb(0, 153, 255)'
+                        'rgb(230, 0, 230)',
+                        'rgb(0,255,255)',
+                        'rgb(80, 125, 42)'
                         ],
                         data: JSON.parse(response.data),
                         }],
@@ -372,15 +372,15 @@ let delayed;
                         datasets: [
                             {
                             label: "Applicant",
-                            backgroundColor: "rgb(0, 255, 25)",
-                            borderColor: "rgb(214, 252, 0)",
+                            backgroundColor: "rgb(0,255,255)",
+                            borderColor: "rgb(0, 0, 0)",
                             data: JSON.parse(response.applicant.data),
                             borderRadius: 5,
                             borderWidth: 2,
                             },
                             {
                             label: "Student",
-                            backgroundColor: "rgba(2,117,216,1)",
+                            backgroundColor: "rgba(230, 0, 230)",
                             borderColor: "rgb(0, 0, 0)",
                             data: JSON.parse(response.student.data),
                             borderRadius: 5,
@@ -442,7 +442,6 @@ let delayed;
                         labels: JSON.parse(response.month),
                         datasets: 
                                 response.dataset
-                        
                         ,
                     },
                     options: {

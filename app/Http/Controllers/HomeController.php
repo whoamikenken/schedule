@@ -264,7 +264,7 @@ class HomeController extends Controller
         $return['month'] = $month;
         $percentageAdded = (30 / 100) * $highest;
         $return['high'] = $highest + $percentageAdded;
-        // echo '<pre>'; print_r(;die;
+        
         echo json_encode($return);
     }
 
