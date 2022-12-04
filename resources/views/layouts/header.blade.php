@@ -72,15 +72,15 @@
     {{-- DATE PICKER --}}
     <script src="https://cdn.jsdelivr.net/gh/Eonasdan/tempus-dominus@master/dist/js/tempus-dominus.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/gh/Eonasdan/tempus-dominus@master/dist/js/jQuery-provider.js"></script>
-
+    
     <script src="https://cdn.jsdelivr.net/npm/watermarkjs@2.1.1/dist/watermark.min.js"></script>
     
     <link href="https://vjs.zencdn.net/7.20.2/video-js.css" rel="stylesheet" />
     <link href="https://unpkg.com/@videojs/themes@1/dist/sea/index.css" rel="stylesheet">
-
+    
     <!-- Font awesome is not required provided you change the icon options -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/solid.min.js"></script>
-
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/fontawesome.min.js"></script>
     <!-- end FA -->
     
@@ -237,9 +237,9 @@ $mainmenu = 1;
                             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                                 @foreach ($menus as $title => $items)
                                 @if (isset($items->menu_id))
-                                    @if (in_array($items->menu_id, $readAccess))
-                                        <li class="nav-item d-block d-sm-none"><a class="link-light rounded menuMobile text-decoration-none m-1 p-1 fs-5 {{($menuSelected == $items->menu_id) ? "active":"" }}" menu="{{$items->link}}" nav="{{$mainmenu}}" menu_id="{{$items->menu_id}}" href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="{{$items->description}}"><i class="bi bi-{{$items->icon}}"></i>&nbsp;&nbsp;{{$items->title}}</a></li>
-                                    @endif
+                                @if (in_array($items->menu_id, $readAccess))
+                                <li class="nav-item d-block d-sm-none"><a class="link-light rounded menuMobile text-decoration-none m-1 p-1 fs-5 {{($menuSelected == $items->menu_id) ? "active":"" }}" menu="{{$items->link}}" nav="{{$mainmenu}}" menu_id="{{$items->menu_id}}" href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="{{$items->description}}"><i class="bi bi-{{$items->icon}}"></i>&nbsp;&nbsp;{{$items->title}}</a></li>
+                                @endif
                                 @else
                                 <li class="mb-1 nav-item d-block d-sm-none">
                                     <button class="btn btn-toggle align-items-center rounded {{(isset($navSelected) && $navSelected == $mainmenu)? "":"collapsed" }}" data-bs-toggle="collapse" data-bs-target="#account-collapse{{$mainmenu}}" aria-expanded="{{(isset($navSelected) && $navSelected == $mainmenu)? "true":"false" }}">
@@ -249,7 +249,7 @@ $mainmenu = 1;
                                         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                                             @foreach ($items as $val)
                                             @if (in_array($val->menu_id, $readAccess))
-                                                <li><a class="link-light rounded menuMobile m-1 p-1 fs-5 {{($menuSelected == $val->menu_id) ? "active":"" }}" menu="{{$val->link}}" nav="{{$mainmenu}}" menu_id="{{$val->menu_id}}" href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="{{$val->description}}"><i class="bi bi-{{$val->icon}}"></i>&nbsp;&nbsp;{{$val->title}}</a></li>
+                                            <li><a class="link-light rounded menuMobile m-1 p-1 fs-5 {{($menuSelected == $val->menu_id) ? "active":"" }}" menu="{{$val->link}}" nav="{{$mainmenu}}" menu_id="{{$val->menu_id}}" href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="{{$val->description}}"><i class="bi bi-{{$val->icon}}"></i>&nbsp;&nbsp;{{$val->title}}</a></li>
                                             @endif
                                             @endforeach
                                         </ul>
@@ -295,9 +295,9 @@ $mainmenu = 1;
                     <ul class="list-unstyled ps-0">
                         @foreach ($menus as $title => $item)
                         @if (isset($item->menu_id))
-                            @if (in_array($item->menu_id, $readAccess))
-                                <li class="m-1 mt-1 mb-1"><a class="link-light rounded menuLink text-decoration-none p-1 fs-5 {{($menuSelected == $item->menu_id) ? "active":"" }}" menu="{{$item->link}}" nav="{{$mainmenu}}" menu_id="{{$item->menu_id}}" href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="{{$item->description}}"><i class="bi bi-{{$item->icon}}"></i>&nbsp;&nbsp;{{$item->title}}</a></li>
-                            @endif
+                        @if (in_array($item->menu_id, $readAccess))
+                        <li class="m-1 mt-1 mb-1"><a class="link-light rounded menuLink text-decoration-none p-1 fs-5 {{($menuSelected == $item->menu_id) ? "active":"" }}" menu="{{$item->link}}" nav="{{$mainmenu}}" menu_id="{{$item->menu_id}}" href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="{{$item->description}}"><i class="bi bi-{{$item->icon}}"></i>&nbsp;&nbsp;{{$item->title}}</a></li>
+                        @endif
                         @else
                         <li class="border-top my-3"></li>
                         <li class="mb-1">
@@ -308,7 +308,7 @@ $mainmenu = 1;
                                 <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                                     @foreach ($item as $val)
                                     @if (in_array($val->menu_id, $readAccess))
-                                        <li><a class="link-light rounded menuLink m-1 p-1 fs-5 {{($menuSelected == $val->menu_id) ? "active":"" }}" menu="{{$val->link}}" nav="{{$mainmenu}}" menu_id="{{$val->menu_id}}" href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="{{$val->description}}"><i class="bi bi-{{$val->icon}}"></i>&nbsp;&nbsp;{{$val->title}}</a></li>
+                                    <li><a class="link-light rounded menuLink m-1 p-1 fs-5 {{($menuSelected == $val->menu_id) ? "active":"" }}" menu="{{$val->link}}" nav="{{$mainmenu}}" menu_id="{{$val->menu_id}}" href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="{{$val->description}}"><i class="bi bi-{{$val->icon}}"></i>&nbsp;&nbsp;{{$val->title}}</a></li>
                                     @endif
                                     @endforeach
                                 </ul>
@@ -411,7 +411,53 @@ $mainmenu = 1;
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl)
     })
+
+    MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
+
+    var observer = new MutationObserver(function(mutations, observer) {
+        // fired when a mutation occurs
+        // console.log(mutations, observer);
+        // ...
+
+        // input mask Sample: placeholder="+63 9___-___-____" data-slots="_"
+        for (const el of document.querySelectorAll("[placeholder][data-slots]")) {
+            const pattern = el.getAttribute("placeholder"),
+            slots = new Set(el.dataset.slots || "_"),
+            prev = (j => Array.from(pattern, (c,i) => slots.has(c)? j=i+1: j))(0),
+            first = [...pattern].findIndex(c => slots.has(c)),
+            accept = new RegExp(el.dataset.accept || "\\d", "g"),
+            clean = input => {
+                input = input.match(accept) || [];
+                return Array.from(pattern, c =>
+                input[0] === c || slots.has(c) ? input.shift() || c : c
+                );
+            },
+            format = () => {
+                const [i, j] = [el.selectionStart, el.selectionEnd].map(i => {
+                    i = clean(el.value.slice(0, i)).findIndex(c => slots.has(c));
+                    return i<0? prev[prev.length-1]: back? prev[i-1] || first: i;
+                });
+                el.value = clean(el.value).join``;
+                el.setSelectionRange(i, j);
+                back = false;
+            };
+            let back = false;
+            el.addEventListener("keydown", (e) => back = e.key === "Backspace");
+            el.addEventListener("input", format);
+            el.addEventListener("focus", format);
+            el.addEventListener("blur", () => el.value === pattern && (el.value=""));
+        }
+    });
+
+    // define what element should be observed by the observer
+    // and what types of mutations trigger the callback
+    observer.observe(document, {
+    subtree: true,
+    attributes: true
+    //...
+    });
     
+
     function bootstrapForm(form) {
         
         $(form).find('select.validate').each(function(idx) {
@@ -522,12 +568,12 @@ $mainmenu = 1;
         
         return formdata;
     }
-
+    
     var clickedPasswordToggler = 0;
     // Password toogler
     $(".toggle-password").click(function (e) {
         e.preventDefault();
-
+        
         $(this).toggleClass("toggle-password");
         if (clickedPasswordToggler == 0) {
             $(this).html('<i class="bi bi-eye-fill"></i>');
@@ -536,12 +582,12 @@ $mainmenu = 1;
             $(this).html('<i class="bi bi-eye-slash-fill"></i>');
             clickedPasswordToggler = 0;
         }
-
+        
         var input = $($(this).attr("toggle"));
         if (input.attr("type") == "password") {
-        input.attr("type", "text");
+            input.attr("type", "text");
         } else {
-        input.attr("type", "password");
+            input.attr("type", "password");
         }
     });
     

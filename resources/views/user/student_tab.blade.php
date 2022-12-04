@@ -1,11 +1,11 @@
 <input type="hidden" type="text" id="uid" value="{{$uid}}">
 <ul class="nav nav-pills nav-justified" id="pills-tab" role="tablist">
-    @if (in_array("801",$readAccess))
+    @if (in_array("803",$readAccess))
        <li class="nav-item" role="presentation">
             <button class="nav-link active" link="{{ url('student/profile') }}" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="true">Profile</button>
         </li> 
     @endif
-    @if (in_array("802",$readAccess))
+    @if (in_array("804",$readAccess))
        <li class="nav-item" role="presentation">
             <button class="nav-link" link="{{ url('student/schedule') }}" id="pills-schedule-tab" data-bs-toggle="pill" data-bs-target="#pills-schedule" type="button" role="tab" aria-controls="pills-schedule" aria-selected="true">Schedule</button>
         </li> 
@@ -16,7 +16,7 @@
         
     </div>
 
-    <div class="tab-pane fade show active" id="pills-schedule" role="tabpanel" aria-labelledby="pills-schedule-tab">
+    <div class="tab-pane fade show" id="pills-schedule" role="tabpanel" aria-labelledby="pills-schedule-tab">
         
     </div>
 </div>

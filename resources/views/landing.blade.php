@@ -273,7 +273,7 @@
                         <form class="col s12" id="registerForm">
                             <div class="row">
                                 <div class="input-field col s12">
-                                    <input id="student_no" type="text" class="validate" name="student_no">
+                                    <input id="student_no" type="text" class="validate" name="student_no" onkeyup="this.value=this.value.replace(/[^\d]+/,'')">
                                     <label for="student_no">Student No</label>
                                 </div>
                             </div>
@@ -307,7 +307,7 @@
                                     <label for="email">Email</label>
                                 </div>
                                 <div class="input-field col s12 l6">
-                                    <input id="mobile_number" type="text" class="validate" name="contact" placeholder="+64 9___-___-____" data-slots="_">
+                                    <input id="mobile_number" type="text" class="validate" name="contact" placeholder="+639__-___-____" data-slots="_">
                                     <label for="mobile_number">Contact #</label>
                                 </div>
                             </div>

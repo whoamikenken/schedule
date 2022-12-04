@@ -24,7 +24,7 @@ class StudentFactory extends Factory
             'fname' => $firstName,
             'lname' => fake()->lastName($gender),
             'mname' => fake()->lastName($gender),
-            'contact' => fake()->e164PhoneNumber(),
+            'contact' => "+639".fake()->randomNumber(9,true),
             'campus' => fake()->randomElement(['CAL', 'ALB', 'ANG', 'CDO', 'CUO', 'GES', 'LIP', 'BAC', 'BAG']),
             'adviser' => fake()->randomElement(['5', '6', '7', '8', '9', '10', '11', '12', '13', '14']),
             'year_level' => fake()->randomElement(['3RD', '4TH']),

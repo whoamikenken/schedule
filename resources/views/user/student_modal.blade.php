@@ -6,7 +6,7 @@
         <div class="input-group">
             <div class="input-group-text"><i class="bi bi-person-fill"></i></div>
             <input type="text" id="student_id" name="student_id"
-            class="form-control validate" placeholder="Enter Student ID" required value="">
+            class="form-control validate" placeholder="Enter Student ID" required value="" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
             <div class="valid-feedback">
                 Looks good!
             </div>

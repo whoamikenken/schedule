@@ -131,6 +131,15 @@ class UserController extends Controller
         $access["Main"][] = array('root_id' => 0, "menu_id" => 4, "title" => "Applicant List");
         foreach ($menus as $key => $value) {
             $getSubmenus = Extras::getSubMenus($value->menu_id);
+            if ($value->menu_id == 4) {
+                $access["Applicant Management"][] = array('root_id' => 888, "menu_id" => 801, "title" => "Profile");
+                $access["Applicant Management"][] = array('root_id' => 888, "menu_id" => 802, "title" => "Schedule");
+            }
+
+            if ($value->menu_id == 2) {
+                $access["Student Management"][] = array('root_id' => 888, "menu_id" => 803, "title" => "Profile");
+                $access["Student Management"][] = array('root_id' => 888, "menu_id" => 804, "title" => "Schedule");
+            }
             foreach ($getSubmenus as $row => $val) {
                 $access[$value->title][] = array('root_id' => $value->menu_id, "menu_id" => $val->menu_id, "title" => $val->title);
             }

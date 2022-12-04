@@ -186,7 +186,7 @@ class ApplicantController extends Controller
     {
         $return = array('status' => 0, 'msg' => 'Error', 'title' => 'Error!');
         $formFields = $request->validate([
-            'student_no' => ['required'],
+            'student_no' => ['required', 'unique:student_no'],
             'fname' => ['required'],
             'lname' => ['required'],
             'mname' => ['required'],

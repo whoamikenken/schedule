@@ -162,7 +162,7 @@
                         <div class="input-group">
                             <div class="input-group-text"><i class="bi bi-hash"></i></div>
                             <input type="text" id="contact" name="contact"
-                            class="form-control validate" placeholder="Enter Contact" value="{{ $contact }}">
+                            class="form-control validate" value="{{ $contact }}" placeholder="+639__-___-____" data-slots="_">
                             <div class="valid-feedback">
                                 Looks good!
                             </div>
@@ -245,7 +245,10 @@
 <script>
     $(document).ready(function () {
         
-        $('.datepicker').datepicker({
+        // $('.datepicker').datepicker({
+        //     format: 'yyyy-mm-dd'
+        // });
+        $('.datepicker').tempusDominus({
             format: 'yyyy-mm-dd'
         });
         
@@ -253,7 +256,7 @@
             theme: 'bootstrap-5'
         });
 
-        @if (!in_array("801", $editAccess))
+        @if (!in_array("803", $editAccess))
             $("input").attr('disabled','disabled');
             $("select").attr('disabled','disabled');
         @endif
@@ -265,8 +268,8 @@
     
     
     $("input[type=text], input[type=file], input[type=number], textarea, select").on("change", function(){
-        if ($(this).val()) {
-            @if (!in_array("801", $editAccess))
+        // if ($(this).val()) {
+            @if (!in_array("803", $editAccess))
                 Swal.fire({
                     icon: 'error',
                     title: "You have no edit permission",
@@ -282,7 +285,7 @@
                 saveSingleProfileColumn($(this));
             @endif
             
-        }else return;   
+        // }else return;   
     });
     
 </script>
