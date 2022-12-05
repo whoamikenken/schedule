@@ -24,8 +24,9 @@ class tablecolumn extends Model
         $returnArray = array();
 
         $colDescription = Tablecolumn::getColumnArray();
-
+        
         unset($column[0]);
+       
         foreach ($column as $key => $value) {
             
             $returnArray[] = array(

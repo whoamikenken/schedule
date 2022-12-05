@@ -44,6 +44,7 @@ class TablecolumnController extends Controller
         $table = $table[0]->table;
         
         $column = DB::select('SHOW COLUMNS FROM '. $table);
+        
         $data['column'] = Tablecolumn::processColumnName($column);
 
         return view('config/tablecolumn_modal', $data);
