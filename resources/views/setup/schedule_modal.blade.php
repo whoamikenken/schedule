@@ -463,27 +463,6 @@
         });
     });
     
-    function CustomInitSelect2(element, options) {
-        if (options.url) {
-            $.ajax({
-                type: 'POST',
-                url: options.url,
-                data:{id:options.initialValue, desc:options.table},
-                dataType: 'json'
-            }).then(function (data) {
-                console.log(data);
-                var option = new Option(data.desc, data.id, true, true);
-                element.append(option);
-                if(typeof data.units !== 'undefined'){
-                    element.parent().parent().parent().find(".units").val(units);
-                }
-                element.trigger('change');
-                
-            });
-        }
-    }
-
-
     $('.subject-select').change(function() {
         console.log();
         var units = $(this).select2('data')[0].units;

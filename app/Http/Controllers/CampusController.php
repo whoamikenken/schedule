@@ -59,6 +59,7 @@ class CampusController extends Controller
         $formFields = $request->validate([
             'uid' => ['required'],
             'code' => ['required'],
+            'color' => ['required'],
             'description' => ['required']
         ]);
 

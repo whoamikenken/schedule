@@ -3,13 +3,13 @@
 @section('content')
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Section</h1>
+    <h1 class="h2">Batch Scheduling</h1>
 </div>
 <div class="card shadow animate__animated animate__fadeInRight">
     <div class="card-body">
         <div class="row mb-2">
             <div class="col-sm-5">
-                <a href="javascript:void(0);" class="btn btn-primary mb-2 addbtn"><i class="bi bi-plus-circle"></i> Add Section</a>
+                <a href="javascript:void(0);" class="btn btn-primary mb-2 addbtn"><i class="bi bi-plus-circle"></i> Add Batch Scheduling</a>
             </div>
             <div class="col-sm-7">
                 <div class="text-sm-end">
@@ -18,7 +18,7 @@
         </div>
         
         <div class="table-responsive">
-            <table id="SectionTable" class="table table-hover table-responsive">
+            <table id="BatchschedTable" class="table table-hover table-responsive">
         </table>
         </div>
     </div> <!-- end card-body-->
@@ -31,7 +31,7 @@
     
     $(document).ready(function () {
 
-        SectionList();
+        BatchscheduleList();
 
         var bar = getBase64FromUrl('{{asset("icon/ms-icon-150x150.png")}}');
         
@@ -54,7 +54,7 @@
         });
     }
 
-    function SectionList(){
+    function BatchscheduleList(){
 
         if(tableObj!=null){
             tableObj.destroy();
@@ -63,25 +63,25 @@
 
         $.ajax({
             type: "POST",
-            url: "{{ url('section/table')}}",
+            url: "{{ url('batchschedule/table')}}",
             data: {},
             async: false,
             success:function(response){
-                $("#SectionTable").html(response);
-                tableObj = $("#SectionTable").DataTable({
+                $("#BatchschedTable").html(response);
+                tableObj = $("#BatchschedTable").DataTable({
                     dom: 'Bfrtip',
                     buttons: [
                     {
                         extend: 'pdfHtml5',
                         text:'Export PDF',
-                        title: 'Section List',
+                        title: 'Batch Scheduling List',
                         orientation:'landscape',
                         exportOptions: {
                             columns: [1,2,3]
                         },
                         customize: function ( doc ) {
                             var colCount = new Array();
-                            $("#SectionTable").find('tbody tr:first-child td').each(function(){
+                            $("#BatchschedTable").find('tbody tr:first-child td').each(function(){
                                 if($(this).attr('colspan')){
                                     for(var i=1;i<=$(this).attr('colspan');$i++){
                                         colCount.push('*');
@@ -104,7 +104,7 @@
                     {
                         text:'Export Excel',
                         extend: 'excelHtml5',
-                        title: 'Section List',
+                        title: 'Batch Scheduling List',
                         exportOptions: {
                             columns: [1,2,3]
                         }
@@ -121,35 +121,35 @@
         var uid = "add";
         $.ajax({
             type: "POST",
-            url: "{{ url('section/getModal')}}",
+            url: "{{ url('batchschedule/getModal')}}",
             data: {
                 uid: uid
             },
             success: function(response) {
                 $("#modal-view").modal('toggle');
-                $("#modal-view").find(".modal-title").text("Add Section");
+                $("#modal-view").find(".modal-title").text("Add Batch Schedule");
                 $("#modal-view").find("#modal-display").html(response);
             }
         });
     });
 
-    $("#SectionTable").on("click", ".editbtn", function() {
+    $("#BatchschedTable").on("click", ".editbtn", function() {
         var uid = $(this).attr('id');
         $.ajax({
             type: "POST",
-            url: "{{ url('section/getModal')}}",
+            url: "{{ url('batchschedule/getModal')}}",
             data: {
                 uid: uid
             },
             success: function(response) {
                 $("#modal-view").modal('toggle');
-                $("#modal-view").find(".modal-title").text("Edit Section");
+                $("#modal-view").find(".modal-title").text("Edit Batch Schedule");
                 $("#modal-view").find("#modal-display").html(response);
             }
         });
     });
 
-    $("#SectionTable").on("click", ".delbtn", function() {
+    $("#BatchschedTable").on("click", ".delbtn", function() {
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
                 confirmButton: 'btn btn-success',
@@ -172,7 +172,7 @@
                 var code = $(this).attr('id');
                 $.ajax({
                     type: "POST",
-                    url: "{{ url('section/delete')}}",
+                    url: "{{ url('batchschedule/delete')}}",
                     dataType: 'json',
                     data: {
                         code: code,
@@ -187,7 +187,7 @@
                                 timer: 2500
                             })
 
-                            SectionList();
+                            BatchscheduleList();
                         }else if (response.status == 2) {
                             Swal.fire({
                                 icon: 'info',

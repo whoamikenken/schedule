@@ -151,29 +151,31 @@ class HomeController extends Controller
         $data = $request->input();
         $where = array();
         $return = array();
-
-        if ($data['desc'] == "subject") {
-            $where[] = array("id", "=", $data['id']);
-            $record = DB::table('subjects')->select(DB::raw('id, course_desc as `desc`, units'))->where($where)->get();
-            $return = array('desc' => $record[0]->desc, 'id' => $record[0]->id, 'units' => $record[0]->units);
-        } elseif ($data['desc'] == "prof") {
-            $where[] = array("user_type", "=", "Professor");
-            $where[] = array("id", "=", $data['id']);
-            $record = DB::table('users')->where($where)->get();
-            $return = array('desc' => $record[0]->name, 'id' => $record[0]->id);
-        } elseif ($data['desc'] == "course") {
-            $where[] = array("code", "=", $data['id']);
-            $record = DB::table('courses')->where($where)->get();
-            $return = array('desc' => $record[0]->description, 'id' => $record[0]->code);
-        } elseif ($data['desc'] == "yl") {
-            $where[] = array("code", "=", $data['id']);
-            $record = DB::table('yearlevels')->where($where)->get();
-            $return = array('desc' => $record[0]->description, 'id' => $record[0]->code);
-        } elseif ($data['desc'] == "section") {
-            $where[] = array("code", "=", $data['id']);
-            $record = DB::table('sections')->where($where)->get();
-            $return = array('desc' => $record[0]->description, 'id' => $record[0]->code);
+        if($data['id'] && isset($data['id'])){
+            if ($data['desc'] == "subject") {
+                $where[] = array("id", "=", $data['id']);
+                $record = DB::table('subjects')->select(DB::raw('id, course_desc as `desc`, units'))->where($where)->get();
+                $return = array('desc' => $record[0]->desc, 'id' => $record[0]->id, 'units' => $record[0]->units);
+            } elseif ($data['desc'] == "prof") {
+                $where[] = array("user_type", "=", "Professor");
+                $where[] = array("id", "=", $data['id']);
+                $record = DB::table('users')->where($where)->get();
+                $return = array('desc' => $record[0]->name, 'id' => $record[0]->id);
+            } elseif ($data['desc'] == "course") {
+                $where[] = array("code", "=", $data['id']);
+                $record = DB::table('courses')->where($where)->get();
+                $return = array('desc' => $record[0]->description, 'id' => $record[0]->code);
+            } elseif ($data['desc'] == "yl") {
+                $where[] = array("code", "=", $data['id']);
+                $record = DB::table('yearlevels')->where($where)->get();
+                $return = array('desc' => $record[0]->description, 'id' => $record[0]->code);
+            } elseif ($data['desc'] == "section") {
+                $where[] = array("code", "=", $data['id']);
+                $record = DB::table('sections')->where($where)->get();
+                $return = array('desc' => $record[0]->description, 'id' => $record[0]->code);
+            }
         }
+        
 
         echo json_encode($return);
     }
@@ -383,26 +385,22 @@ class HomeController extends Controller
     {
         $campusResult = DB::table('campuses')->get();
 
-        $data = "[";
-        $label = "[";
+        $highest = 0;
+        $data = array();
         foreach ($campusResult as $key => $value) {
-
-            $val = Extras::getStudentInCampus($value->code);
-            if ($val != 0) {
-                $data = $data . $val . ",";
-            } else {
-                $data = $data . "0,";
-            }
-
-            $label = $label . '"' . $value->description . '",';
+            $count = Extras::getStudentInCampus($value->code);
+            $data['dataset']['label'][] = $value->description;
+            $data['dataset']['backgroundColor'][] = $value->color;
+            $data['dataset']['data'][] = $count;
+            if ($count > $highest) $highest = $count;
         }
 
-        $data = substr($data, 0, -1);
-        $data = $data . "]";
-        $label = substr($label, 0, -1);
-        $label = $label . "]";
-        $return['data'] = $data;
-        $return['label'] = $label;
+        foreach ($data['dataset'] as $key => $value) {
+            $return['dataset'][$key] = $value;
+        }
+
+        $percentageAdded = (30 / 100) * $highest;
+        $return['high'] = $highest + $percentageAdded;
         echo json_encode($return);
     }
 

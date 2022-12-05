@@ -606,5 +606,26 @@ $mainmenu = 1;
         return (!(viewport.right < bounds.left || viewport.left > bounds.right || viewport.bottom < bounds.top || viewport.top > bounds.bottom));
     };
     
+    // Selector2
+    function CustomInitSelect2(element, options) {
+        if (options.url) {
+            $.ajax({
+                type: 'POST',
+                url: options.url,
+                data:{id:options.initialValue, desc:options.table},
+                dataType: 'json'
+            }).then(function (data) {
+                // console.log(data);
+                if(typeof data.units !== 'undefined'){
+                    var option = new Option(data.desc, data.id, true, true);
+                    element.append(option);
+                    if(typeof data.units !== 'undefined'){
+                        element.parent().parent().parent().find(".units").val(units);
+                    }
+                    element.trigger('change');
+                } 
+            });
+        }
+    }
 </script>
 </html>

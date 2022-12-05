@@ -15,6 +15,7 @@ use App\Http\Controllers\CoursesController;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\UsertypeController;
 use App\Http\Controllers\ApplicantController;
+use App\Http\Controllers\BatchScheduleController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\StudentController;
@@ -60,6 +61,12 @@ Route::post('/section/table', [SectionController::class, 'getTable'])->withoutMi
 Route::post('/section/getModal', [SectionController::class, 'getModal'])->withoutMiddleware([VerifyCsrfToken::class]);
 Route::post('/section/add', [SectionController::class, 'store']);
 Route::post('/section/delete', [SectionController::class, 'delete']);
+
+// Batch Schedule
+Route::post('/batchschedule/table', [BatchScheduleController::class, 'getTable'])->withoutMiddleware([VerifyCsrfToken::class]);
+Route::post('/batchschedule/getModal', [BatchScheduleController::class, 'getModal'])->withoutMiddleware([VerifyCsrfToken::class]);
+Route::post('/batchschedule/add', [BatchScheduleController::class, 'store']);
+Route::post('/batchschedule/delete', [BatchScheduleController::class, 'delete']);
 
 // Schedule
 Route::post('/schedule/table', [ScheduleController::class, 'getTable'])->withoutMiddleware([VerifyCsrfToken::class]);
