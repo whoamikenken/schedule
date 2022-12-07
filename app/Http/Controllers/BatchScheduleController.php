@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
+use App\Mail\MailNotify;
 use App\Models\Tablecolumn;
 use Illuminate\Http\Request;
+use App\Models\BatchSchedule;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Models\BatchSchedule;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class BatchScheduleController extends Controller
 {
@@ -70,20 +73,51 @@ class BatchScheduleController extends Controller
             'campus' => ['required'],
             'section' => ['required']
         ]);
-        dd($formFields);
+        // DB::enableQueryLog();
+        $studentList = DB::table("students")->where("section", $formFields['section'])->where("year_level", $formFields['yearlevel'])->where("course", $formFields['course'])->where("campus", $formFields['campus'])->get();
+        $email = array();
+        $studentCount = 0;
+        foreach ($studentList as $key => $value) {
+            $studentCount++;
+            $email[] = $value->email;
+            DB::table("schedules_detail_student")->where('student_id', '=', $value->student_id)->delete();
+            $schedData = DB::table("schedules_detail")->where("section", $formFields['section'])->get();
+            foreach ($schedData as $sch => $schedValue) {
+                unset($schedData[$sch]->id);
+                $schedData[$sch]->student_id = $value->student_id;
+            }
+            // Convert TO array
+            $schedData = json_decode(json_encode($schedData), true);
+            DB::table('schedules_detail_student')->insert($schedData);
+            
+        }
+
+        $data = array(
+            'subject' => "New Schedule",
+            'emailtype' => "notify"
+        );
+
+        try {
+            Mail::to($email)->send(new MailNotify($data));
+            response()->json(['Check your mail']);
+        } catch (Exception $th) {
+            response()->json(['Something Went Wrong']);
+        }
+
+        $formFields['student_count'] = $studentCount;
+
         if ($formFields['uid'] == "add") {
             unset($formFields['uid']);
             $formFields['created_by'] = Auth::id();
-            $formFields['updated_at'] = "";
             BatchSchedule::create($formFields);
-            $return = array('status' => 1, 'msg' => 'Successfully added schedule', 'title' => 'Success!');
+            $return = array('status' => 1, 'msg' => 'Successfully added schedule to '.$studentCount.' student.', 'title' => 'Success!');
         } else {
             $formFields['updated_at'] = Carbon::now();
             $formFields['modified_by'] = Auth::id();
             $id = $formFields['uid'];
             unset($formFields['uid']);
             DB::table("batch_schedules")->where('id', $id)->update($formFields);
-            $return = array('status' => 1, 'msg' => 'Successfully updated schedule', 'title' => 'Success!');
+            $return = array('status' => 1, 'msg' => 'Successfully updated schedule to ' . $studentCount . ' student.', 'title' => 'Success!');
         }
 
         return response()->json($return);

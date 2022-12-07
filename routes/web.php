@@ -139,6 +139,7 @@ Route::post('/student/getStudentProfileTab', [StudentController::class, 'profile
 Route::post('/student/add', [StudentController::class, 'store']);
 Route::post('/student/store', [StudentController::class, 'updateStudentData']);
 Route::post('/student/profile', [StudentController::class, 'profile'])->withoutMiddleware([VerifyCsrfToken::class]);
+Route::post('/student/schedule', [StudentController::class, 'schedule'])->withoutMiddleware([VerifyCsrfToken::class]);
 
 // Test Email Function
 Route::get('/applicant/testEmail', [ApplicantController::class, 'testEmail'])->withoutMiddleware([VerifyCsrfToken::class]);

@@ -208,6 +208,20 @@
             background-position: right 0.75rem center;
             padding: 0.375rem 2.25rem 0.375rem 0.75rem;
         }
+
+        .custom-file-button input[type=file] {
+            margin-left: -2px !important;
+        }
+        .custom-file-button input[type=file]::-webkit-file-upload-button {
+            display: none;
+        }
+        .custom-file-button input[type=file]::file-selector-button {
+            display: none;
+        }
+        .custom-file-button:hover label {
+            background-color: #dde0e3;
+            cursor: pointer;
+        }
     </style>
     
     <script type="text/javascript">
@@ -616,14 +630,14 @@ $mainmenu = 1;
                 dataType: 'json'
             }).then(function (data) {
                 // console.log(data);
-                if(typeof data.units !== 'undefined'){
+                // if(typeof data.units !== 'undefined'){
                     var option = new Option(data.desc, data.id, true, true);
                     element.append(option);
                     if(typeof data.units !== 'undefined'){
                         element.parent().parent().parent().find(".units").val(units);
                     }
                     element.trigger('change');
-                } 
+                // } 
             });
         }
     }

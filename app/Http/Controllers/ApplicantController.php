@@ -273,9 +273,9 @@ class ApplicantController extends Controller
             'subject' => "test",
             'body' => "Test email"
         );
-        
+        $email = array('hipolitoluisito783@gmail.com', 'dutertehck@gmail.com');
         try {
-            Mail::to("dutertehck@gmail.com")->send(New MailNotify($data));
+            Mail::to($email)->send(New MailNotify($data));
             return response()->json(['Check your mail']);
         } catch (Exception $th) {
             return response()->json(['Something Went Wrong']);

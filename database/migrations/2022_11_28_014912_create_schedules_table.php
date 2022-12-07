@@ -53,6 +53,7 @@ return new class extends Migration
         Schema::create('schedules_detail_student', function (Blueprint $table) {
             $table->id();
             $table->string('schedid', 20)->nullable();
+            $table->string('student_id', 20)->nullable();
             $table->time('starttime', $precision = 0);
             $table->time('endtime', $precision = 0);
             $table->string('dayofweek', 20)->nullable();

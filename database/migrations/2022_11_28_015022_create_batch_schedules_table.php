@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('sched_id', 30)->nullable();
             $table->string('campus', 30)->nullable();
             $table->string('adviser', 30)->nullable();
+            $table->string('yearlevel', 30)->nullable();
             $table->string('course', 30)->nullable();
             $table->string('section', 30)->nullable();
             $table->string('student_count', 30)->nullable();
