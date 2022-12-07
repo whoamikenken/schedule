@@ -151,10 +151,5 @@ Route::post('/getDropdown/dropdown', [HomeController::class, 'getDropdownData'])
 Route::post('/getDropdown/dropdownInit', [HomeController::class, 'getDropdownDataInit'])->withoutMiddleware([VerifyCsrfToken::class]);
 
 
-Route::get('/credits', function(){
-    echo "Created by kennedy hipolito<br>";
-    echo "Email: whoamikenken@gmail.com<br>";
-    echo "Contact: 09226361316<br>";
-});
 
 

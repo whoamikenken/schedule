@@ -52,6 +52,7 @@ class BatchScheduleController extends Controller
         $data['uid'] = $formFields['uid'];
         $data['sched_select'] = DB::table("schedules")->get();
         $data['course_select'] = DB::table("courses")->get();
+        $data['campus_select'] = DB::table("campuses")->get();
         $data['yearlevel_select'] = DB::table("yearlevels")->get();
         // dd($data);
         return view('setup/batchscheduling_modal', $data);
@@ -66,6 +67,7 @@ class BatchScheduleController extends Controller
             'sched_id' => ['required'],
             'yearlevel' => ['required'],
             'course' => ['required'],
+            'campus' => ['required'],
             'section' => ['required']
         ]);
         dd($formFields);

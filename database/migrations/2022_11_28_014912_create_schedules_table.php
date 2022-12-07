@@ -48,6 +48,8 @@ return new class extends Migration
             $table->string('created_by', 50)->nullable();
         });
 
+        Schema::dropIfExists('schedules_detail_student');
+
         Schema::create('schedules_detail_student', function (Blueprint $table) {
             $table->id();
             $table->string('schedid', 20)->nullable();
