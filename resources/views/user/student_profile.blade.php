@@ -1,19 +1,3 @@
-<style>
-    .custom-file-button input[type=file] {
-        margin-left: -2px !important;
-    }
-    .custom-file-button input[type=file]::-webkit-file-upload-button {
-        display: none;
-    }
-    .custom-file-button input[type=file]::file-selector-button {
-        display: none;
-    }
-    .custom-file-button:hover label {
-        background-color: #dde0e3;
-        cursor: pointer;
-    }
-</style>
-
 <div class="container-fluid p-0">
     <div class="card border-secondary mb-3 mt-4">
         <div class="card-header" style="font-size: 23px;background: #0d6cf9;color: white;">General Information</div>

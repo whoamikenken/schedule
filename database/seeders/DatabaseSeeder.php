@@ -52,7 +52,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::factory(100)->create();
-        Applicant::factory(2000)->create();
-        Student::factory(2000)->create();
+        Applicant::factory(500)->create();
+        Student::factory(500)->create();
     }
 }

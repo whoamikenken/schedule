@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('course_code', 100)->nullable();
             $table->string('course_desc', 100)->nullable();
             $table->integer('units')->nullable();
+            $table->integer('slots')->nullable()->default(50);
             $table->string('curr', 100)->nullable();
             $table->string('component', 100)->nullable();
             $table->string('pre_code', 100)->nullable();

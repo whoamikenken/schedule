@@ -11,6 +11,7 @@ class Campus extends Model
     protected $fillable = [
         'code',
         'description',
+        'color',
         'created_by'
     ];
 }

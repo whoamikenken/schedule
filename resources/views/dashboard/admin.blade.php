@@ -138,7 +138,7 @@
     </div>
 </div>
 
-<div class="row" id="performanceBar">
+<div class="row" id="performanceBar" style="display:none">
     <div class="col-sm-12">
         <div class="card mb-4">
             <div class="card-header bg-info">
@@ -261,23 +261,15 @@ let delayed;
             data: {},
             dataType: "json",
             success:function(response){
-
+                console.log(response.dataset.label);
                 const config = {
                     type: 'pie',
                     data: {
-                        labels: JSON.parse(response.label),
+                        labels: response.dataset.label,
                         datasets: [{
                         label: "Campus",
-                        backgroundColor: [
-                        'rgb(255, 0, 21)',
-                        'rgb(255, 0, 242)',
-                        'rgb(127, 0, 255)',
-                        'rgb(21, 0, 255)',
-                        'rgb(0, 153, 255)',
-                        'rgb(0, 255, 25)',
-                        'rgb(234, 255, 5)'
-                        ],
-                        data: JSON.parse(response.data),
+                        backgroundColor: response.dataset.backgroundColor,
+                        data: response.dataset.data,
                         }],
                     },
                     options: {
@@ -435,6 +427,7 @@ let delayed;
             data: {},
             dataType: "json",
             success:function(response){
+                // console.log(response);
                 $("#branchPerformanceLoader").remove();
                 const config = {
                     type: 'bar',

@@ -15,6 +15,7 @@ use App\Http\Controllers\CoursesController;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\UsertypeController;
 use App\Http\Controllers\ApplicantController;
+use App\Http\Controllers\BatchScheduleController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\StudentController;
@@ -60,6 +61,12 @@ Route::post('/section/table', [SectionController::class, 'getTable'])->withoutMi
 Route::post('/section/getModal', [SectionController::class, 'getModal'])->withoutMiddleware([VerifyCsrfToken::class]);
 Route::post('/section/add', [SectionController::class, 'store']);
 Route::post('/section/delete', [SectionController::class, 'delete']);
+
+// Batch Schedule
+Route::post('/batchschedule/table', [BatchScheduleController::class, 'getTable'])->withoutMiddleware([VerifyCsrfToken::class]);
+Route::post('/batchschedule/getModal', [BatchScheduleController::class, 'getModal'])->withoutMiddleware([VerifyCsrfToken::class]);
+Route::post('/batchschedule/add', [BatchScheduleController::class, 'store']);
+Route::post('/batchschedule/delete', [BatchScheduleController::class, 'delete']);
 
 // Schedule
 Route::post('/schedule/table', [ScheduleController::class, 'getTable'])->withoutMiddleware([VerifyCsrfToken::class]);
@@ -132,6 +139,7 @@ Route::post('/student/getStudentProfileTab', [StudentController::class, 'profile
 Route::post('/student/add', [StudentController::class, 'store']);
 Route::post('/student/store', [StudentController::class, 'updateStudentData']);
 Route::post('/student/profile', [StudentController::class, 'profile'])->withoutMiddleware([VerifyCsrfToken::class]);
+Route::post('/student/schedule', [StudentController::class, 'schedule'])->withoutMiddleware([VerifyCsrfToken::class]);
 
 // Test Email Function
 Route::get('/applicant/testEmail', [ApplicantController::class, 'testEmail'])->withoutMiddleware([VerifyCsrfToken::class]);
@@ -144,10 +152,5 @@ Route::post('/getDropdown/dropdown', [HomeController::class, 'getDropdownData'])
 Route::post('/getDropdown/dropdownInit', [HomeController::class, 'getDropdownDataInit'])->withoutMiddleware([VerifyCsrfToken::class]);
 
 
-Route::get('/credits', function(){
-    echo "Created by kennedy hipolito<br>";
-    echo "Email: whoamikenken@gmail.com<br>";
-    echo "Contact: 09226361316<br>";
-});
 
 
