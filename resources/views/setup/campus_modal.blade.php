@@ -35,8 +35,8 @@
         <label>Color<span class="text-danger">*</span></label>
         <div class="input-group">
             <div class="input-group-text"><i class="bi bi-pencil-fill"></i></div>
-            <input type="text" id="color" name="color"
-            class="form-control validate" placeholder="Enter Color" required value="{{ (isset($color))? $color:"" }}">
+            <input type="color" class="form-control form-control-color" id="exampleColorInput" name="color" value="{{ (isset($color))? $color:"" }}" title="Choose your color">
+            {{-- <input type="text" id="color" name="color" class="form-control validate" placeholder="Enter Color" required value="{{ (isset($color))? $color:"" }}"> --}}
             <div class="valid-feedback">
                 Looks good!
             </div>

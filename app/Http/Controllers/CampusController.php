@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\Campus;
+use App\Models\Extras;
 use App\Models\Tablecolumn;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -48,7 +49,8 @@ class CampusController extends Controller
         }
 
         $data['uid'] = $formFields['uid'];
-        // dd($data);
+        $data['color'] = Extras::rgb_to_hex($data['color']);
+        // dd($data['color']);
         return view('setup/campus_modal', $data);
     }
 
@@ -59,10 +61,14 @@ class CampusController extends Controller
         $formFields = $request->validate([
             'uid' => ['required'],
             'code' => ['required'],
+            'color' => ['required'],
             'description' => ['required']
         ]);
 
-        if ($formFields['uid'] == "add") {
+        $formFields['color'] =  Extras::hex2rgba($formFields['color']);
+
+
+        if ($formFields['color'] == "add") {
             unset($formFields['uid']);
             $formFields['created_by'] = Auth::id();
             $formFields['updated_at'] = "";
