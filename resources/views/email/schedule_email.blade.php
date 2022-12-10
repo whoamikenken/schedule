@@ -586,7 +586,7 @@
                         <div style="text-align: center;"><br>
 <br>
 <br>
-<font face="arial, helvetica neue, helvetica, sans-serif"><span style="font-size:32px"><strong>Applicant Status Information</strong></span></font><br>
+<font face="arial, helvetica neue, helvetica, sans-serif"><span style="font-size:32px"><strong>Student Schedule Information</strong></span></font><br>
 &nbsp;</div>
 
                     </td>
