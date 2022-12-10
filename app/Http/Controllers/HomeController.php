@@ -57,7 +57,7 @@ class HomeController extends Controller
         $data['student_month'] = Extras::countStudentRegistered();
         $data['student_count'] = Extras::countStudentRegisteredAll();
         $data['top_adviser'] = DB::table('users')->select("*", DB::raw('(SELECT COUNT(*) FROM students WHERE adviser = users.id) as total_handle'), DB::raw('(SELECT description FROM campuses WHERE code = users.campus) as campusDesc'))->where("user_type", "=", 'Professor')->orderBy("total_handle", "desc")->paginate(8);
-        
+        $data['announcement'] = DB::table('announcements')->select(array('id','title','description'))->paginate(8);
         return view('dashboard/admin', $data);
         }else{
 

@@ -138,43 +138,26 @@
     </div>
 </div>
 
-<div class="row" id="performanceBar" style="display:none">
+<div class="row">
     <div class="col-sm-12">
         <div class="card mb-4">
             <div class="card-header bg-info">
                 <i class="bi bi-award-fill me-1"></i>
-                Top Performing Professor Of  {{ date("F")}}
+                Announcement  {{ date("F")}}
             </div>
             <div class="card-body">
                 <div class="row animate__animated animate__fadeInUp">
-                    @unless (count($top_adviser) == 0)
+                    @unless (count($announcement) == 0)
                     @php
                         $counter = 1;
                     @endphp
-                    @foreach ($top_adviser as $item)
+                    @foreach ($announcement as $item)
                         <div class="col-sm-12 col-md-6 col-lg-3">
-                            <div class="card mb-3 shadow" >
-                                <div class="row g-0">
-                                    <div class="col-4">
-                                        @if ($item->user_image)
-                                            <img src="{{  Storage::disk("public")->url($item->user_image)}}" class="img-fluid user_photo_list rounded animate__animated animate__fadeIn animate__delay-1s m-2" alt="..." style="height: -webkit-fill-available;">
-                                        @else
-                                            @if ($item->gender == "male")
-                                                <img src="{{ asset('images/male_sales.png')}}" class="img-fluid user_photo_list rounded animate__animated animate__fadeIn animate__delay-1s" alt="...">
-                                            @elseif ($item->gender == "female")
-                                                <img src="{{ asset('images/female_sales.png')}}" class="img-fluid user_photo_list rounded animate__animated animate__fadeIn animate__delay-1s" alt="...">
-                                            @else
-                                                <img src="{{ asset('images/user.png')}}" class="img-fluid user_photo_list rounded animate__animated animate__fadeIn animate__delay-1s" alt="..."> 
-                                            @endif
-                                        @endif
-                                    </div>
-                                    <div class="col-8">
-                                        <div class="card-body">
-                                            <h5 class="card-title">{{$item->fname." ".$item->lname}} <span class="float-end">{{$counter}}</span></h5>
-                                            Branch: {{$item->campusDesc}}<br>
-                                            Student Handled: {{$item->total_handle}}
-                                        </div>
-                                    </div>
+                            <div class="card text-center" style="width: 18rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{$item->title}}</h5>
+                                    <p class="card-text">{{$item->description}}</p>
+                                    <a href="#" class="btn btn-primary viewAnnouncement" uid="{{$item->id}}">View</a>
                                 </div>
                             </div>
                         </div>
@@ -183,7 +166,7 @@
                         @endphp
                     @endforeach
                 @else
-                        <h2 class="text-center">No Student</h2>
+                        <h2 class="text-center">No Announcement</h2>
                 @endunless
                 </div>
             </div>
@@ -196,6 +179,7 @@
 let delayed;
 
     $(document).ready(function () {
+        $("#modal-view").find(".modal-dialog").removeClass("modal-lg").addClass("modal-fullscreen");
         getCampusApplicant();
         getUserStatus();
         getPerformancePerMonth();
@@ -208,6 +192,20 @@ let delayed;
         } else {
             $("#performanceBar").removeClass("animate__animated animate__fadeInRight");
         }
+    });
+
+    $(".viewAnnouncement").click(function () {
+        var uid = $(this).attr("uid");
+        $.ajax({
+            url: "{{ url('announcement/view') }}",
+            type: "POST",
+            data: {id:uid},
+            success: function(response) {
+                $("#modal-view").modal('toggle');
+                $("#modal-view").find(".modal-title").text("Add Announcement");
+                $("#modal-view").find("#modal-display").html(response);
+            }
+        });
     });
 
     function getUserStatus(){

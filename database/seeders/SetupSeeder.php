@@ -50,5 +50,10 @@ class SetupSeeder extends Seeder
             'description' => 'Schedule',
             'table' => 'schedules'
         ]);
+
+        Setup::factory()->create([
+            'description' => 'Batch Schedule',
+            'table' => 'schedules'
+        ]);
     }
 }

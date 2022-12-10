@@ -20,20 +20,20 @@ class tablecolumn extends Model
 
     public $timestamps = false;
 
-    public static function processColumnName($column){
+    public static function processColumnName($column)
+    {
         $returnArray = array();
 
         $colDescription = Tablecolumn::getColumnArray();
-        
+
         unset($column[0]);
-       
         foreach ($column as $key => $value) {
-            
-            $returnArray[] = array(
-                'code' => $value->Field,
-                'description' => $colDescription[$value->Field]
-            ); 
-            
+            if (isset($colDescription[$value->Field])) {
+                $returnArray[] = array(
+                    'code' => $value->Field,
+                    'description' => $colDescription[$value->Field]
+                );
+            }
         }
         return json_decode(json_encode($returnArray), FALSE);
     }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AnnouncementController;
 use App\Models\Extras;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -85,6 +86,13 @@ Route::post('/yearlevel/table', [YearlevelController::class, 'getTable'])->witho
 Route::post('/yearlevel/getModal', [YearlevelController::class, 'getModal'])->withoutMiddleware([VerifyCsrfToken::class]);
 Route::post('/yearlevel/add', [YearlevelController::class, 'store']);
 Route::post('/yearlevel/delete', [YearlevelController::class, 'delete']);
+
+// Announcement
+Route::post('/announcement/table', [AnnouncementController::class, 'getTable'])->withoutMiddleware([VerifyCsrfToken::class]);
+Route::post('/announcement/getModal', [AnnouncementController::class, 'getModal'])->withoutMiddleware([VerifyCsrfToken::class]);
+Route::post('/announcement/view', [AnnouncementController::class, 'viewAnnouncement'])->withoutMiddleware([VerifyCsrfToken::class]);
+Route::post('/announcement/add', [AnnouncementController::class, 'store']);
+Route::post('/announcement/delete', [AnnouncementController::class, 'delete']);
 
 // USER
 Route::post('/user/table', [UserController::class, 'getTable'])->withoutMiddleware([VerifyCsrfToken::class]);

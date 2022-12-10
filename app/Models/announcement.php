@@ -5,7 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class announcement extends Model
+class Announcement extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'title',
+        'description',
+        'content',
+        'created_by'
+    ];
 }

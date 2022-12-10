@@ -84,7 +84,16 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/fontawesome.min.js"></script>
     <!-- end FA -->
     
-    
+    {{-- WYSIWYG --}}
+    <!-- Main Quill library -->
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+
+    <!-- Theme included stylesheets -->
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <link href="https://cdn.quilljs.com/1.3.6/quill.bubble.css" rel="stylesheet">
+
+
     <style type="text/css">
         .sweet_loader {
             width: 140px;
@@ -221,6 +230,14 @@
         .custom-file-button:hover label {
             background-color: #dde0e3;
             cursor: pointer;
+        }
+
+        /* QUILL */
+        .ql-container{
+            width: 100%;
+        }
+        .ql-toolbar.ql-snow {
+            width: 100%;
         }
     </style>
     
