@@ -6,7 +6,7 @@
         <div class="input-group">
             <div class="input-group-text"><i class="bi bi-pencil-fill"></i></div>
             <input type="text" id="title" name="title"
-            class="form-control validate" placeholder="Enter Title" required value="{{ (isset($title))? $title:"" }}">
+            class="form-control validate" placeholder="Enter Title" required value="{{ (isset($title))? $title:"" }}" max="20">
             <div class="valid-feedback">
                 Looks good!
             </div>
