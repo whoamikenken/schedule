@@ -32,6 +32,7 @@
     $(document).ready(function () {
         $("#modal-view").find(".modal-dialog").removeClass("modal-lg").addClass("modal-fullscreen");
         
+
         AnnouncementList();
 
         var bar = getBase64FromUrl('{{asset("icon/ms-icon-150x150.png")}}');

@@ -157,7 +157,7 @@
                                 <div class="card-body">
                                     <h5 class="card-title">{{$item->title}}</h5>
                                     <p class="card-text">{{$item->description}}</p>
-                                    <a href="#" class="btn btn-primary viewAnnouncement" uid="{{$item->id}}">View</a>
+                                    <a href="#" class="btn btn-primary viewAnnouncement" uid="{{$item->id}}" title="{{$item->title}}">View</a>
                                 </div>
                             </div>
                         </div>
@@ -180,6 +180,7 @@ let delayed;
 
     $(document).ready(function () {
         $("#modal-view").find(".modal-dialog").removeClass("modal-lg").addClass("modal-fullscreen");
+        $("#modal-view").find("#saveModal").hide();
         getCampusApplicant();
         getUserStatus();
         getPerformancePerMonth();
@@ -196,13 +197,14 @@ let delayed;
 
     $(".viewAnnouncement").click(function () {
         var uid = $(this).attr("uid");
+        var title = $(this).attr("title");
         $.ajax({
             url: "{{ url('announcement/view') }}",
             type: "POST",
             data: {id:uid},
             success: function(response) {
                 $("#modal-view").modal('toggle');
-                $("#modal-view").find(".modal-title").text("Add Announcement");
+                $("#modal-view").find(".modal-title").text(title);
                 $("#modal-view").find("#modal-display").html(response);
             }
         });
