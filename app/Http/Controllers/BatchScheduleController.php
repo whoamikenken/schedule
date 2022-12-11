@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Exception;
+use App\Models\Extras;
 use App\Mail\MailNotify;
 use App\Models\Tablecolumn;
 use Illuminate\Http\Request;
@@ -76,10 +77,13 @@ class BatchScheduleController extends Controller
         // DB::enableQueryLog();
         $studentList = DB::table("students")->where("section", $formFields['section'])->where("year_level", $formFields['yearlevel'])->where("course", $formFields['course'])->where("campus", $formFields['campus'])->get();
         $email = array();
+        $number = array();
         $studentCount = 0;
+        // dd($studentList);
         foreach ($studentList as $key => $value) {
             $studentCount++;
             $email[] = $value->email;
+            $number[] = str_replace("+63", "0", $value->contact);
             DB::table("schedules_detail_student")->where('student_id', '=', $value->student_id)->delete();
             $schedData = DB::table("schedules_detail")->where("section", $formFields['section'])->get();
             foreach ($schedData as $sch => $schedValue) {
@@ -104,6 +108,16 @@ class BatchScheduleController extends Controller
             response()->json(['Something Went Wrong']);
         }
 
+        $dataSMS = array(
+            'username' => env('SMS_USER'),
+            'password' => env('SMS'),
+            'port' => 2,
+            'recipients' => implode(",", $number),
+            'sms' => "Hello! please check your new schedule."
+        );
+
+        $reponse = Extras::sendRequest("http://122.54.191.90:8085/goip_send_sms.html", "get", $dataSMS);
+        
         $formFields['student_count'] = $studentCount;
 
         if ($formFields['uid'] == "add") {
