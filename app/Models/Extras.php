@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Extras extends Model
@@ -415,6 +416,26 @@ class Extras extends Model
         );
 
         return $return[$data];
+    }
+
+    public static function ValidateRequest($request, array $rule)
+    {
+        $return = array('status' => 0, 'msg' => 'Error', 'title' => 'Error!');
+
+        $validator = Validator::make($request->all(), $rule);
+
+        if ($validator->fails()) {
+            $errorKey = key($validator->errors()->messages());
+            $msg = $validator->errors()->messages()[$errorKey][0];
+            $return["msg"] = $msg;
+            return $return;
+        } else {
+            $data = $request->input();
+            unset($data["_token"]);
+            $return['status'] = 1;
+            $return['data'] = $data;
+            return $return;
+        }
     }
 
     public static function rgb_to_hex(string $rgba): string

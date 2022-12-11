@@ -458,7 +458,7 @@
                 }
             });
             
-            $(form).find('input.validate:email').each(function(idx){
+            $(form).find('input.validate').each(function(idx){
                 if ($(this).val().length == 0) {
                     $(this).addClass("is-invalid");
                     throw new Error("Something went badly wrong!");
@@ -547,35 +547,32 @@
                 processData: false,
                 contentType: false,
                 success : function(response){
-                    if(response != ""){
+                    if (response.status == 1) {
                         Swal.fire({
                             icon: 'success',
-                            title: 'Successfully Save',
-                            text: 'Account Created Successfully.',
-                            timer: 2500,
-                            onClose: () => {
-                                $(".modal").modal("close");
-                            }
+                            title: response.title,
+                            text: response.msg,
+                            timer: 1500
                         })
-                        $(".modal").modal("close");
-                        
-                        $.ajax({
-                            url : "{{ url('applicant/notifyAdmin') }}",
-                            type : "POST",
-                            data : {applicantId: response},
-                            success : function(response){
-                                
-                            }
-                        });
+                        $("#modalclose").click();
+                        BatchList();
+                    }else if (response.status == 2) {
+                        Swal.fire({
+                            icon: 'info',
+                            title: response.title,
+                            text: response.msg
+                        })
+                    }else if (response.status == 0) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: response.title,
+                            text: response.msg
+                        })
                     }else{
                         Swal.fire({
                             icon: 'error',
-                            title: 'Oops...',
-                            text: 'Please ask the developer!',
-                            timer: 2500,
-                            onClose: () => {
-                                $(".modal").modal("close");
-                            }
+                            title: "System Error",
+                            text: "Please contact developer."
                         })
                     }
                 }

@@ -157,7 +157,7 @@
                                 <div class="card-body">
                                     <h5 class="card-title">{{$item->title}}</h5>
                                     <p class="card-text">{{$item->description}}</p>
-                                    <a href="#" class="btn btn-primary viewAnnouncement" uid="{{$item->id}}" title="{{$item->title}}">View</a>
+                                    <button class="btn btn-primary viewAnnouncement" uid="{{$item->id}}" title="{{$item->title}}">View</button>
                                 </div>
                             </div>
                         </div>

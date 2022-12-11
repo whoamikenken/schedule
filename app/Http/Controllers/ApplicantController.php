@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use Exception;
+use App\Models\User;
 use App\Models\Extras;
 use App\Mail\MailNotify;
 use App\Models\Applicant;
-use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use PhpParser\Node\Stmt\TryCatch;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -185,17 +186,30 @@ class ApplicantController extends Controller
     public function saveApplicant(Request $request)
     {
         $return = array('status' => 0, 'msg' => 'Error', 'title' => 'Error!');
-        $formFields = $request->validate([
-            'student_no' => ['required', 'unique:student_no'],
-            'fname' => ['required'],
-            'lname' => ['required'],
-            'mname' => ['required'],
-            'contact' => ['required'],
-            'password' => ['required'],
-            'age' => ['required'],
-            'email' => ['required'],
-            'gender' => ['required']
-        ]);
+        $stud_no = $request->post("student_no");
+        $validator = Extras::ValidateRequest(
+            $request,
+            [
+                'student_no' => ['required', Rule::unique('applicants')->where(function ($query) use ($stud_no) {
+                    return $query->where('student_no', $stud_no);
+                })],
+                'fname' => ['required'],
+                'lname' => ['required'],
+                'mname' => ['required'],
+                'contact' => ['required'],
+                'password' => ['required'],
+                'age' => ['required'],
+                'email' => ['required'],
+                'gender' => ['required']
+            ]
+        );
+
+        if ($validator['status'] == 0) {
+            return response()->json($validator);
+            die;
+        } else {
+            $formFields = $validator['data'];
+        }
 
         $userData=array();
         $userData['username'] = $formFields['student_no'];
