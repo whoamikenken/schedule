@@ -68,6 +68,9 @@ class tablecolumn extends Model
             'pre_code' => 'Pre Subject Code',
             'requisite' => 'Prerequisite',
             'curr' => 'Curricolum',
+            'yearlevel' => 'Year Level',
+            'section' => 'Section',
+            'student_count' => 'Students',
             'year_level' => 'Year Level'
         );
 

@@ -53,7 +53,7 @@ class SetupSeeder extends Seeder
 
         Setup::factory()->create([
             'description' => 'Batch Schedule',
-            'table' => 'schedules'
+            'table' => 'batch_schedules'
         ]);
     }
 }
