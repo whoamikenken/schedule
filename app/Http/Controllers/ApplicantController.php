@@ -234,8 +234,7 @@ class ApplicantController extends Controller
 
         $data = User::create($userData);
         $formFields['applicant_id'] = $data->id;
-        
-        $formFields = $request->post();
+
         $dataSMS = array(
             'username' => env('SMS_USER'),
             'password' => env('SMS'),
