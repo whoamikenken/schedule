@@ -187,6 +187,7 @@ class ApplicantController extends Controller
     {
         $return = array('status' => 0, 'msg' => 'Error', 'title' => 'Error!');
         $stud_no = $request->post("student_no");
+        
         $validator = Extras::ValidateRequest(
             $request,
             [
@@ -228,22 +229,26 @@ class ApplicantController extends Controller
             $formFields['user_profile'] = $userData['user_image'];
         }
 
-
         $fullname = $formFields['fname'] . " " . $formFields['lname'];
         $userData['name'] = $fullname;
+
+        $data = User::create($userData);
+        $formFields['applicant_id'] = $data->id;
+
         $dataSMS = array(
             'username' => env('SMS_USER'),
             'password' => env('SMS'),
             'port' => 2,
-            'recipients' => $formFields['contact'],
-            'sms' => "Hello " . $fullname . "! You're successfully been registered please wait for the admin to verify your account."
+            'recipients' => str_replace("-", "", str_replace("+63", "0", $formFields['contact'])),
+            'sms' => "Hello " . $stud_no . "! You're successfully been registered please wait for the admin to verify your account."
         );
-
+        
         $reponse = Extras::sendRequest("http://122.54.191.90:8085/goip_send_sms.html", "get", $dataSMS);
+
         unset($formFields['uid']);
 
         Applicant::create($formFields);
-        User::create($userData);
+        
         $return = array('status' => 1, 'msg' => 'Successfully added applicant', 'title' => 'Success!');
 
         return response()->json($return);
