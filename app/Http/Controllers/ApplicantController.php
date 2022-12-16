@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use Exception;
 use App\Models\User;
 use App\Models\Extras;
+use App\Models\Student;
 use App\Mail\MailNotify;
 use App\Models\Applicant;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use PhpParser\Node\Stmt\TryCatch;
@@ -171,7 +173,7 @@ class ApplicantController extends Controller
             'username' => env('SMS_USER'),
             'password' => env('SMS'),
             'port' => 2,
-            'recipients' => $formFields['contact'],
+            'recipients' => str_replace("-", "", str_replace("+63", "0", $formFields['contact'])),
             'sms' => "Hello " . $fullname . "! You're successfully been registered please wait for the admin to verify your account."
         );
 
@@ -273,11 +275,51 @@ class ApplicantController extends Controller
         $formFields = array($column => $value);
         $query = DB::table('applicants')->where('applicant_id', $applicant_id)->update($formFields);
         
-        if ($column == "med_first_cost" || $column == "med_second_cost" || $column == "med_third_cost" || $column == "med_fourth_cost" || $column == "cert_nc2_cost") {
-            $users = DB::table('applicants')->where('applicant_id', $applicant_id)->first();
-            $total_cost = $users->med_first_cost + $users->med_second_cost + $users->med_third_cost + $users->med_fourth_cost + $users->cert_nc2_cost;
-            $NewTotalCost = array('total_cost' => $total_cost);
-            DB::table('applicants')->where('applicant_id', $applicant_id)->update($NewTotalCost);
+        if ($column == "status") {
+            if($value == "ACCEPTED"){
+
+                $ApplicantData = DB::table('applicants')->where('applicant_id', $applicant_id)->first();
+                $studentData = $ApplicantData;
+                $studentData->student_id = $studentData->student_no; 
+                unset($studentData->applicant_id);
+                unset($studentData->student_no);
+                unset($studentData->id);
+                $pass = Str::random(8);
+                $userData = array();
+                $userData['username'] = $studentData->student_id;
+                $userData['fname'] = $studentData->fname;
+                $userData['lname'] = $studentData->lname;
+                $userData['name'] = $studentData->fname." ".$studentData->lname;
+                $userData['user_image'] = $studentData->user_profile;
+                $userData['email'] = $studentData->email;
+                $userData['user_type'] = "Student";
+                $userData['email_verified_at'] = now();
+                $userData['password'] = bcrypt($pass);
+                $userData['status'] = "verified";
+                $userData['read'] = "17,803,804";
+                $userData['edit'] = "17,804";
+                $userData['delete'] = "17";
+                $userData['add'] = "17";
+                $userData['remember_token'] = Str::random(10);
+                Student::create((array)$studentData);
+                User::create($userData);
+                $fullname = $studentData->fname . " " . $studentData->lname;
+                $dataSMS = array(
+                    'username' => env('SMS_USER'),
+                    'password' => env('SMS'),
+                    'port' => 2,
+                    'recipients' => str_replace("-", "", str_replace("+63", "0", $ApplicantData->contact)),
+                    'sms' => "Hello " . $fullname . "! You're account has been verified please login using your student no as username and your password:". $pass
+                );
+
+                Extras::sendRequest("http://122.54.191.90:8085/goip_send_sms.html", "get", $dataSMS);
+            }else{
+                $ApplicantData = DB::table('applicants')->where('applicant_id', $applicant_id)->first();
+
+                $userUpdate =array();
+                $userUpdate['status'] = "unverified";
+                DB::table('users')->where('username', $ApplicantData->student_no)->update($userUpdate);
+            }
         }
         
         if ($query) {
