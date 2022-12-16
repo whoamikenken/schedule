@@ -101,8 +101,8 @@ class ReportsController extends Controller
                 if (isset($data['result'][$key]->sales_manager)) $data['result'][$key]->sales_manager = DB::table('users')->where('id', $value->sales_manager)->value('name');
                 if (isset($data['result'][$key]->jobsite)) $data['result'][$key]->jobsite = DB::table('jobsites')->where('code', $value->jobsite)->value('description');
                 if (isset($data['result'][$key]->branch)) $data['result'][$key]->branch = DB::table('branches')->where('code', $value->branch)->value('description');
-                if (isset($data['result'][$key]->user_profile_face)) $data['result'][$key]->user_profile_face = Storage::disk("public")->url($value->user_profile_face);
-                if (isset($data['result'][$key]->user_profile)) $data['result'][$key]->user_profile = Storage::disk("public")->url($value->user_profile);
+                if (isset($data['result'][$key]->user_profile_face)) $data['result'][$key]->user_profile_face = Storage::disk("s3")->url($value->user_profile_face);
+                if (isset($data['result'][$key]->user_profile)) $data['result'][$key]->user_profile = Storage::disk("s3")->url($value->user_profile);
             }
 
             // dd($data);
@@ -135,8 +135,8 @@ class ReportsController extends Controller
                 if (isset($data['result'][$key]->sales_manager)) $data['result'][$key]->sales_manager = DB::table('users')->where('id', $value->sales_manager)->value('name');
                 if (isset($data['result'][$key]->jobsite)) $data['result'][$key]->jobsite = DB::table('jobsites')->where('code', $value->jobsite)->value('description');
                 if (isset($data['result'][$key]->branch)) $data['result'][$key]->branch = DB::table('branches')->where('code', $value->branch)->value('description');
-                if (isset($data['result'][$key]->user_profile_face)) $data['result'][$key]->user_profile_face = Storage::disk("public")->url($value->user_profile_face);
-                if (isset($data['result'][$key]->user_profile)) $data['result'][$key]->user_profile = Storage::disk("public")->url($value->user_profile);
+                if (isset($data['result'][$key]->user_profile_face)) $data['result'][$key]->user_profile_face = Storage::disk("s3")->url($value->user_profile_face);
+                if (isset($data['result'][$key]->user_profile)) $data['result'][$key]->user_profile = Storage::disk("s3")->url($value->user_profile);
             }
             // dd(DB::getQueryLog());
             return response()->view('report/departurelistPDF', $data, 200)->header('Content-Type', 'application/pdf');
@@ -170,8 +170,8 @@ class ReportsController extends Controller
                 if (isset($data['result'][$key]->sales_manager)) $data['result'][$key]->sales_manager = DB::table('users')->where('id', $value->sales_manager)->value('name');
                 if (isset($data['result'][$key]->jobsite)) $data['result'][$key]->jobsite = DB::table('jobsites')->where('code', $value->jobsite)->value('description');
                 if (isset($data['result'][$key]->branch)) $data['result'][$key]->branch = DB::table('branches')->where('code', $value->branch)->value('description');
-                if (isset($data['result'][$key]->user_profile_face)) $data['result'][$key]->user_profile_face = Storage::disk("public")->url($value->user_profile_face);
-                if (isset($data['result'][$key]->user_profile)) $data['result'][$key]->user_profile = Storage::disk("public")->url($value->user_profile);
+                if (isset($data['result'][$key]->user_profile_face)) $data['result'][$key]->user_profile_face = Storage::disk("s3")->url($value->user_profile_face);
+                if (isset($data['result'][$key]->user_profile)) $data['result'][$key]->user_profile = Storage::disk("s3")->url($value->user_profile);
             }
             // dd(DB::getQueryLog());
             return response()->view('report/departurelistPDF', $data, 200)->header('Content-Type', 'application/pdf');
@@ -207,8 +207,8 @@ class ReportsController extends Controller
                 if (isset($data['result'][$key]->jobsite)) $data['result'][$key]->jobsite = DB::table('jobsites')->where('code', $value->jobsite)->value('description');
                 if (isset($data['result'][$key]->passport_place_issued)) $data['result'][$key]->passport_place_issued = DB::table('countries')->where('code', $value->passport_place_issued)->value('description');
                 if (isset($data['result'][$key]->branch)) $data['result'][$key]->branch = DB::table('branches')->where('code', $value->branch)->value('description');
-                if (isset($data['result'][$key]->user_profile_face)) $data['result'][$key]->user_profile_face = Storage::disk("public")->url($value->user_profile_face);
-                if (isset($data['result'][$key]->user_profile)) $data['result'][$key]->user_profile = Storage::disk("public")->url($value->user_profile);
+                if (isset($data['result'][$key]->user_profile_face)) $data['result'][$key]->user_profile_face = Storage::disk("s3")->url($value->user_profile_face);
+                if (isset($data['result'][$key]->user_profile)) $data['result'][$key]->user_profile = Storage::disk("s3")->url($value->user_profile);
             }
 
             return response()->view('report/masterlistPDF', $data, 200)->header('Content-Type', 'application/pdf');
@@ -244,8 +244,8 @@ class ReportsController extends Controller
                 if (isset($data['result'][$key]->jobsite)) $data['result'][$key]->jobsite = DB::table('jobsites')->where('code', $value->jobsite)->value('description');
                 if (isset($data['result'][$key]->passport_place_issued)) $data['result'][$key]->passport_place_issued = DB::table('countries')->where('code', $value->passport_place_issued)->value('description');
                 if (isset($data['result'][$key]->branch)) $data['result'][$key]->branch = DB::table('branches')->where('code', $value->branch)->value('description');
-                if (isset($data['result'][$key]->user_profile_face)) $data['result'][$key]->user_profile_face = Storage::disk("public")->url($value->user_profile_face);
-                if (isset($data['result'][$key]->user_profile)) $data['result'][$key]->user_profile = Storage::disk("public")->url($value->user_profile);
+                if (isset($data['result'][$key]->user_profile_face)) $data['result'][$key]->user_profile_face = Storage::disk("s3")->url($value->user_profile_face);
+                if (isset($data['result'][$key]->user_profile)) $data['result'][$key]->user_profile = Storage::disk("s3")->url($value->user_profile);
             }
 
             return response()->view('report/masterlistPDF', $data, 200)->header('Content-Type', 'application/pdf');
@@ -292,8 +292,8 @@ class ReportsController extends Controller
                 if (isset($data['result'][$key]->jobsite)) $data['result'][$key]->jobsite = DB::table('jobsites')->where('code', $value->jobsite)->value('description');
                 if (isset($data['result'][$key]->passport_place_issued)) $data['result'][$key]->passport_place_issued = DB::table('countries')->where('code', $value->passport_place_issued)->value('description');
                 if (isset($data['result'][$key]->branch)) $data['result'][$key]->branch = DB::table('branches')->where('code', $value->branch)->value('description');
-                if (isset($data['result'][$key]->user_profile_face)) $data['result'][$key]->user_profile_face = Storage::disk("public")->url($value->user_profile_face);
-                if (isset($data['result'][$key]->user_profile)) $data['result'][$key]->user_profile = Storage::disk("public")->url($value->user_profile);
+                if (isset($data['result'][$key]->user_profile_face)) $data['result'][$key]->user_profile_face = Storage::disk("s3")->url($value->user_profile_face);
+                if (isset($data['result'][$key]->user_profile)) $data['result'][$key]->user_profile = Storage::disk("s3")->url($value->user_profile);
             }
 
             return response()->view('report/masterlistPDF', $data, 200)->header('Content-Type', 'application/pdf');
@@ -335,8 +335,8 @@ class ReportsController extends Controller
                 if (isset($data['result'][$key]->sales_manager)) $data['result'][$key]->sales_manager = DB::table('users')->where('id', $value->sales_manager)->value('name');
                 if (isset($data['result'][$key]->jobsite)) $data['result'][$key]->jobsite = DB::table('jobsites')->where('code', $value->jobsite)->value('description');
                 if (isset($data['result'][$key]->branch)) $data['result'][$key]->branch = DB::table('branches')->where('code', $value->branch)->value('description');
-                if (isset($data['result'][$key]->user_profile_face)) $data['result'][$key]->user_profile_face = Storage::disk("public")->url($value->user_profile_face);
-                if (isset($data['result'][$key]->user_profile)) $data['result'][$key]->user_profile = Storage::disk("public")->url($value->user_profile);
+                if (isset($data['result'][$key]->user_profile_face)) $data['result'][$key]->user_profile_face = Storage::disk("s3")->url($value->user_profile_face);
+                if (isset($data['result'][$key]->user_profile)) $data['result'][$key]->user_profile = Storage::disk("s3")->url($value->user_profile);
             }
             // dd(DB::getQueryLog());
             return response()->view('report/costbreakdownPDF', $data, 200)->header('Content-Type', 'application/pdf');
@@ -365,9 +365,9 @@ class ReportsController extends Controller
                 if (isset($data['result'][$key]->jobsite)) $data['result'][$key]->jobsite = DB::table('jobsites')->where('code', $value->jobsite)->value('description');
                 if (isset($data['result'][$key]->branch)) $data['result'][$key]->branch = DB::table('branches')->where('code', $value->branch)->value('description');
                 if (isset($data['result'][$key]->passport_place_issued)) $data['result'][$key]->passport_place_issued = DB::table('countries')->where('code', $value->passport_place_issued)->value('description');
-                if (isset($data['result'][$key]->passport)) $data['result'][$key]->passport = Storage::disk("public")->url($value->passport);
-                if (isset($data['result'][$key]->user_profile_face)) $data['result'][$key]->user_profile_face = Storage::disk("public")->url($value->user_profile_face);
-                if (isset($data['result'][$key]->user_profile)) $data['result'][$key]->user_profile = Storage::disk("public")->url($value->user_profile);
+                if (isset($data['result'][$key]->passport)) $data['result'][$key]->passport = Storage::disk("s3")->url($value->passport);
+                if (isset($data['result'][$key]->user_profile_face)) $data['result'][$key]->user_profile_face = Storage::disk("s3")->url($value->user_profile_face);
+                if (isset($data['result'][$key]->user_profile)) $data['result'][$key]->user_profile = Storage::disk("s3")->url($value->user_profile);
             }
 
             $data['reportName'] = $name;
@@ -423,8 +423,8 @@ class ReportsController extends Controller
                 if (isset($data['result'][$key]->jobsite)) $data['result'][$key]->jobsite = DB::table('jobsites')->where('code', $value->jobsite)->value('description');
                 if (isset($data['result'][$key]->passport_place_issued)) $data['result'][$key]->passport_place_issued = DB::table('countries')->where('code', $value->passport_place_issued)->value('description');
                 if (isset($data['result'][$key]->branch)) $data['result'][$key]->branch = DB::table('branches')->where('code', $value->branch)->value('description');
-                if (isset($data['result'][$key]->user_profile_face)) $data['result'][$key]->user_profile_face = Storage::disk("public")->url($value->user_profile_face);
-                if (isset($data['result'][$key]->user_profile)) $data['result'][$key]->user_profile = Storage::disk("public")->url($value->user_profile);
+                if (isset($data['result'][$key]->user_profile_face)) $data['result'][$key]->user_profile_face = Storage::disk("s3")->url($value->user_profile_face);
+                if (isset($data['result'][$key]->user_profile)) $data['result'][$key]->user_profile = Storage::disk("s3")->url($value->user_profile);
             }
 
             return response()->view('report/masterlistPDF', $data, 200)->header('Content-Type', 'application/pdf');
