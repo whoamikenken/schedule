@@ -51,7 +51,6 @@ class DatabaseSeeder extends Seeder
             UsertypeSeeder::class
         ]);
 
-        User::factory(100)->create();
         Applicant::factory(500)->create();
         Student::factory(500)->create();
     }

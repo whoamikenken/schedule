@@ -276,7 +276,7 @@ class MenuSeeder extends Seeder
                 return $maxOrder + 1;
             },
             'title' => 'My Profile',
-            'link' => 'user/student',
+            'link' => 'user/profile',
             'icon' => 'people',
             'description' => "Student Profile"
         ]);
