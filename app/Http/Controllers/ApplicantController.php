@@ -168,6 +168,7 @@ class ApplicantController extends Controller
             'adviser' => ['required']
         ]);
 
+        
         $fullname = $formFields['fname'] . " " . $formFields['lname'];
         $dataSMS = array(
             'username' => env('SMS_USER'),

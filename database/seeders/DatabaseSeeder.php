@@ -53,5 +53,6 @@ class DatabaseSeeder extends Seeder
 
         Student::factory(500)->create();
         Applicant::factory(500)->create();
+        User::factory(10)->create();
     }
 }

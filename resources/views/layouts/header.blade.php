@@ -239,6 +239,11 @@
         .ql-toolbar.ql-snow {
             width: 100%;
         }
+
+        /* TEMPUS */
+        .tempus-dominus-widget {
+            min-height: 142px!important;
+        }
     </style>
     
     <script type="text/javascript">
