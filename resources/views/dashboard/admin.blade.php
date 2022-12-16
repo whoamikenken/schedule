@@ -12,131 +12,134 @@
         border-left: 0.25rem solid #18ff5d!important;
     }
 </style>
-<div class="row animate__animated animate__backInRight">
-    <!-- Earnings (Monthly) Card Example -->
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-primary shadow h-100 py-2">
-        <div class="card-body">
-            <div class="row no-gutters align-items-center">
-                <div class="col mr-2">
-                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                        Registered Applicant {{ date("F")}}</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{$applicant_month}}</div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="bi bi-person-plus fs-1 text-gray-300"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-info shadow h-100 py-2">
-        <div class="card-body">
-            <div class="row no-gutters align-items-center">
-                <div class="col mr-2">
-                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                        Total Applicant</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{$applicant_count}}</div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="bi bi-people fs-1 text-gray-300"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-success shadow h-100 py-2">
-        <div class="card-body">
-            <div class="row no-gutters align-items-center">
-                <div class="col mr-2">
-                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                        Registered Student {{ date("F")}}</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{$student_month}}</div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="bi bi-person-plus-fill fs-1 text-gray-300"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-warning shadow h-100 py-2">
-        <div class="card-body">
-            <div class="row no-gutters align-items-center">
-                <div class="col mr-2">
-                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                        Total Student</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{$student_count}}</div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="bi-people-fill
- fs-1 text-gray-300"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>  
-</div>
-
-<div class="row animate__animated animate__fadeInRight">
-    <div class="col-sm-12 col-md-12 col-xl-8">
-        <div class="card mb-4">
-            <div class="card-header bg-info">
-                <i class="bi bi-bar-chart-line-fill me-1"></i>
-                Performance Report
-            </div>
+@if (Auth::user()->user_type == "Admin")
+    <div class="row animate__animated animate__backInRight">
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
             <div class="card-body">
-                <div class="d-flex justify-content-center" id="performanceLoader">
-                    <div class="spinner-border text-info" role="status" style="width: 8rem; height: 8rem;">
-                        <span class="visually-hidden">Loading...</span>
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Registered Applicant {{ date("F")}}</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{$applicant_month}}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="bi bi-person-plus fs-1 text-gray-300"></i>
+                        </div>
                     </div>
                 </div>
-                <canvas id="myBarChart" width="100%" height="47"></canvas>
             </div>
         </div>
-    </div>
-
-    <div class="col-sm-12 col-md-12 col-xl-4">
-        <div class="card mb-4">
-            <div class="card-header bg-info">
-                <i class="bi bi-bar-chart-line-fill me-1"></i>
-                Campus
-            </div>
-            <div class="card-body"><canvas id="myBioChart" width="100%" height="47"></canvas></div>
-        </div>
-    </div>
-</div>
-
-<div class="row animate__animated animate__fadeInRight">
-    <div class="col-sm-12 col-md-12 col-xl-8">
-        <div class="card mb-4">
-            <div class="card-header bg-info">
-                <i class="bi bi-bar-chart-line-fill me-1"></i>
-                Campus Performance
-            </div>
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
             <div class="card-body">
-                <div class="d-flex justify-content-center" id="branchPerformanceLoader">
-                    <div class="spinner-border text-info" role="status" style="width: 8rem; height: 8rem;">
-                        <span class="visually-hidden">Loading...</span>
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Total Applicant</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{$applicant_count}}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="bi bi-people fs-1 text-gray-300"></i>
+                        </div>
                     </div>
                 </div>
-                <canvas id="branchBarChart" width="100%" height="47"></canvas>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Registered Student {{ date("F")}}</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{$student_month}}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="bi bi-person-plus-fill fs-1 text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Total Student</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{$student_count}}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="bi-people-fill
+    fs-1 text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>  
+    </div>
+
+    <div class="row animate__animated animate__fadeInRight">
+        <div class="col-sm-12 col-md-12 col-xl-8">
+            <div class="card mb-4">
+                <div class="card-header bg-info">
+                    <i class="bi bi-bar-chart-line-fill me-1"></i>
+                    Performance Report
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-center" id="performanceLoader">
+                        <div class="spinner-border text-info" role="status" style="width: 8rem; height: 8rem;">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                    <canvas id="myBarChart" width="100%" height="47"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-md-12 col-xl-4">
+            <div class="card mb-4">
+                <div class="card-header bg-info">
+                    <i class="bi bi-bar-chart-line-fill me-1"></i>
+                    Campus
+                </div>
+                <div class="card-body"><canvas id="myBioChart" width="100%" height="47"></canvas></div>
             </div>
         </div>
     </div>
-    <div class="col-sm-12 col-md-12 col-xl-4 animate__animated animate__backInRight">
-        <div class="card mb-4">
-            <div class="card-header bg-info">
-                <i class="bi bi-pie-chart-fill me-1"></i>
-                Campus Student
+
+    <div class="row animate__animated animate__fadeInRight">
+        <div class="col-sm-12 col-md-12 col-xl-8">
+            <div class="card mb-4">
+                <div class="card-header bg-info">
+                    <i class="bi bi-bar-chart-line-fill me-1"></i>
+                    Campus Performance
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-center" id="branchPerformanceLoader">
+                        <div class="spinner-border text-info" role="status" style="width: 8rem; height: 8rem;">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                    <canvas id="branchBarChart" width="100%" height="47"></canvas>
+                </div>
             </div>
-            <div class="card-body"><canvas id="pieChartBranch" width="100%" height="40"></canvas></div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-xl-4 animate__animated animate__backInRight">
+            <div class="card mb-4">
+                <div class="card-header bg-info">
+                    <i class="bi bi-pie-chart-fill me-1"></i>
+                    Campus Student
+                </div>
+                <div class="card-body"><canvas id="pieChartBranch" width="100%" height="40"></canvas></div>
+            </div>
         </div>
     </div>
-</div>
+
+@endif
 
 <div class="row">
     <div class="col-sm-12">

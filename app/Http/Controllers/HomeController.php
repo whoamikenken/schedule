@@ -29,29 +29,40 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        $menus = DB::table('menus')->where('root', '=', '0')->get();
-        foreach ($menus as $key => $value) {
-            if ($value->link) $data['menus'][$value->title] = $value;
-            else $data['menus'][$value->title] = json_decode(DB::table('menus')->where("root", "=", $value->menu_id)->orderBy("title", "asc")->get());
-        }
-
-        $data['navSelected'] = ($request->nav) ? $request->nav : 0;
-        $data['menuSelected'] = ($request->menu_id) ? $request->menu_id : 1;
-        $viewRequest = ($request->route) ? $request->route : "home";
-
-        // dd(Auth::user());
-
         $data['readAccess'] = explode(",", Extras::getAccessList("read", Auth::user()->username));
         $data['addAccess'] = explode(",", Extras::getAccessList("add", Auth::user()->username));
         $data['editAccess'] = explode(",", Extras::getAccessList("edit", Auth::user()->username));
         $data['deleteAccess'] = explode(",", Extras::getAccessList("delete", Auth::user()->username));
 
+        $menus = DB::table('menus')->where('root', '=', '0')->get();
+        foreach ($menus as $key => $value) {
+            if ($value->link) {
+                $data['menus'][$value->title] = $value;
+            } else {
+                $subMenus = json_decode(DB::table('menus')->where("root", "=", $value->menu_id)->orderBy("title", "asc")->get());
+
+                foreach ($subMenus as $ky => $men) {
+
+                    if (!in_array($men->menu_id, $data['readAccess'])) {
+                        unset($subMenus[$ky]);
+                    }
+                }
+
+                if (count($subMenus) > 0) {
+                    $data['menus'][$value->title] =  $subMenus;
+                }
+            }
+        }
+
+        $data['navSelected'] = ($request->nav) ? $request->nav : 0;
+        $data['menuSelected'] = ($request->menu_id) ? $request->menu_id : 1;
+        $viewRequest = ($request->route) ? $request->route : "home";
+        
         return view($viewRequest, $data);
     }
 
     public function dashboard(){
     
-        if(Auth::user()->user_type == "Admin"){
         $data['applicant_month'] = Extras::countApplicantRegistered();
         $data['applicant_count'] = Extras::countApplicantRegisteredAll();
         $data['student_month'] = Extras::countStudentRegistered();
@@ -59,9 +70,6 @@ class HomeController extends Controller
         $data['top_adviser'] = DB::table('users')->select("*", DB::raw('(SELECT COUNT(*) FROM students WHERE adviser = users.id) as total_handle'), DB::raw('(SELECT description FROM campuses WHERE code = users.campus) as campusDesc'))->where("user_type", "=", 'Professor')->orderBy("total_handle", "desc")->paginate(8);
         $data['announcement'] = DB::table('announcements')->select(array('id','title','description'))->paginate(8);
         return view('dashboard/admin', $data);
-        }else{
-
-        }
     }
 
     public function getDropdownData(Request $request){

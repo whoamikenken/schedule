@@ -380,7 +380,7 @@
                 </div>
                 <div class="footer-copyright">
                     <div class="container">
-                        Made by <a class="brown-text text-lighten-3" href="http://materializecss.com">©RAKAN.</a>
+                        Made by <a class="brown-text text-lighten-3" href="http://materializecss.com">©RAFAM.</a>
                     </div>
                 </div>
             </footer>

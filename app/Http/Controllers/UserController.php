@@ -107,6 +107,11 @@ class UserController extends Controller
             'uid' => ['required'],
         ]);
 
+        $readAccess = array();
+        $editAccess = array();
+        $addAccess = array();
+        $delAccess = array();
+
         if ($formFields['uid'] != "add") {
             $data['record'] = DB::table('users')->where('id', $formFields['uid'])->get();
             $data = $data['record'][0];
@@ -124,8 +129,10 @@ class UserController extends Controller
         $noDelete = Extras::getNoDel();
 
         $menus = Extras::getMenusList();
+        
         $access = array();
         $access["Main"][] = array('root_id' => 0, "menu_id" => 1, "title" => "Dashboard");
+        $access["Main"][] = array('root_id' => 0, "menu_id" => 17, "title" => "My Profile");
         $access["Main"][] = array('root_id' => 0, "menu_id" => 2, "title" => "Student List");
         $access["Main"][] = array('root_id' => 0, "menu_id" => 3, "title" => "User Management");
         $access["Main"][] = array('root_id' => 0, "menu_id" => 4, "title" => "Applicant List");
@@ -143,7 +150,6 @@ class UserController extends Controller
                 $access[$value->title][] = array('root_id' => $value->menu_id, "menu_id" => $val->menu_id, "title" => $val->title);
             }
         }
-    
         $accessColumn = "<div class='row'>";
         foreach ($access as $mainMenu => $subMenu) {
             $accessColumn .= '<div class="col-md-6 col-sm-12 mb-5"><h3 class="text-center fs-bold">' . $mainMenu . '</h3>';
