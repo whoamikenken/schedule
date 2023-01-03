@@ -19,16 +19,20 @@ class UsertypeSeeder extends Seeder
             'code' => 'Admin',
             'description' => 'Administrator has all the permission on modules',
             'modified_by' => 1,
-            'read' => "1,2,3,4,7,8,9,10,11,14,15,16,12,13",
+            'read' => "1,2,3,4,803,804,801,7,8,9,10,11,14,15,16,12,13",
             'add' => "1,2,3,4,7,8,9,10,11,14,15,16,12,13",
             'delete' => "1,2,3,4,7,8,9,10,11,14,15,16,12,13",
-            'edit' => "1,2,3,4,7,8,9,10,11,14,15,16,12,13",
+            'edit' => "1,2,3,4,803,804,801,7,8,9,10,11,14,15,16,12,13",
             'created_by' => 1,
         ]);
 
         Usertype::factory()->create([
             'code' => 'Student',
             'description' => 'Student account to create schedule',
+            'read' => "17",
+            'add' => "17",
+            'delete' => "17",
+            'edit' => "17",
             'modified_by' => 1,
             'created_by' => 1,
         ]);

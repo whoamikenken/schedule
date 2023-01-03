@@ -275,10 +275,10 @@ class MenuSeeder extends Seeder
                 $maxOrder = Menu::where('root', '=', '0')->count('order'); // returns 0 if no records exist.
                 return $maxOrder + 1;
             },
-            'title' => 'Student Planner',
-            'link' => 'planner',
-            'icon' => 'calendar2-range',
-            'description' => "Student Planner"
+            'title' => 'My Profile',
+            'link' => 'user/profile',
+            'icon' => 'people',
+            'description' => "Student Profile"
         ]);
 
     }

@@ -68,6 +68,16 @@
                 .attr("value", tags.val())
                 .prependTo("#profileForm");
 
+                if(tags.attr("name") == "status"){
+                    if($("#student_no").val() == ""){
+                        Toast.fire({
+                            icon: 'error',
+                            title: 'Error No Student ID'
+                        });
+                        return;
+                    }
+                }
+
                 var formdata = $("#profileForm").serialize();
 
                 $.ajax({
@@ -85,7 +95,7 @@
                         }else{
                             Toast.fire({
                                 icon: 'error',
-                                title: 'Error please contact kennedy.'
+                                title: 'Error please contact Nicolas Relmo.'
                             });
                         }
                     }
@@ -130,7 +140,7 @@
                     }else{
                         Toast.fire({
                             icon: 'error',
-                            title: 'Error please contact kennedy.'
+                            title: 'Error please contact Nicolas Relmo.'
                         });
                     }
                 }

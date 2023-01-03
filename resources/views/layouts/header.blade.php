@@ -241,6 +241,11 @@
         .ql-toolbar.ql-snow {
             width: 100%;
         }
+
+        /* TEMPUS */
+        .tempus-dominus-widget {
+            min-height: 142px!important;
+        }
     </style>
     
     <script type="text/javascript">
@@ -259,7 +264,7 @@ $mainmenu = 1;
             <div class="col px-0">
                 <nav class="navbar navbar-expand-md navbar-light shadow-sm" style="background-color:#212e3a">
                     <div class="container-fluid">
-                        <a class="navbar-brand text-white" href="{{ url('/') }}" style="font-weight: 600;">
+                        <a class="navbar-brand text-white" href="{{ url('/') }}/home" style="font-weight: 600;">
                             {{-- <img src="{{ asset('images/logo.png')}}" alt="" width="30" height="24" class="d-inline-block align-text-top"> --}}
                             SCHEDULE MAKER
                         </a>
@@ -294,7 +299,7 @@ $mainmenu = 1;
                             </ul>
                             <form class="d-flex text-end justify-content-between">
                                 @if(Auth::user()->user_image != "")         
-                                <img class="rounded-circle me-lg-2" src="{{ Storage::disk("public")->url(Auth::user()->user_image)}}" alt="" style="width: 40px; height: 40px;">         
+                                <img class="rounded-circle me-lg-2" src="{{ Storage::disk("s3")->url(Auth::user()->user_image)}}" alt="" style="width: 40px; height: 40px;">         
                                 @else
                                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16" style="color:white">
                                     <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>

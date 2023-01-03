@@ -37,7 +37,7 @@
                         <div class="input-group">
                             <div class="input-group-text"><i class="bi bi-pass"></i></div>
                             <input type="text" id="er_ref" name="er_ref"
-                            class="form-control" placeholder="Enter ER Ref" value="{{ $id }}">
+                            class="form-control" placeholder="Enter ER Ref" value="{{ $applicant_id }}">
                             <div class="valid-feedback">
                                 Looks good!
                             </div>
@@ -78,10 +78,10 @@
                         <label style="font-weight:600">Status</label>
                         <div class="input-group">
                             <div class="input-group-text"><i class="bi bi-person-rolodex"></i></div>
-                            <select name="applicant_type" id="applicant_type" class="form-control form-select">
-                                <option value="PENDING" {{ (isset($applicant_type) && $applicant_type == "PENDING")? "selected":"" }} >PENDING</option>
-                                <option value="ACCEPTED" {{ (isset($applicant_type) && $applicant_type == "ACCEPTED")? "selected":"" }} >APPROVE</option>
-                                <option value="DISAPPROVE" {{ (isset($applicant_type) && $applicant_type == "DISAPPROVE")? "selected":"" }} >DISAPPROVE</option>
+                            <select name="status" id="status" class="form-control form-select">
+                                <option value="PENDING" {{ (isset($status) && $status == "PENDING")? "selected":"" }} >PENDING</option>
+                                <option value="ACCEPTED" {{ (isset($status) && $status == "ACCEPTED")? "selected":"" }} >APPROVE</option>
+                                <option value="DISAPPROVE" {{ (isset($status) && $status == "DISAPPROVE")? "selected":"" }} >DISAPPROVE</option>
                             </select>
                             <div class="valid-feedback">
                                 Looks good!
@@ -160,7 +160,7 @@
                         <div class="input-group">
                             <div class="input-group-text"><i class="bi bi-hash"></i></div>
                             <input type="text" id="contact" name="contact"
-                            class="form-control validate" placeholder="Enter Contact" value="{{ $contact }}">
+                            class="form-control validate" value="{{ $contact }}" placeholder="+639__-___-____" data-slots="_">
                             <div class="valid-feedback">
                                 Looks good!
                             </div>

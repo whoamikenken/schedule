@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -19,13 +21,36 @@ class StudentFactory extends Factory
     {
         $firstName = fake()->firstName();
         $gender = fake()->randomElement(['Male', 'Female']);
-        return [
-            'student_id' => fake()->randomNumber(6, false),
+        $studentNo = fake()->randomNumber(6, false);
+        $mname = fake()->lastName($gender);
+        $lname = fake()->lastName($gender);
+        $email = fake()->freeEmail();
+        $contact = "+639" . fake()->randomNumber(9, true);
+        
+        User::factory()->create([
+            'username' => $studentNo,
+            'name' => $firstName . " " . $lname,
             'fname' => $firstName,
-            'lname' => fake()->lastName($gender),
-            'mname' => fake()->lastName($gender),
-            'contact' => "+639".fake()->randomNumber(9,true),
-            'email' => fake()->freeEmail(),
+            'lname' => $lname,
+            'email' => $email,
+            'user_type' => 'Student',
+            'status' => 'verified',
+            'email_verified_at' => now(),
+            'password' => bcrypt('a'), // password
+            'read' => "17,803,804",
+            'add' => "17",
+            'delete' => "17",
+            'edit' => "17,804",
+            'remember_token' => Str::random(10)
+        ]);
+
+        return [
+            'student_id' => $studentNo,
+            'fname' => $firstName,
+            'lname' => $lname,
+            'mname' => $mname,
+            'contact' => $contact,
+            'email' => $email,
             'campus' => fake()->randomElement(['CAL', 'ALB', 'ANG', 'CDO', 'CUO', 'GES', 'LIP', 'BAC', 'BAG']),
             'adviser' => fake()->randomElement(['5', '6', '7', '8', '9', '10', '11', '12', '13', '14']),
             'course' => fake()->randomElement(['ACCT', 'CITE', 'CBMC', 'CASC', 'BUSS', 'ACOM', 'COSC', 'CTHC', 'GEDC', 'INTE']),

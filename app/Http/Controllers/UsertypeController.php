@@ -56,6 +56,7 @@ class UsertypeController extends Controller
         $menus = Extras::getMenusList();
         $access = array();
         $access["Main"][] = array('root_id' => 0, "menu_id" => 1, "title" => "Dashboard");
+        $access["Main"][] = array('root_id' => 0, "menu_id" => 17, "title" => "My Profile");
         $access["Main"][] = array('root_id' => 0, "menu_id" => 2, "title" => "Student List");
         $access["Main"][] = array('root_id' => 0, "menu_id" => 3, "title" => "User Management");
         $access["Main"][] = array('root_id' => 0, "menu_id" => 4, "title" => "Applicant List");
