@@ -136,6 +136,7 @@ class UserController extends Controller
         $access["Main"][] = array('root_id' => 0, "menu_id" => 2, "title" => "Student List");
         $access["Main"][] = array('root_id' => 0, "menu_id" => 3, "title" => "User Management");
         $access["Main"][] = array('root_id' => 0, "menu_id" => 4, "title" => "Applicant List");
+        $access["Main"][] = array('root_id' => 0, "menu_id" => 18, "title" => "Student Planner");
         foreach ($menus as $key => $value) {
             $getSubmenus = Extras::getSubMenus($value->menu_id);
             if ($value->menu_id == 4) {

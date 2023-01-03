@@ -34,7 +34,7 @@ class HomeController extends Controller
         $data['editAccess'] = explode(",", Extras::getAccessList("edit", Auth::user()->username));
         $data['deleteAccess'] = explode(",", Extras::getAccessList("delete", Auth::user()->username));
 
-        $menus = DB::table('menus')->where('root', '=', '0')->get();
+        $menus = DB::table('menus')->where('root', '=', '0')->orderBy('link', 'desc')->get();
         foreach ($menus as $key => $value) {
             if ($value->link) {
                 $data['menus'][$value->title] = $value;

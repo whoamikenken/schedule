@@ -17,6 +17,7 @@ use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\UsertypeController;
 use App\Http\Controllers\ApplicantController;
 use App\Http\Controllers\BatchScheduleController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\StudentController;
@@ -82,10 +83,16 @@ Route::post('/subject/add', [SubjectController::class, 'store']);
 Route::post('/subject/delete', [SubjectController::class, 'delete']);
 
 // Year Level
-Route::post('/yearlevel/table', [YearlevelController::class, 'getTable'])->withoutMiddleware([VerifyCsrfToken::class]);
+Route::post('/yearlevel/table', [YearlevelController::class, 'getEvent'])->withoutMiddleware([VerifyCsrfToken::class]);
 Route::post('/yearlevel/getModal', [YearlevelController::class, 'getModal'])->withoutMiddleware([VerifyCsrfToken::class]);
 Route::post('/yearlevel/add', [YearlevelController::class, 'store']);
 Route::post('/yearlevel/delete', [YearlevelController::class, 'delete']);
+
+// Year Level
+Route::post('/event/table', [EventController::class, 'getTable'])->withoutMiddleware([VerifyCsrfToken::class]);
+Route::post('/event/getModal', [EventController::class, 'getModal'])->withoutMiddleware([VerifyCsrfToken::class]);
+Route::post('/event/add', [EventController::class, 'store']);
+Route::post('/event/delete', [EventController::class, 'delete']);
 
 // Announcement
 Route::post('/announcement/table', [AnnouncementController::class, 'getTable'])->withoutMiddleware([VerifyCsrfToken::class]);

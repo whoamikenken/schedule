@@ -87,6 +87,7 @@ class MenuSeeder extends Seeder
                 $max = Menu::count('id'); // returns 0 if no records exist.
                 return $max + 1;
             },
+            'order' => 98,
             'title' => 'System Setup',
             'link' => '',
             'icon' => '',
@@ -99,6 +100,7 @@ class MenuSeeder extends Seeder
                 $max = Menu::count('id'); // returns 0 if no records exist.
                 return $max + 1;
             },
+            'order' => 99,
             'title' => 'System Configuration',
             'link' => '',
             'icon' => '',
@@ -279,6 +281,22 @@ class MenuSeeder extends Seeder
             'link' => 'user/profile',
             'icon' => 'people',
             'description' => "Student Profile"
+        ]);
+
+        Menu::factory()->create([
+            'root' => '0',
+            'menu_id' => function () {
+                $max = Menu::count('id'); // returns 0 if no records exist.
+                return $max + 1;
+            },
+            'order' => function () {
+                $maxOrder = Menu::where('root', '=', '0')->count('order'); // returns 0 if no records exist.
+                return $maxOrder + 1;
+            },
+            'title' => 'Student Planner',
+            'link' => 'planner',
+            'icon' => 'calendar2-range',
+            'description' => "Student Planner"
         ]);
 
     }
