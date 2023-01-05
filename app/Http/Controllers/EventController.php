@@ -42,6 +42,7 @@ class EventController extends Controller
         $formFields = $request->validate([
             'uid' => ['required'],
             'title' => ['required'],
+            'room' => ['required'],
             'date' => ['required'],
             'time_start' => ['required'],
             'time_end' => ['required']

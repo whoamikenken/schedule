@@ -2,25 +2,30 @@
     @csrf
     <input type="hidden" name="uid" value="{{($uid)}}">
     <div class="col-md-6 col-sm-12">
-        <label>Title<span class="text-danger">*</span></label>
+        <label>Subject<span class="text-danger">*</span></label>
         <div class="input-group">
             <div class="input-group-text"><i class="bi bi-pencil-fill"></i></div>
             <input type="text" id="title" name="title"
-            class="form-control validate" placeholder="Enter Title" required value="{{ (isset($title))? $title:"" }}" max="50">
+            class="form-control validate" placeholder="Enter Subject" required value="{{ (isset($title))? $title:"" }}" max="50">
             <div class="valid-feedback">
                 Looks good!
             </div>
             <div class="invalid-feedback">
-                Please input a Title.
+                Please input a Subject.
             </div>
         </div>
     </div>
     <div class="col-md-6 col-sm-12">
-        <label>Date<span class="text-danger">*</span></label>
-        <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
-            <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" name="date" value="{{ ($date)? $date:''}}"/>
-            <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
-                <div class="input-group-text"><i class="bi bi-calendar-fill"></i></div>
+        <label>Room<span class="text-danger">*</span></label>
+        <div class="input-group">
+            <div class="input-group-text"><i class="bi bi-pencil-fill"></i></div>
+            <input type="text" id="room" name="room"
+            class="form-control validate" placeholder="Enter Room" required value="{{ (isset($room))? $room:"" }}" >
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+            <div class="invalid-feedback">
+                Please input a Room.
             </div>
         </div>
     </div>
@@ -38,7 +43,15 @@
             </span>
         </div>
     </div>
-    
+    <div class="col-md-12 col-sm-12">
+        <label>Date<span class="text-danger">*</span></label>
+        <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+            <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" name="date" value="{{ ($date)? $date:''}}"/>
+            <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                <div class="input-group-text"><i class="bi bi-calendar-fill"></i></div>
+            </div>
+        </div>
+    </div>
 </form>
 <script>
     

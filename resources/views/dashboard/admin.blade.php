@@ -82,7 +82,7 @@
         </div>  
     </div>
 
-    <div class="row animate__animated animate__fadeInRight">
+    {{-- <div class="row animate__animated animate__fadeInRight">
         <div class="col-sm-12 col-md-12 col-xl-8">
             <div class="card mb-4">
                 <div class="card-header bg-info">
@@ -109,7 +109,7 @@
                 <div class="card-body"><canvas id="myBioChart" width="100%" height="47"></canvas></div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     <div class="row animate__animated animate__fadeInRight">
         <div class="col-sm-12 col-md-12 col-xl-8">

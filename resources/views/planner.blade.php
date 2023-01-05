@@ -9,6 +9,8 @@ foreach ($eventsQuery as $key => $value) {
     $data['title'] = $value->title;
     $data['start'] = date("Y-m-d H:i:s",strtotime($value->date." ".$value->time_start));
     $data['end'] = date("Y-m-d H:i:s",strtotime($value->date." ".$value->time_end));
+    $data['eventStartEditable'] = false;
+    $data['description'] = "Room: 42";
     $Events[] = $data;
 }
 
@@ -30,7 +32,7 @@ $Events = json_encode($Events);
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'timeGridWeek',
-            
+            hiddenDays: [0],
             allDaySlot: false,
             selectable: true,
             select: function(data) {
@@ -59,6 +61,13 @@ $Events = json_encode($Events);
             ,
             eventClick: function(calEvent, jsEvent, view) {
                 console.log(calEvent);    
+            },
+            eventDidMount: function(event, element) {
+                // To append if is assessment
+                if(event.event.extendedProps.description != '' && typeof event.event.extendedProps.description  !== "undefined")
+                {  
+                    $(event.el).find(".fc-event-title").append("<br/><b>"+event.event.extendedProps.description+"</b>");
+                }
             }
         });
         calendar.render();
