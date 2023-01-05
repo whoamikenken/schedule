@@ -34,6 +34,7 @@ $Events = json_encode($Events);
             initialView: 'timeGridWeek',
             hiddenDays: [0],
             allDaySlot: false,
+            selectOverlap:false,
             selectable: true,
             select: function(data) {
                 var start = formatDateToTime(data.start);
