@@ -37,10 +37,10 @@ class StudentFactory extends Factory
             'status' => 'verified',
             'email_verified_at' => now(),
             'password' => bcrypt('a'), // password
-            'read' => "17,803,804",
-            'add' => "17",
-            'delete' => "17",
-            'edit' => "17,804",
+            'read' => "17,803,804,18",
+            'add' => "17,18",
+            'delete' => "17,18",
+            'edit' => "17,804,18",
             'remember_token' => Str::random(10)
         ]);
 

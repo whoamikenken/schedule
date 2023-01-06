@@ -110,6 +110,7 @@ class ScheduleController extends Controller
                 $schedDataInsert['coursecode'] = $schedData[5];
                 $schedDataInsert['yearlevels'] = $schedData[6];
                 $schedDataInsert['section'] = $schedData[7];
+                $schedDataInsert['room'] = $schedData[8];
                 $schedDataInsert['description'] = $formFields['description'];
                 DB::table('schedules_detail')->insert($schedDataInsert);
             }
@@ -139,6 +140,7 @@ class ScheduleController extends Controller
                 $schedDataInsert['coursecode'] = $schedData[5];
                 $schedDataInsert['yearlevels'] = $schedData[6];
                 $schedDataInsert['section'] = $schedData[7];
+                $schedDataInsert['room'] = $schedData[8];
                 $schedDataInsert['description'] = $formFields['description'];
                 DB::table('schedules_detail')->insert($schedDataInsert);
             }

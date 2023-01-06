@@ -39,6 +39,7 @@ return new class extends Migration
             $table->string('section', 40)->nullable();
             $table->string('yearlevels', 40)->nullable();
             $table->string('coursecode', 40)->nullable();
+            $table->string('room', 40)->nullable();
             $table->string('units', 40)->nullable();
             $table->string('professor', 40)->nullable();
             $table->string('description', 100)->nullable();
@@ -63,6 +64,7 @@ return new class extends Migration
             $table->string('section', 40)->nullable();
             $table->string('yearlevels', 40)->nullable();
             $table->string('coursecode', 40)->nullable();
+            $table->string('roon', 40)->nullable();
             $table->string('units', 40)->nullable();
             $table->string('professor', 40)->nullable();
             $table->string('description', 100)->nullable();

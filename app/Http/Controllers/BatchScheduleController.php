@@ -92,8 +92,8 @@ class BatchScheduleController extends Controller
             }
             // Convert TO array
             $schedData = json_decode(json_encode($schedData), true);
+            // dd($schedData);
             DB::table('schedules_detail_student')->insert($schedData);
-            
         }
 
         $data = array(

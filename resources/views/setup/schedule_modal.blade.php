@@ -45,6 +45,7 @@
                 <th>To</th>
                 <th>Subject</th>
                 <th>Units</th>
+                <th>Room #</th>
                 <th>Professor</th>
                 <th>Course</th>
                 <th>Year Level</th>
@@ -99,6 +100,9 @@
                 </td>
                 <td>
                     <input type="number" class="form-control units" name="units" value="{{ $schedData->units}}">
+                </td>
+                <td>
+                    <input type="text" class="form-control room" name="room" value="{{ $schedData->room}}">
                 </td>
                 <td>
                     <div class="input-group">
@@ -199,6 +203,9 @@
                 </td>
                 <td>
                     <input type="number" class="form-control units" name="units" min="0" max="5" value="">
+                </td>
+                <td>
+                    <input type="text" class="form-control room" name="room" value="">
                 </td>
                 <td>
                     <div class="input-group">
@@ -485,9 +492,6 @@
         $("#schedule").find("tr[tag='grp']").each(function(){
             var ftime = $(this).find("input[name='fromtime']:first").val();
             var totime = $(this).find("input[name='totime']:first").val();
-            var tardy_f = $(this).find("input[name='tardy_f']:first").val();
-            var absent_f = $(this).find("input[name='absent_f']:first").val();
-            var early_d = $(this).find("input[name='early_d']:first").val();
             if(last_trcode != $(this).attr("dayofweek")){
                 if(ftime == totime && ftime && totime){
                     hasconflict++;
@@ -533,6 +537,8 @@
                 scheduleData += $(this).find("select[name='yearlevels']:first").val();
                 scheduleData += pars2;
                 scheduleData += $(this).find("select[name='section']:first").val();
+                scheduleData += pars2;
+                scheduleData += $(this).find("input[name='room']:first").val();
             }
         });
         
@@ -592,6 +598,7 @@
             var subject           = $(this).find("select[name='subject']").val();
             var subjectOption           = $(this).find("select[name='subject']").find('option').clone();
             var unit           = $(this).find("input[name='units']").val();
+            var room          = $(this).find("input[name='room']").val();
             var professor           = $(this).find("select[name='professor']").val();
             var professorOption           = $(this).find("select[name='professor']").find('option').clone();
             var course           = $(this).find("select[name='course']").val();
@@ -601,7 +608,7 @@
             var section           = $(this).find("select[name='section']").val();
             var sectionOption           = $(this).find("select[name='section']").find('option').clone();
             
-            if(from != '' || to != '' || subject != '' || unit != '' || professor != '' || course != ''|| yearlevels != ''|| section != ''){
+            if(from != '' || to != '' || subject != '' || unit != '' || professor != '' || course != ''|| yearlevels != '' || section != '' || room != ''){
                 schedarr_temp = {
                     'fromtime'  :from,
                     'totime'    :to,
@@ -616,6 +623,7 @@
                     'yearlevelsOption' :yearlevelsOption,
                     'section'   :section,
                     'sectionOption' :sectionOption,
+                    'room'   :room,
                 };
                 schedarr.push(schedarr_temp);
             }
@@ -639,8 +647,9 @@
             var yearlevelsOption           = $(this).find("select[name='yearlevels']").find('option').clone();
             var section           = $(this).find("select[name='section']").val();
             var sectionOption           = $(this).find("select[name='section']").find('option').clone();
+            var room          = $(this).find("input[name='room']").val();
             
-            if(from != '' || to != '' || subject != '' || unit != '' || professor != '' || course != ''|| yearlevels != ''|| section != ''){
+            if(from != '' || to != '' || subject != '' || unit != '' || professor != '' || course != ''|| yearlevels != '' || section != '' || room != ''){
                 schedarr_orig_temp = {
                     'fromtime'  :from,
                     'totime'    :to,
@@ -655,6 +664,7 @@
                     'yearlevelsOption' :yearlevelsOption,
                     'section'   :section,
                     'sectionOption' :sectionOption,
+                    'room'   :room,
                 };
                 schedarr_orig.push(schedarr_orig_temp);
             }
@@ -670,6 +680,7 @@
                 obj.find("select[name='course']").append(schedarr[0]['courseOption']).val(schedarr[0]['course']).trigger('change');
                 obj.find("select[name='yearlevels']").append(schedarr[0]['yearlevelsOption']).val(schedarr[0]['yearlevels']).trigger('change');
                 obj.find("select[name='section']").append(schedarr[0]['sectionOption']).val(schedarr[0]['section']).trigger('change');
+                obj.find("input[name='room']").val(schedarr[0]['room']);
                 
                 if(schedarr.length > 1){
                     for (var i = schedarr.length - 1; i >= 1; i--) {
@@ -683,6 +694,7 @@
                         $(obj).next(':first').find("select[name='course']").append(schedarr[i]['courseOption']).val(schedarr[i]['course']).trigger('change');
                         $(obj).next(':first').find("select[name='yearlevels']").append(schedarr[i]['yearlevelsOption']).val(schedarr[i]['yearlevels']).trigger('change');
                         $(obj).next(':first').find("select[name='section']").append(schedarr[i]['sectionOption']).val(schedarr[i]['section']).trigger('change');
+                        $(obj).next(':first').find("input[name='room']").val(schedarr[i]['room']);
                     }
                 }
             }
@@ -698,6 +710,7 @@
                     $(obj).next(':first').find("select[name='course']").append(schedarr[i]['courseOption']).val(schedarr[i]['course']).trigger('change');
                     $(obj).next(':first').find("select[name='yearlevels']").append(schedarr[i]['yearlevelsOption']).val(schedarr[i]['yearlevels']).trigger('change');
                     $(obj).next(':first').find("select[name='section']").append(schedarr[i]['sectionOption']).val(schedarr[i]['section']).trigger('change');
+                    $(obj).next(':first').find("input[name='room']").val(schedarr[i]['room']);
                 }
             }
         }
@@ -711,6 +724,7 @@
             obj.find("select[name='course']").append(schedarr_orig[0]['courseOption']).val(schedarr_orig[0]['course']).trigger('change');
             obj.find("select[name='yearlevels']").append(schedarr_orig[0]['yearlevelsOption']).val(schedarr_orig[0]['yearlevels']).trigger('change');
             obj.find("select[name='section']").append(schedarr_orig[0]['sectionOption']).val(schedarr_orig[0]['section']).trigger('change');
+            obj.find("input[name='room']").val(schedarr_orig[0]['room']);
         }
         
         if(schedarr_orig.length > 1){
@@ -719,7 +733,8 @@
                 $(obj).next(':first').find("input[name='fromtime']").val(schedarr_orig[i]['fromtime']);
                 $(obj).next(':first').find("input[name='totime']").val(schedarr_orig[i]['totime']);
                 $(obj).next(':first').find("select[name='subject']").append(schedarr_orig[i]['subjectOption']).val(schedarr_orig[i]['subject']).trigger('change');
-                $(obj).next(':first').find("input[name='units']").val(schedarr_orig[i]['units']);
+                $(obj).next(':first').find("input[name='units']").val(schedarr_orig[i]['unit']);
+                $(obj).next(':first').find("input[name='room']").val(schedarr_orig[i]['room']);
                 $(obj).next(':first').find("select[name='professor']").append(schedarr_orig[i]['professorOption']).val(schedarr_orig[i]['professor']).trigger('change');
                 $(obj).next(':first').find("select[name='course']").append(schedarr_orig[i]['courseOption']).val(schedarr_orig[i]['course']).trigger('change');
                 $(obj).next(':first').find("select[name='yearlevels']").append(schedarr_orig[i]['yearlevelsOption']).val(schedarr_orig[i]['yearlevels']).trigger('change');
@@ -739,6 +754,8 @@
         $("tr[dayofweek='"+ tr_id +"']").find(".course").val('').trigger('change');
         $("tr[dayofweek='"+ tr_id +"']").find(".yearlevel").val('').trigger('change');
         $("tr[dayofweek='"+ tr_id +"']").find(".section").val('').trigger('change');
+        $("tr[dayofweek='"+ tr_id +"']").find(".room").val('');
+        $("tr[dayofweek='"+ tr_id +"']").find(".units").val('');
     });
     
     $("button[tag='delete_sched']").click(function(){

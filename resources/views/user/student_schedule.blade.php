@@ -13,6 +13,7 @@
                                 <th style="width:9%">To</th>
                                 <th style="width:15%">Subject</th>
                                 <th style="width:5%">Units</th>
+                                <th style="width:5%">Room</th>
                                 <th style="width:15%">Professor</th>
                                 <th style="width:15%">Course</th>
                                 <th style="width:13%">Year Level</th>
@@ -29,14 +30,6 @@
                             // dd($schedData);
                             @endphp
                             <tr tag='grp' dayofweek='{{$dcode}}'> 
-                                {{-- <td>
-                                    <div class="btn-group" role="group" aria-label="Basic example">
-                                        <button type="button" class="btn btn-info" tag='copy_sched'><i class="bi bi-clipboard"></i>Copy</button>
-                                        <button type="button" class="btn btn-info" tag='paste_sched'><i class="bi bi-clipboard2-check"></i>Paste</button>
-                                        <button type="button" class="btn btn-info" tag='edit_erase_time'><i class="bi bi-clipboard2-x"></i>Erase</button>
-                                        <button type="button" class="btn btn-info" tag='add_sched'><i class="bi bi-clipboard2-plus"></i>Add</button>
-                                    </div>
-                                </td> --}}
                                 <td>
                                     {{$dow[$dcode]}}
                                 </td>
@@ -68,6 +61,9 @@
                                 </td>
                                 <td>
                                     <input type="number" class="form-control units" name="units" value="{{ $schedData->units}}">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control room" name="room" value="{{ $schedData->room}}">
                                 </td>
                                 <td>
                                     <div class="input-group">
@@ -168,6 +164,9 @@
                                 </td>
                                 <td>
                                     <input type="number" class="form-control units" name="units" min="0" max="5" value="">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control room" name="room" value="">
                                 </td>
                                 <td>
                                     <div class="input-group">
