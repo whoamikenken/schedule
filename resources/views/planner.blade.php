@@ -13,22 +13,28 @@ for ($d = 1; $d <= 5; $d++) {
 
 
 $Events = array();
-foreach ($dates as $key => $dateW) {
+
+if(Auth::user()->user_type != "SUPER ADMIN"){
+    if (Auth::user()->username) {
+        foreach ($dates as $key => $dateW) {
     
-    $eventsQuery = DB::table('schedules_detail_student')->where("idx","=",$key)->get();
-    foreach ($eventsQuery as $ky => $value) {
-        // dd($value);
-        $data = array();
-        $data['title'] = DB::table('subjects')->where('id', $value->subject)->value('course_desc');
-        $data['start'] = date($dateW." H:i:s",strtotime($dateW." ".$value->starttime));
-        $data['end'] = date($dateW." H:i:s",strtotime($dateW." ".$value->endtime));
-        $data['eventStartEditable'] = false;
-        $data['description'] = "Room: ".$value->room;
-        $data['prof'] = "Prof: ".DB::table('users')->where('id', $value->professor)->value('name');
-        $Events[] = $data;
+            $eventsQuery = DB::table('schedules_detail_student')->where("idx","=",$key)->where("student_id","=",Auth::user()->username)->get();
+            foreach ($eventsQuery as $ky => $value) {
+                // dd($value);
+                $data = array();
+                $data['title'] = DB::table('subjects')->where('id', $value->subject)->value('course_desc');
+                $data['start'] = date($dateW." H:i:s",strtotime($dateW." ".$value->starttime));
+                $data['end'] = date($dateW." H:i:s",strtotime($dateW." ".$value->endtime));
+                $data['eventStartEditable'] = false;
+                $data['description'] = "Room: ".$value->room;
+                $data['prof'] = "Prof: ".DB::table('users')->where('id', $value->professor)->value('name');
+                $Events[] = $data;
+            }
+            
+        }
     }
-    
 }
+
 
 $Events = json_encode($Events);
 // dd($Events);
