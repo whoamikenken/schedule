@@ -220,8 +220,7 @@ class UserController extends Controller
             'fname' => ['required'],
             'lname' => ['required'],
             'status' => ['required'],
-            'user_type' => ['required'],
-            'email' => ['required']
+            'user_type' => ['required']
         ]);
         if($request->input("password") === null){
             unset($formFields['password']);

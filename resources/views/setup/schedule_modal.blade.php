@@ -273,9 +273,9 @@
 <script>
     
     var schedarr = [];
-    
+
     $(document).ready(function () {
-        
+    
         $('.select-predefined').each(function (index, element) {
             var item = $(element);
             if (item.data('url')) {
@@ -489,17 +489,29 @@
         
         var hasconflict = 0;
         var last_trcode = "";
+        var periods = [];
+
         $("#schedule").find("tr[tag='grp']").each(function(){
             var ftime = $(this).find("input[name='fromtime']:first").val();
             var totime = $(this).find("input[name='totime']:first").val();
-            if(last_trcode != $(this).attr("dayofweek")){
+            if(last_trcode == $(this).attr("dayofweek")){
+                const AnotherPeriod = [{start:toHoursMins(ftime), end:toHoursMins(totime)}];
+                periods = periods.concat(AnotherPeriod);
+            }else{
+                var TimeChecker = timeOverlapChecker(periods);
+                if(TimeChecker){
+                    hasconflict++;
+                }
                 if(ftime == totime && ftime && totime){
                     hasconflict++;
                 }
+                periods = [];
+                const AnotherPeriod = [{start:toHoursMins(ftime), end:toHoursMins(totime)}];
+                periods = periods.concat(AnotherPeriod);
             }
-            var last_trcode = $(this).attr("dayofweek");
+            last_trcode = $(this).attr("dayofweek");
         });
-        
+
         if(hasconflict>0){
             Swal.fire({
                 icon: 'warning',
@@ -795,17 +807,17 @@
         $(obj).find("td:eq(4)").find("div:first").html(""); 
         $(obj).find("td:eq(4)").find("div:first").append($(subject_drop));
         
-        $(obj).find("td:eq(6)").find("div:first").html(""); 
-        $(obj).find("td:eq(6)").find("div:first").append($(prof_drop));
-        
         $(obj).find("td:eq(7)").find("div:first").html(""); 
-        $(obj).find("td:eq(7)").find("div:first").append($(course_drop));
+        $(obj).find("td:eq(7)").find("div:first").append($(prof_drop));
         
         $(obj).find("td:eq(8)").find("div:first").html(""); 
-        $(obj).find("td:eq(8)").find("div:first").append($(yl_drop));
+        $(obj).find("td:eq(8)").find("div:first").append($(course_drop));
         
         $(obj).find("td:eq(9)").find("div:first").html(""); 
-        $(obj).find("td:eq(9)").find("div:first").append($(section_drop));
+        $(obj).find("td:eq(9)").find("div:first").append($(yl_drop));
+        
+        $(obj).find("td:eq(10)").find("div:first").html(""); 
+        $(obj).find("td:eq(10)").find("div:first").append($(section_drop));
         
         $(obj).find("input[name='fromtime'],input[name='totime']").tempusDominus({
             display: {
