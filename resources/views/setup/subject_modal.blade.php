@@ -2,11 +2,11 @@
     @csrf
     <input type="hidden" name="uid" value="{{($uid)}}">
     <div class="col-md-6 col-sm-12">
-        <label>Code<span class="text-danger">*</span></label>
+        <label>Course Code<span class="text-danger">*</span></label>
         <div class="input-group">
             <div class="input-group-text"><i class="bi bi-pencil-fill"></i></div>
-            <input type="text" id="code" name="code"
-            class="form-control validate" placeholder="Enter Code" required value="{{ (isset($code))? $code:"" }}">
+            <input type="text" id="course_code" name="course_code"
+            class="form-control validate" placeholder="Enter Code" required value="{{ (isset($course_code))? $course_code:"" }}">
             <div class="valid-feedback">
                 Looks good!
             </div>
@@ -20,8 +20,8 @@
         <label>Description<span class="text-danger">*</span></label>
         <div class="input-group">
             <div class="input-group-text"><i class="bi bi-pencil-fill"></i></div>
-            <input type="text" id="description" name="description"
-            class="form-control validate" placeholder="Enter Description" required value="{{ (isset($description))? $description:"" }}">
+            <input type="text" id="course_desc" name="course_desc"
+            class="form-control validate" placeholder="Enter Description" required value="{{ (isset($course_desc))? $course_desc:"" }}">
             <div class="valid-feedback">
                 Looks good!
             </div>

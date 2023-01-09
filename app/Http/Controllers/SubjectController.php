@@ -61,8 +61,8 @@ class SubjectController extends Controller
 
         $formFields = $request->validate([
             'uid' => ['required'],
-            'code' => ['required'],
-            'description' => ['required']
+            'course_code' => ['required'],
+            'course_desc' => ['required']
         ]);
 
         if ($formFields['uid'] == "add") {
