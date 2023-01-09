@@ -22,7 +22,7 @@
         <div class="input-group">
             <div class="input-group-text"><i class="bi bi-person-fill"></i></div>
             <input type="email" id="email" name="email"
-            class="form-control validate" placeholder="Enter Email" required value="{{ (isset($email))? $email:"" }}">
+            class="form-control" placeholder="Enter Email" required value="{{ (isset($email))? $email:"" }}">
             <div class="valid-feedback">
                 Looks good!
             </div>
