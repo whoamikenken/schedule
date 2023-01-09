@@ -31,6 +31,39 @@
         </div>
     </div>
 
+    <div class="col-md-6 col-sm-12">
+        <label>Catalog #<span class="text-danger">*</span></label>
+        <div class="input-group">
+            <div class="input-group-text"><i class="bi bi-pencil-fill"></i></div>
+            <input type="text" id="catalog_no" name="catalog_no"
+            class="form-control validate" placeholder="Enter Catalog #" required value="{{ (isset($catalog_no))? $catalog_no:"" }}">
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+            <div class="invalid-feedback">
+                Please input a Catalog #.
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-sm-12">
+        <label>Year Level<span class="text-danger">*</span></label>
+        <div class="input-group">
+            <div class="input-group-text"><i class="bi bi-option"></i></div>
+            <select name="year_level" id="year_level" class="form-control form-select">
+                @foreach ($yearlevel_select as $item)
+                    <option value="{{$item->code}}" {{ (isset($year_level) && $year_level == $item->code)? "selected":"" }} >{{$item->description}}</option>
+                @endforeach
+            </select>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+            <div class="invalid-feedback">
+                Please input a Year Level.
+            </div>
+        </div>
+    </div>
+
 </form>
 
 <script>

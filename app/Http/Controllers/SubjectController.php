@@ -51,6 +51,7 @@ class SubjectController extends Controller
         }
 
         $data['uid'] = $formFields['uid'];
+        $data['yearlevel_select'] = DB::table("yearlevels")->get();
         // dd($data);
         return view('setup/subject_modal', $data);
     }
