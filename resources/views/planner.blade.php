@@ -9,9 +9,6 @@ for ($d = 1; $d <= 5; $d++) {
     $dates[$dt->format('N')] = $dt->format('Y-m-d');
 }
 
-
-
-
 $Events = array();
 foreach ($dates as $key => $dateW) {
     
