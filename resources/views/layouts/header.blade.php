@@ -445,6 +445,21 @@ $mainmenu = 1;
         });
     });
     @endif
+
+    $(document).ready(function () {
+
+        $('.select-predefined').each(function (index, element) {
+            var item = $(element);
+            if (item.data('url')) {
+                CustomInitSelect2(item, {
+                    url: item.data('url'),
+                    table: item.data('table'),
+                    desc: item.data('desc'),
+                    initialValue: item.data('value')
+                });
+            }
+        });
+    });
     
     // Bootstrap tooltip Everywhere
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))

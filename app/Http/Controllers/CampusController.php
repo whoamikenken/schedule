@@ -68,7 +68,7 @@ class CampusController extends Controller
         $formFields['color'] =  Extras::hex2rgba($formFields['color']);
 
 
-        if ($formFields['color'] == "add") {
+        if ($formFields['uid'] == "add") {
             unset($formFields['uid']);
             $formFields['created_by'] = Auth::id();
             $formFields['updated_at'] = "";
