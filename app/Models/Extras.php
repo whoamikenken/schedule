@@ -438,8 +438,12 @@ class Extras extends Model
         }
     }
 
-    public static function rgb_to_hex(string $rgba): string
+    public static function rgb_to_hex($rgba)
     {
+        $default = 'rgb(0,0,0)';
+        //Return default if no color provided
+        if (empty($rgba)) return $default;
+
         if (strpos($rgba, '#') === 0) {
             return $rgba;
         }

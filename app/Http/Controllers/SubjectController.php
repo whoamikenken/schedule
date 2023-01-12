@@ -51,6 +51,7 @@ class SubjectController extends Controller
         }
 
         $data['uid'] = $formFields['uid'];
+        $data['yearlevel_select'] = DB::table("yearlevels")->get();
         // dd($data);
         return view('setup/subject_modal', $data);
     }
@@ -61,8 +62,8 @@ class SubjectController extends Controller
 
         $formFields = $request->validate([
             'uid' => ['required'],
-            'code' => ['required'],
-            'description' => ['required']
+            'course_code' => ['required'],
+            'course_desc' => ['required']
         ]);
 
         if ($formFields['uid'] == "add") {

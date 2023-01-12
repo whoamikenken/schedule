@@ -9,9 +9,6 @@ for ($d = 1; $d <= 5; $d++) {
     $dates[$dt->format('N')] = $dt->format('Y-m-d');
 }
 
-
-
-
 $Events = array();
 
 if(Auth::user()->user_type != "SUPER ADMIN"){
@@ -71,27 +68,27 @@ $Events = json_encode($Events);
             startTime: '07:00', // a start time (10am in this example)
             endTime: '20:00', // an end time (6pm in this example)
             },
-            select: function(data) {
-                var start = formatDateToTime(data.start);
-                var end = formatDateToTime(data.end);
-                var date = data.startStr.substring(0, 10);
-                var uid = "add";
-                $.ajax({
-                    type: "POST",
-                    url: "{{ url('event/getModal')}}",
-                    data: {
-                        uid: uid,
-                        start: start,
-                        end: end,
-                        date: date
-                    },
-                    success: function(response) {
-                        $("#modal-view").modal('toggle');
-                        $("#modal-view").find(".modal-title").text("Add Event");
-                        $("#modal-view").find("#modal-display").html(response);
-                    }
-                });
-            },
+            // select: function(data) {
+            //     var start = formatDateToTime(data.start);
+            //     var end = formatDateToTime(data.end);
+            //     var date = data.startStr.substring(0, 10);
+            //     var uid = "add";
+            //     $.ajax({
+            //         type: "POST",
+            //         url: "{{ url('event/getModal')}}",
+            //         data: {
+            //             uid: uid,
+            //             start: start,
+            //             end: end,
+            //             date: date
+            //         },
+            //         success: function(response) {
+            //             $("#modal-view").modal('toggle');
+            //             $("#modal-view").find(".modal-title").text("Add Event");
+            //             $("#modal-view").find("#modal-display").html(response);
+            //         }
+            //     });
+            // },
             headerToolbar:{
                 start: '', // will normally be on the left. if RTL, will be on the right
                 center: '',
