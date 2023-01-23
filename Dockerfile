@@ -1,4 +1,4 @@
-FROM php:7.2.34-fpm
+FROM php:8.1.6-fpm
 
 # Arguments defined in docker-compose.yml
 ARG user
@@ -16,7 +16,8 @@ RUN apt-get update && apt-get install -y \
     zip \
     libzip-dev \
     libxslt1-dev \
-    unzip
+    unzip \
+    sudo
 
 # Install required PHP extensions
 RUN docker-php-ext-install \
