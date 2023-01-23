@@ -275,19 +275,7 @@
     var schedarr = [];
 
     $(document).ready(function () {
-    
-        $('.select-predefined').each(function (index, element) {
-            var item = $(element);
-            if (item.data('url')) {
-                CustomInitSelect2(item, {
-                    url: item.data('url'),
-                    table: item.data('table'),
-                    desc: item.data('desc'),
-                    initialValue: item.data('value')
-                });
-            }
-        });
-        
+
         $('.subject-select').select2({
             theme: 'bootstrap-5',
             dropdownParent: $('#modal-view'),
