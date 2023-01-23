@@ -258,7 +258,7 @@
 $mainmenu = 1;
 @endphp
 <body>
-    <form class="inline" method="POST" action="{{ url('/home') }}" id="logoutForm">
+    <form class="inline" method="POST" action="{{ url('/logout') }}" id="logoutForm">
         @csrf
     </form>
     <div class="container-fluid min-vh-100 d-flex flex-column">
